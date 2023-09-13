@@ -48,16 +48,39 @@
             <div class="container">
                 <div class="inner-container">
                     <div class="logo-box">
-                        <a href="index.html">
-                            <img src="/static/base/assets/images/logo-smt.png" alt="" width="143">
+                        <a href="{% url 'generales:home' %}">
+                            <img src="/static/base/assets/images/LOGOS-05.png" alt="" width="143">
                         </a>
                         <a href="#" class="side-menu__toggler"><i class="muzex-icon-menu"></i></a>
                     </div><!-- /.logo-box -->
                     <div class="main-nav__main-navigation">
                         <ul class="main-nav__navigation-box">
-                            <li><a href="index.html">SMT</a></li>
-                            <li><a href="about.html">Nosotros</a></li>
-                            <li><a href="#">Ludoteca</a> </li>
+                            <li class="dropdown">
+                                <a href="about.html">Nosotros</a>
+                                <ul>
+                                    <li><a href="collection-fullwidth.html">Visi&oacute;n</a></li>
+                                    <li><a href="collection-grid.html">Justificaci&oacute;n</a></li>
+                                    <li><a href="collection-masonary.html">Objetivos</a></li>
+                                    <li><a href="collection-masonary.html">Usuarios</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="collection-grid.html">Mediateca</a>
+                                <ul>
+                                    <li><a href="collection-fullwidth.html">Cat&aacute;stro Ind&iacute;gena</a></li>
+                                    <li><a href="collection-grid.html">Salvaguardamos</a></li>
+                                    <li><a href="collection-masonary.html">Censo</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="collection-grid.html">Ludoteca</a>
+                                <ul>
+                                    <li><a href="collection-fullwidth.html">Pueblos Ind&iacute;genas</a></li>
+                                    <li><a href="collection-grid.html">Capsulas Pedag&oacute;gicas</a></li>
+                                    <li><a href="collection-masonary.html">Catastro Ind&iacute;gena</a></li>
+                                    <li><a href="collection-masonary.html">Aprendamos con SMT</a></li>
+                                </ul>
+                            </li>
                             <li><a href="news-standard.html">Noticias</a> </li>
                             <li><a href="contact.html">Contacto</a></li>
                         </ul>
@@ -72,125 +95,122 @@
 
         {% block contenido %}Blank{% endblock contenido %}
 
-        <footer class="site-footer">
+        <footer class="site-footer" style="background-color: rgb(23, 65, 51);">
+            <div class="row justify-content-center" style="padding-top: 15px;">
+                <div class="col-1 text-center"><span><a class="fab fa-facebook-f" style="color: #f7ab05;" href="https://www.facebook.com/Elsonajeroweb"></a></span></div>
+                <div class="col-1 text-center"><span><a class="fab fa-twitter" style="color: #f7ab05;" href="https://www.facebook.com/Elsonajeroweb"></a></span></div>
+                <div class="col-1 text-center"><span><a class="fab fa-instagram" style="color: #f7ab05;" href="https://www.facebook.com/Elsonajeroweb"></a></span></div>
+            </div>
             <div class="site-footer__upper">
                 <div class="container">
                     <div class="row">
-                        <div class="col-lg-4">
-                            <div class="footer-widget footer-widget__about">
-                                <p>Welcome to the World’s Leading Museum of Modern Art. It in- cludes works of art created during the period stretching. from about 1860 to the 1970s.</p>
-                            </div><!-- /.footer-widget -->
-                        </div><!-- /.col-lg-4 -->
-                        <div class="col-lg-2">
-                            <div class="footer-widget footer-widget__links">
-                                <h3 class="footer-widget__title">Quick Link</h3><!-- /.footer-widget__title -->
-                                <ul class="footer-widget__links-list list-unstyled">
-                                    <li>
-                                        <a href="#">About Us</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Event</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Photo Gallery</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Latest Blog</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Contact</a>
-                                    </li>
-                                </ul><!-- /.footer-widget__links-list -->
-                            </div><!-- /.footer-widget -->
-                        </div><!-- /.col-lg-2 -->
-                        <div class="col-lg-3">
-                            <div class="footer-widget footer-widget__contact">
-                                <h3 class="footer-widget__title">Contact</h3><!-- /.footer-widget__title -->
-                                <p>Muszex Museums 32 Quincy <br>
-                                    Street Cambridge, MA</p>
-                                <p><a href="tel:(617)-495-9400">(617) 495-9400</a></p>
-                                <p><a href="mailto:example@muzex.com">example@muzex.com</a></p>
-                            </div><!-- /.footer-widget -->
-                        </div><!-- /.col-lg-3 -->
-                        <div class="col-lg-3">
-                            <div class="footer-widget footer-widget__open-hrs">
-                                <h3 class="footer-widget__title">Open Hours</h3><!-- /.footer-widget__title -->
-                                <p>Daily: 9.30 AM–6.00 PM <br>
-                                    Sunday & Holidays: Closed</p>
-                            </div><!-- /.footer-widget -->
-                        </div><!-- /.col-lg-3 -->
-                    </div><!-- /.row -->
-                </div><!-- /.container -->
-            </div><!-- /.site-footer__upper -->
+                        <div class="col-sm">
+                            <div>
+                                <h4 class="" style="color: #f7ab05;">Direcci&oacute;n</h4>
+                                <p>Calle 12B # 4 - 38</p>
+                                <p>Barrio La Candelaria</p>
+                                <p>Bogot&aacute;, D. C., Colombia</p>
+                                <p>111711</p>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div>
+                                <h4 class="" style="color: #f7ab05;">Tel&eacute;fonos</h4>
+                                <p>(+57) 1 284 2168</p>
+                                <p>(+57) 1 805 0774</p>
+                                <p>(+57) 1 805 0772</p>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div>
+                                <h4 class="" style="color: #f7ab05;">Fax</h4>
+                                <p>(+57) 1 284 3465</p>
+                            </div>
+                            <div>
+                                <h4 class="" style="color: #f7ab05;">E-Mail</h4>
+                                <p>poblacion@onic.org.co</p>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="text-center">
+                                <img src="/static/base/assets/images/LOGOS-01.png" alt="" class="logo-blanco" width="100%;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
             <div class="site-footer__bottom">
                 <div class="container">
                     <div class="inner-container">
-                        <p>&copy; Copyright 2020 Muzex. All Rights Reserved</p>
-                        <a href="index.html" class="site-footer__bottom-logo">
-                            <img src="assets/images/logo-footer-1.png" alt="">
-                        </a>
+                        <p><span>&copy;&nbsp;<script>
+                            document.write(new Date().getFullYear())
+                            </script> ONIC</span>
+                        </p>
                         <div class="site-footer__bottom-links">
-                            <a href="#">Terms & conditions</a>
-                            <a href="#">Privacy policy & Terms of use</a>
-                        </div><!-- /.site-footer__bottom-links -->
-                    </div><!-- /.inner-container -->
-                </div><!-- /.container -->
-            </div><!-- /.site-footer__bottom -->
-        </footer><!-- /.site-footer -->
-    </div><!-- /.page-wrapper -->
-
+                            <a href="#">T&eacute;rminos & condiciones</a>
+                            <a href="#">Pol&iacute;tica de privacidad & T&eacute;rminos de uso</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
     <div class="search-popup">
         <div class="search-popup__overlay custom-cursor__overlay">
             <div class="cursor"></div>
             <div class="cursor-follower"></div>
-        </div><!-- /.search-popup__overlay -->
+        </div>
         <div class="search-popup__inner">
             <form action="#" class="search-popup__form">
-                <input type="text" name="search" placeholder="Type here to Search....">
+                <input type="text" name="search" placeholder="Ingrese aqui su busqueda....">
                 <button type="submit"><i class="fa fa-search"></i></button>
             </form>
-        </div><!-- /.search-popup__inner -->
-    </div><!-- /.search-popup -->
-
+        </div>
+    </div>
     <div class="side-content__block">
         <div class="side-content__block-overlay custom-cursor__overlay">
             <div class="cursor"></div>
             <div class="cursor-follower"></div>
-        </div><!-- /.side-content__block-overlay -->
+        </div>
         <div class="side-content__block-inner ">
-            <a href="index.html">
-                <img src="assets/images/logo-1-1.png" alt="" width="143">
+            <a href="{% url 'generales:home' %}">
+                <img src="/static/base/assets/images/logo-smt.png" alt="" width="143">
             </a>
             <div class="side-content__block-about">
-                <h3 class="side-content__block__title">About Us</h3><!-- /.side-content__block__title -->
-                <p class="side-content__block-about__text">We must explain to you how all seds this mistakens idea off denouncing pleasures and praising pain was born and I will give you a completed accounts off the system and </p><!-- /.side-content__block-about__text -->
-                <a href="#" class="thm-btn side-content__block-about__btn">Get Consultation</a>
-            </div><!-- /.side-content__block-about -->
+                <h3 class="side-content__block__title">Nosotros</h3>
+                <p class="side-content__block-about__text">{{nosotros}}</p>
+                <a href="#" class="thm-btn side-content__block-about__btn">Ver M&aacute;s</a>
+            </div>
             <hr class="side-content__block-line" />
             <div class="side-content__block-contact">
-                <h3 class="side-content__block__title">Contact Us</h3><!-- /.side-content__block__title -->
+                <h3 class="side-content__block__title">Cont&aacute;ctenos</h3>
                 <ul class="side-content__block-contact__list">
                     <li class="side-content__block-contact__list-item">
                         <i class="fa fa-map-marker"></i>
-                        Rock St 12, Newyork City, USA
-                    </li><!-- /.side-content__block-contact__list-item -->
+                        Calle 12B # 4 - 38<br>
+                        Barrio La Candelaria<br>
+                        Bogot&aacute;, D. C., Colombia
+                    </li>
                     <li class="side-content__block-contact__list-item">
                         <i class="fa fa-phone"></i>
-                        <a href="tel:526-236-895-4732">(526) 236-895-4732</a>
-                    </li><!-- /.side-content__block-contact__list-item -->
+                        <a href="tel:526-236-895-4732">(+57) 1 284 2168<br>
+                            (+57) 1 805 0774<br>
+                            (+57) 1 805 0772
+                    </li>
                     <li class="side-content__block-contact__list-item">
                         <i class="fa fa-envelope"></i>
-                        <a href="mailto:example@mail.com">example@mail.com</a>
-                    </li><!-- /.side-content__block-contact__list-item -->
+                        <a href="mailto:example@mail.com">poblacion@onic.org.co</a>
+                    </li>
                     <li class="side-content__block-contact__list-item">
                         <i class="fa fa-clock"></i>
-                        Week Days: 09.00 to 18.00 Sunday: Closed
-                    </li><!-- /.side-content__block-contact__list-item -->
-                </ul><!-- /.side-content__block-contact__list -->
-            </div><!-- /.side-content__block-contact -->
-            <p class="side-content__block__text site-footer__copy-text"><a href="#">Muzex</a> <i class="fa fa-copyright"></i> 2020 All Right Reserved</p>
-        </div><!-- /.side-content__block-inner -->
-    </div><!-- /.side-content__block -->
+                        Horario de Atenci&oacute;n: 09.00 a 17.00 Lunes - Viernes
+                    </li>
+                </ul>
+            </div>
+            <p class="side-content__block__text site-footer__copy-text"><a href="#">ONIC</a> <small><i class="fa fa-copyright"></i> {{hoy.year}} Todos los derechos reservados.</small></p>
+        </div>
+    </div>
 
     <div class="side-menu__block">
 
@@ -203,7 +223,7 @@
         </div><!-- /.side-menu__block-overlay -->
         <div class="side-menu__block-inner ">
 
-            <a href="index.html" class="side-menu__logo"><img src="assets/images/logo-light-1-1.png" alt="" width="143"></a>
+            <a href="{% url 'generales:home' %}" class="side-menu__logo"><img src="/static/base/assets/images/logo-light-1-1.png" alt="" width="143"></a>
             <nav class="mobile-nav__container">
                 <!-- content is loading via js -->
             </nav>
