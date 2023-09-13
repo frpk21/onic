@@ -153,7 +153,7 @@ ALLOWED_HOSTS = ['*']
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # archivo que contiene la seguridad de acceso a la base de datos
-#try:
-#    exec(open(os.path.join(BASE_DIR, 'elsonajero', 'settings_local.py')).read())
-#except IOError:
-#    raise Exception('error reading local settings')
+try:
+    exec(open(os.path.join(BASE_DIR, 'elsonajero', 'settings_local.py')).read())
+except IOError:
+    raise Exception('error reading local settings')
