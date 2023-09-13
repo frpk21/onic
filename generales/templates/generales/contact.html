@@ -1,0 +1,80 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+{% block contenido %}
+    
+
+<div id="ajaxArea">
+<!--==============================
+    Breadcumb
+============================== -->
+<div class="breadcumb-wrapper breadcumb-layout1 background-image py-85" data-bg-src="/static/base/images/contac.jpg" data-overlay="title" data-opacity="4">
+    <div class="container z-index-common">
+        <div class="row align-items-center">
+            <div class="col-md-6 text-center text-md-left mb-1 mb-md-0">
+                <h1 class="breadcumb-title h4 text-medium text-white my-0">Cont&aacute;ctenos</h1>
+            </div>
+            <div class="col-md-6 text-right">
+                <ul class="breadcumb-menu-style1 style-dark">
+                    <li><a href="{% url 'generales:home' %}"><i class="fas fa-home"></i>Inicio</a></li>
+                    <li class="active">Cont&aacute;ctenos</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!--==============================
+Contact Form
+==============================-->
+<section class="vs-contact-wrapper bg-smoke space-top space-md-bottom">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-lg-8">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3976.7159169721986!2d-74.07373898578903!3d4.644676543435432!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f9a4c00000001%3A0xca5ae3c2bbd085e2!2sINRAI%20LTDA!5e0!3m2!1ses!2sco!4v1641992449600!5m2!1ses!2sco" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+            <div class="col-md-6 col-lg-4 align-self-end">
+                <div class="info-box1 bg-white px-50 py-50 mb-30">
+                    <h2 class="h4 text-medium mb-2 mt-xl-n2">Informaci&oacute;n de contacto</h2>
+                    <p class="has-icon-left"><i class="fas fa-map-marker-alt"></i>Cr 21 # 56 - 33   Bogot&aacute; - Colombia</p>
+                    <h3 class="text-20 text-medium mb-2">Estamos Disponibles</h3>
+                    <p class="has-icon-left mb-0"><i class="fas fa-phone-alt"></i>(+57) 2100 321</p>
+                    <p class="has-icon-left"><i class="fas fa-envelope"></i>servicioalcliente@sistemainrai.net</p>
+                    <ul class="social-links links-btn-style">
+                        <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                        <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                        <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+                        <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-lg-8">
+                <form method="POST" class="contact-form-style1 bg-white px-60 py-60 mb-30" >{% csrf_token %}
+                    <h2 class="form-title text-medium h3 mb-2 mt-xl-n2">Env&iacute;enos un mensage</h2>
+                    <p class="h5 text-theme text-normal">Su direcci&oacute;n de correo no ser&aacute; publicada.*</p>
+                    <div class="gutters-10">
+                        <div class="form-group">
+                            <i class="fal fa-user"></i>
+                            {{ form.nombre }}
+                        </div>
+                        <div class="form-group">
+                            <i class="fal fa-envelope"></i>
+                            {{ form.email }}
+                        </div>
+                        <div class="form-group">
+                            <i class="fal fa-comments"></i>
+                            {{ form.textoMensage }}  
+                        </div>
+                        <div class="form-group pt-10 mb-0">
+                            <button type="submit" class="vs-btn">Enviar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</section>
+</div>
+{% endblock contenido %}

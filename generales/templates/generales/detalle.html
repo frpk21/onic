@@ -1,0 +1,202 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+{% block contenido %}
+
+<section class="section breadcrumbs-custom parallax-container context-dark" data-parallax-img="{{detalle.subcategoria.imagen.url}}">
+    <div class="parallax-content">
+        <div class="container">
+            <p class="heading-1 breadcrumbs-custom-title">{{detalle.subcategoria.categoria.nombre}}</p>
+            <ul class="breadcrumbs-custom-path">
+                <li><a href="{% url 'generales:home' %}">Inicio</a></li>
+                <li><a href="{% url 'generales:seccion' detalle.subcategoria.categoria.id %}">{{detalle.subcategoria.nombre}}</a></li>
+                <li class="active">{{detalle.titulo}}</li>
+            </ul>
+        </div>
+    </div>
+</section>
+<section class="section section-lg text-center text-md-start bg-default">
+    <div class="container container-bigger">
+        <div class="row row-50 justify-content-md-center justify-content-xl-between">
+            <div class="col-md-9 col-xl-5">
+                <h3>{{detalle.titulo}}</h3>
+                <div class="divider divider-default"></div>
+                {% if detalle.archivo_audio %}
+                    <div class="col-xl-6 text-center">
+                        <audio controls autoplay>
+                            <source src="{{detalle.archivo_audio.url}}" type="audio/mpeg">
+                            Su browser no soporta el elemento de audio.
+                        </audio>
+                    </div>
+                {% endif %}
+                <div class="col-xl-12 text-center">
+                    <ul class="group-xs group-middle">
+                        <li><a class="icon icon-md-middle icon-circle icon-secondary-1-filled mdi mdi-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://elsonajero.com/noticia/{{detalle.slug}}" target="_blank"></a></li>
+                        <li><a class="icon icon-md-middle icon-circle icon-secondary-1-filled mdi mdi-twitter" href="https://twitter.com/share?url=http://elsonajero.com/noticia/{{detalle.slug}}&amp;text={{detalle.subtitulo}}" target="_blank"></a></li>
+                        <li><a class="icon icon-md-middle icon-circle icon-secondary-1-filled mdi mdi-whatsapp" href="whatsapp://send?text=Mira%20esta%20noticia%3A%20http://elsonajero.com/noticia/{{detalle.id}}" target="_blank"></a></li>
+                    </ul>
+                </div>
+                <article class="quote-minimal">
+                    <p class="quote-minimal-text">{{detalle.subtitulo}}</p>
+                </article>
+                <p>{{detalle.descripcion|safe}}</p>
+                <!--<a class="button" href="#">Order Now</a>-->
+                <p>{{detalle.html|safe}}</p>
+                {% if detalle.pdf %}
+                    <h4 style="color:rgb(206, 5, 162);">ARCHIVO ORIGINAL</h4>
+                    <div class="divider divider-default"></div>
+                    <embed height="700px" width="100%"  name="plugin" src="{{detalle.pdf.url}}"  type="application/pdf">
+                    <p>&nbsp;</p>
+                {% endif %}
+            </div>
+            {% if detalle.vimeo_id != None and detalle.vimeo_id != '' %}
+                <iframe class="vimeo" src="https://player.vimeo.com/video/{{detalle.vimeo_id}}?autoplay=1" width="100%" height="500px" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+            {% endif %}
+            <div class="col-xl-6 text-left"><img src="{{detalle.imagen_destacado.url}}" alt="" width="720" height="460"/>
+                <small><span>{{detalle.fuente}} | <i class="fal fa-calendar-alt"></i> {{detalle.fecha_inicio_publicacion.date}}</span></small>
+                <div class="col-xl-12 text-center">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section section-lg text-center bg-default">
+    <div class="ads mb-30">
+        {% if pauta_detalle1.banner %}
+            <img src="{{pauta_detalle1.banner.url}}" alt="Ads detalle1" class="w-100">
+        {% endif %}
+    </div>
+    <div class="container container-bigger">
+        <h3>Comentarios</h3>
+        <div class="divider divider-default"></div>
+        <div class="vs-comment-area list-style-none  vs-comments-layout1 space-top mt-lg-n2 ">
+            <ul class="comment-list">
+                {% for item in comentarios %}
+                    <li class="vs-comment">
+                        <div class="vs-post-comment bg-white">
+                            <div class="author-img">
+                                <i class="fal fa-user mr-1"></i>
+                            </div>
+                            <div class="comment-content">
+                                <div class="comment-top">
+                                    <div class="comment-author">
+                                        <span class="commented-on">{{item.fecha_inicio_publicacion.date}}</span>
+                                        <h4 class="name">{{item.nombre}}</h4>
+                                    </div>
+                                    <!--<div class="reply_and_edit">
+                                        <a href="blog-details.html" class="vs-btn mask-style1"><i class="fal fa-reply-all mr-10"></i>Replay</a>
+                                    </div>-->
+                                </div>
+                                <p class="text">{{item.comentario}}</p>
+                            </div>
+                        </div>
+                    </li>
+                    <div class="divider divider-default"></div>
+                {% endfor %}
+            </ul>
+        </div> <!-- Comment Form -->
+    </div>
+</section>
+
+<section class="section section-lg text-center bg-default">
+    <div class="container container-bigger">
+        <div >
+            <div class="form-title">
+                <h3 class="h3 mb-0 text-medium">Deja un Comentario</h3>
+                <p class="mb-20">Su dirección de correo electrónico no será publicada. Los campos obligatorios están marcados *</p>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-xl-6">
+                    <form id="id-form-comentario" name="comentario" method="POST">{% csrf_token %}
+                        <div class="row mx-n2">
+                            <div class="col-md-6 form-group">
+                                {{ form_comentario.nombre }}
+                            </div>
+                            <div class="col-md-6 form-group">
+                                {{ form_comentario.email }}
+                            </div>
+                        </div>
+                        <div class="col-12 form-group">
+                            {{ form_comentario.comentario }}
+                        </div>
+                        <div class="text-center mb-1">
+                            <button type="submit" class="btn btn-lg btn-primary" onclick="comentarios();">Publicar comentario</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    
+                        <div class="ads mb-30">
+                            {% if pauta_detalle1.banner %}
+                                <img src="{{pauta_detalle1.banner.url}}" alt="Ads detalle1" class="w-100">
+                            {% endif %}
+                        </div>
+
+
+
+
+<script>
+
+	function comentarios() {
+
+		$('#id-form-comentario').on('submit', function() {
+			var formData = new FormData(this);
+
+			$.ajax({
+				url : '{% url 'generales:detalle' detalle.slug %}',
+				type: "POST",
+				data : formData,
+				processData: false,
+				contentType: false,
+				success:function(response){
+
+					var message = response.content.message;
+                    $("#id_email").val(' ');
+                    
+					alert(message);
+
+				},
+			});
+
+			return false;
+		});
+	};
+
+
+    function suscribirse() {
+
+        $('#id-form-suscribirseform').on('submit', function() {
+
+            var formData = new FormData(this);
+
+            $.ajax({
+                url : '{% url 'generales:home' %}',
+                type: "POST",
+                data : formData,
+                processData: false,
+                contentType: false,
+                success:function(response){
+                    var message = response.content.message;
+                    $("#id_email").val(' ');
+                    
+                    alert(message);
+
+                },
+            });
+
+            return false;
+        });
+    };
+
+</script>
+
+
+{% endblock contenido %}
+

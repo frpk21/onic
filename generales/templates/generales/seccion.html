@@ -1,0 +1,65 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+{% block contenido %}
+
+<section class="section breadcrumbs-custom parallax-container context-dark" data-parallax-img="{{cat.categoria.imagen.url}}">
+    <div class="parallax-content">
+        <div class="container">
+            <p class="heading-1 breadcrumbs-custom-title">{{seccion.nombre}}</p>
+            <ul class="breadcrumbs-custom-path">
+                <li><a href="{% url 'generales:home' %}">Inicio</a></li>
+                <li><a href="#"></a></li>
+                <li class="active">{{seccion.nombre}}</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+{% for item in noticias %}
+    <div style="display: none">
+        {{ forloop.counter }}
+    </div>
+    {% if forloop.counter|divisibleby:2 %}
+        <section class="section section-wrap novi-background section-wrap-equal">
+            <div class="section-wrap-inner">
+                <div class="container container-bigger">
+                    <div class="row row-fix justify-content-md-center justify-content-lg-start justify-content-xl-between">
+                        <div class="col-md-9 col-lg-5">
+                            <div class="section-lg">
+                                <h3>{{item.titulo}}</h3>
+                                <div class="divider divider-default"></div>
+                                <p>{{item.subtitulo}}<small><span>|{{item.fuente}}|{{item.subcategoria.nombre}}|{{item.fecha_inicio_publicacion.date}}</span></small></p><a class="button" href="{% url 'generales:detalle' item.slug %}">Ver m&aacute;s</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="section-wrap-aside section-wrap-image"><img src="{{item.imagen_destacado.url}}" alt="" width="960" height="660"/>
+                </div>
+            </div>
+        </section>
+    {% else %}
+        <section class="section section-wrap novi-background section-wrap-equal section-md-reverse">
+            <div class="section-wrap-inner">
+                <div class="container container-bigger">
+                    <div class="row row-fix justify-content-md-center justify-content-lg-end justify-content-xl-end">
+                        <div class="col-md-9 col-lg-5">
+                            <div class="section-lg">
+                                <h3>{{item.titulo}}</h3>
+                                <div class="divider divider-default"></div>
+                                <p>{{item.subtitulo}}<small><span>|{{item.fuente}}|{{item.subcategoria.nombre}}|{{item.fecha_inicio_publicacion.date}}</span></small></p><a class="button" href="{% url 'generales:detalle' item.slug %}">Ver m&aacute;s</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="section-wrap-aside section-wrap-image"><img src="{{item.imagen_destacado.url}}" alt="" width="960" height="660"/>
+                </div>
+            </div>
+        </section>
+    {% endif %}
+{% endfor %}
+
+
+
+{% endblock contenido %}

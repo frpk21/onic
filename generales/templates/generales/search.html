@@ -1,0 +1,83 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+{% block contenido %}
+
+<div id="ajaxArea">
+    <div class="breadcumb-wrapper breadcumb-layout1 background-image py-85" data-bg-src="/static/base/images/buscar.jpg" data-overlay="title" data-opacity="4">
+        <div class="container z-index-common">
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-left mb-1 mb-md-0">
+                    <h1 class="breadcumb-title h4 text-medium text-white my-0">Resultados de la b&uacute;squeda</h1>
+                </div>
+                <div class="col-md-6 text-right">
+                    <ul class="breadcumb-menu-style1 style-dark">
+                        <li><a href="{% url 'generales:home' %}"><i class="fas fa-home"></i>Inicio</a></li>
+                        <li class="active">Archivo</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <section class="vs-author-article bg-smoke space-top space-md-bottom">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    {% if resultado %}
+                        {% for item in resultado %}
+                            <div class="vs-blog vs-blog-wide mb-20">
+                                <div class="vs-blog-image-md image-scale-hover">
+                                    <a href="{% url 'generales:detalle' item.slug %}"><img src="{{item.imagen_destacado.url}}" alt="More News image" class="w-100"></a>
+                                </div>
+                                <div class="vs-blog-content p-0">
+                                    <div class="blog-meta text-xs style-slash mb-1">
+                                        <a href="{% url 'generales:detalle' item.slug %}">{{item.subcategoria.nombre}}</a>
+                                        <a href="{% url 'generales:detalle' item.slug %}">{{item.fecha_inicio_publicacion.date}}</a>
+                                    </div>
+                                    <h3 class="blog-title text-20 h4 mb-1"><a href="{% url 'generales:detalle' item.slug %}">{{item.titulo}}</a></h3>
+                                    <p>{{item.subtitulo}}</p>
+                                    <a href="{% url 'generales:detalle' item.slug %}" class="link-btn">Ver M&aacute;s<i class="far fa-angle-right"></i></a>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="vs-blog vs-blog-wide mb-20">
+                            <h2>No encontr&eacute; resultados..</h2>
+                        </div>
+                    {% endif %}
+                    
+                    <!--<div class="pagination-wrapper pagination-layout1 list-style-none pt-xl-4 mb-30">
+                        <ul>
+                            <li><a href="news.html"><i class="fas fa-chevron-left"></i></a></li>
+                            <li><a href="news.html" class="active">1</a></li>
+                            <li><a href="news.html">2</a></li>
+                            <li><a href="news.html">3</a></li>
+                            <li><a href="news.html"><i class="fas fa-chevron-right"></i></a></li>
+                        </ul>
+                    </div>-->
+                </div>
+                <div class="col-lg-4">
+                    <aside>
+                        <div class="ads mb-30">
+                            <img src="/static/base/images/Asset 3.png" alt="Ads Image" class="w-100">
+                        </div>
+                        <div class="widget  p-0 bg-info has-light-border">
+                            <form id='id-form-suscribirseform' method="POST" class="white-input widget-newsletter-style1 px-30 py-55">{% csrf_token %}
+                                <h4 class="form-title mb-15" style="color: white;">Suscríbase a nuestra lista de correo para recibir actualizaciones!</h4>
+                                {{ form_home.email }}
+                                <br />
+                                <button type="submit" class="vs-btn" onclick="suscribirse();">Subscribirse</button>
+                            </form>
+                        </div>
+                        <div class="ads mb-30">
+                            <img src="/static/base/images/caricatura.jpeg" alt="Ads Image" class="w-100">
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+{% endblock contenido %}
