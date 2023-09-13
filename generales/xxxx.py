@@ -4,7 +4,6 @@ from django.forms.models import inlineformset_factory
 
 from generales.models import Suscribir, Comentario, Contacto
 
-
 class SuscribirseForm(forms.ModelForm):
     
     class Meta:

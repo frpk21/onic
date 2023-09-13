@@ -3,12 +3,28 @@
 {% load static %}
 
 {% block contenido %}
-    
+
+<div class="modal" id="ventana_modal_video" name="modal">
+	<div class="row justify-content-center">
+        <div class="" style="width: 750px; margin-top:200px; background:#000000;">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="color:white;">cerrar</button>
+            </div>
+            <div class="modal-body">
+                <iframe class="embed-responsive " width="600" height="348"
+                    src="https://youtube.com/embed/hSPmj7mK6ng?si=qxA-BJKDO3m-Jkcd" 
+                    frameborder="0"
+                    autoplay; allow="accelerometer"; clipboard-write; gyroscope; allowfullscreen>
+                </iframe>
+            </div>
+        </div>
+	</div>
+</div>
 <section class="banner-section banner-section__home-two">
     <div class="banner-carousel thm__owl-carousel owl-theme owl-carousel" data-options='{"loop": true, "items": 1, "margin": 0, "dots": false, "nav": true, "animateOut": "fadeOut", "animateIn": "fadeIn", "active": true, "smartSpeed": 1000, "autoplay": true, "autoplayTimeout": 6000, "autoplayHoverPause": false}'>
         <!-- Slide Item -->
         <div class="slide-item">
-            <div class="image-layer lazy-image" style="background-image: url('/static/base/assets/images/main-slider/banner-2-1.jpg');"></div>
+            <div class="image-layer lazy-image" style="background-image: url('/static/base/assets/images/IMG_3454.png');"></div>
             <div class="container">
                 <div class="content-box text-center">
                     <h3>Awesome of Collection</h3>
@@ -21,7 +37,7 @@
         </div>
         <!-- Slide Item -->
         <div class="slide-item">
-            <div class="image-layer lazy-image" style="background-image: url('/static/base/assets/images/main-slider/banner-2-2.jpg');"></div>
+            <div class="image-layer lazy-image" style="background-image: url('/static/base/assets/images/IMG_3397.JPG');"></div>
             <div class="container">
                 <div class="content-box text-center">
                     <h3>The Past is our Future</h3>
@@ -44,8 +60,13 @@
                     </div>
                 </div>
             </div>
+            
         </div>
+        
     </div>
+    <button type="button" rel="tooltip" class="btn btn-success btn-round" onclick="play_video()">
+        <i class="material-icons">play</i>
+    </button>
 </section>
 <section class="cta-two cta-two__home-two">
     <div class="container">
@@ -116,7 +137,7 @@
     <!-- /.container -->
 </section>
 <section class="about-two" style="background-image: url(/static/base/assets/images/backgrounds/event-bg-1-1.jpg);">
-    <img src="/static/base/assets/images/shapes/about-2-sculpture.png" alt="" class="about-two__sclupture">
+    <img src="/static/base/assets/images/img000.png" alt="" class="about-two__sclupture">
     <div class="container">
         <div class="row">
             <div class="col-lg-6">
@@ -895,4 +916,10 @@
     </div>
 </section>
 
+
+<script>
+    function play_video(){
+        $('#ventana_modal_video').modal('show');
+    };
+</script>
 {% endblock contenido %}
