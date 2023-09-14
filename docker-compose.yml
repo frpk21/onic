@@ -5,14 +5,17 @@ services:
   django:
     container_name: onic-django
     env_file: .env
-    command: python manage.py runserver 0.0.0.0:8011
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/app
     build:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "8011:8011"
+      - "8011:8000"
     depends_on:
       - postgres
+    restart: always
 
   postgres:
     image: postgres:latest
@@ -26,7 +29,7 @@ services:
       PGPORT: ${POSTGRES_PORT}
     volumes:
       - postgres_data:/var/lib/postgresql/data
-
+    restart: always
 
 volumes:
   postgres_data:
