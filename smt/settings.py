@@ -144,5 +144,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 try:
     exec(open(os.path.join(BASE_DIR, 'smt', 'settings_local.py')).read())
-except IOError:
-    raise Exception('error reading local settings')
+except IOError as e:
+    print(e)
