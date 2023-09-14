@@ -15,14 +15,11 @@ from django.shortcuts import render
 from generales.xxxx import SuscribirseForm, ComentarioForm, ContactoForm
 
 from django.http import JsonResponse
-from datetime import datetime, timedelta
-import time
-#import facebook
-import tweepy
+from datetime import timedelta
+
 
 
 def HomeView(request):
-    template_name = 'generales/home.html'
     hoy = date.today()
     titulares = Noticias.objects.filter(orden_destacado=0,fecha_inicio_publicacion__lte=hoy).order_by('-id')[:5]
     titulares1 = Noticias.objects.filter(orden_destacado=0, subcategoria__id=1).exclude(subcategoria=12).order_by('-id')[:2]
@@ -35,7 +32,7 @@ def HomeView(request):
     deportes2 = Noticias.objects.filter(orden_destacado=2, ultima_hora=False, subcategoria__categoria=3).last()
     deportes3 = Noticias.objects.filter(orden_destacado__gte=3, ultima_hora=False, subcategoria__categoria=3).last()
     deportes4 = Noticias.objects.filter(orden_destacado=4, ultima_hora=False, subcategoria__categoria=3).last()
-   
+
     if not deportes3:
         deportes3 = Noticias.objects.filter(orden_destacado__gte=3, ultima_hora=False).last()
     if not ultima_hora:
@@ -44,7 +41,7 @@ def HomeView(request):
     subcategorias = SubCategoria.objects.all().order_by("nombre")
 
     context = {'hoy': hoy,
-       
+
         'loquedicen': loquedicen,
 
         'titulares1': titulares1,
@@ -70,7 +67,7 @@ def HomeView(request):
             post = form_home.save(commit=False)
             post.save()
             success_url=reverse_lazy("/")
-            
+
             return JsonResponse(
                 {
                     'content': {
@@ -88,7 +85,7 @@ def HomeView(request):
             )
     else:
         form_home = SuscribirseForm()
-        
+
     if request.POST.get('buscar'):
         buscar = (request.POST.get('buscar').upper())
         template_name="generales/search.html"
@@ -145,7 +142,7 @@ def SeccionView(request, pk):
     recientes = Noticias.objects.filter(viral=False, ultima_hora=False).exclude(subcategoria=12).order_by('-id')[:3]
     seccion = Categoria.objects.get(id=pk)
     noticias = Noticias.objects.filter(subcategoria__categoria__id=pk, ultima_hora=False).order_by('-id', 'subcategoria__id','orden_destacado')[:20]
-    
+
     context = {'hoy': hoy, 'titular': titular, 'noticias': noticias, 'ultima_hora': ultima_hora, 'categorias': categorias,
                'subcategorias': subcategorias, 'seccion': seccion, 'cat': cat, 'titulares1': titulares1}
     context['regresivo'] = {'activo': False}
@@ -171,9 +168,9 @@ def SeccionView(request, pk):
     else:
         buscar = ''
         resultado={}
-        
+
     context['resultado'] = resultado
-    
+
     return render(request, template_name, context)
 
 
@@ -198,8 +195,8 @@ def SubSeccionView(request, pk):
     subcategorias = SubCategoria.objects.all().order_by("nombre")
     seccion = SubCategoria.objects.get(id=pk)
     recientes = Noticias.objects.filter(viral=False, ultima_hora=False).exclude(subcategoria=12).order_by('-id')[:3]
-        
-        
+
+
     context = {'hoy': hoy, 'titular': titular, 'noticias': noticias, 'ultima_hora': ultima_hora, 'categorias': categorias,
             'subcategorias': subcategorias, 'seccion': seccion, 'cat': cat, 'recientes': recientes}
     context['regresivo'] = {'activo': False}
@@ -225,9 +222,9 @@ def SubSeccionView(request, pk):
     else:
         buscar = ''
         resultado={}
-        
+
     context['resultado'] = resultado
-    
+
     return render(request, template_name, context)
 
 
@@ -284,9 +281,9 @@ def DetalleView(request, slug):
             'recientes': recientes,
             'populares': populares,
             'tecno1': tecno1,
-            'tecno2': tecno2,        
-            'noticias': noticias, 
-            'categorias': categorias, 
+            'tecno2': tecno2,
+            'noticias': noticias,
+            'categorias': categorias,
             'cat':cat,
             'subcategorias': subcategorias,
             'detalle': detalle,
@@ -326,7 +323,7 @@ def DetalleView(request, slug):
             post = form_comentario.save(commit=False)
             post.noticia = detalle
             post.save()
-            
+
             return JsonResponse(
                 {
                     'content': {
@@ -343,7 +340,7 @@ def DetalleView(request, slug):
             post = form_home.save(commit=False)
             post.save()
             success_url=reverse_lazy("/")
-            
+
             return JsonResponse(
                 {
                     'content': {
@@ -385,7 +382,7 @@ class HomeSinPrivilegios(generic.TemplateView):
 
 class VideoLiveView(generic.TemplateView):
     template_name = "generales/video_en_vivo.html"
-    
+
     def get(self, request, *args, **kwargs):
         pauta = Pauta.objects.filter(videolive=True)
         results = resul_votacio.objects.all().order_by('-votos')
@@ -400,7 +397,7 @@ class VideoLiveView(generic.TemplateView):
             )
         )
 
-def ajax_update(request, *args, **kwargs): 
+def ajax_update(request, *args, **kwargs):
     results = resul_votacio.objects.all().order_by('-votos')
     return render(request, "generales/tbl_results.html", {'results': results})
 
@@ -409,14 +406,14 @@ class ContactView(generic.CreateView):
     template_name = 'generales/contact.html'
     form_class = ContactoForm
     success_url = reverse_lazy("generales:home")
-    
+
     def get(self, request, *args, **kwargs):
         titulares1 = Noticias.objects.filter(orden_destacado=0, subcategoria__id=1).exclude(subcategoria=12).order_by('-id')[:2]
         categorias = Categoria.objects.all().order_by("nombre")
         self.object = None
         form_class = self.get_form_class()
         form = self.get_form(form_class)
-        
+
         return self.render_to_response(
             self.get_context_data(
                 form=form,
@@ -426,4 +423,3 @@ class ContactView(generic.CreateView):
             )
         )
 
-  
