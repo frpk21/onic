@@ -1,9 +1,6 @@
 from generales import views
-from django.conf.urls import url
-
-
+from django.urls import path, re_path
 
 urlpatterns = [
-    url(r'^$', views.HomeView, name='home'),
-
+    re_path(r'^$', views.HomeView, name='home'),
 ]
