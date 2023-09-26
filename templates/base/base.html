@@ -12,9 +12,11 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/static/base/assets/images/favicon.png">
     <link rel="manifest" href="/static/base/assets/images/favicon/site.webmanifest">
 
-    <!-- Fonts URL -->
-    <link href="https://fonts.googleapis.com/css?family=Karla:400,700%7CPlayfair+Display:400,500,600,700,800,900%7CWork+Sans:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
-
+    <!-- Fonts URL  https://fonts.googleapis.com/css?family=Karla:400,700%7CPlayfair+Display:400,500,600,700,800,900%7CWork+Sans:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+-->
+    <link href="/static/base/assets/fonts/source-code-variable.css" rel="stylesheet">
+    <link href="/static/base/assets/fonts/source-code-pro.css" rel="stylesheet">
+   
 
     <!-- Plugins CSS -->
     <link rel="stylesheet" href="/static/base/assets/css/bootstrap.min.css">
@@ -33,23 +35,15 @@
     <link rel="stylesheet" href="/static/base/assets/css/style.css">
     <link rel="stylesheet" href="/static/base/assets/css/responsive.css">
 
-
-
-    <link rel="stylesheet" href="/static/base/wandau_template/css/fontawesome.min.css">
-    <link rel="stylesheet" href="/static/base/wandau_template/css/odometer.min.css">
-    <link rel="stylesheet" href="/static/base/wandau_template/css/fancybox.min.css">
-    <link rel="stylesheet" href="/static/base/wandau_template/css/swiper.min.css">
-    <link rel="stylesheet" href="/static/base/wandau_template/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/static/base/wandau_template/css/style.css">
 </head>
 
 <body>
-    <!-- <div class="preloader">
+    <div class="preloader">
         <div class="lds-ripple">
             <div></div>
             <div></div>
         </div>
-    </div>/.preloader -->
+    </div><!-- /.preloader -->
     <div class="page-wrapper">
         <nav class="main-nav-one stricky main-nav-one__home-two">
             <div class="container">
@@ -63,7 +57,7 @@
                     <div class="main-nav__main-navigation">
                         <ul class="main-nav__navigation-box">
                             <li class="dropdown">
-                                <a href="about.html">Nosotros</a>
+                                <a href="about.html">Qui&eacute;nes somos</a>
                                 <ul>
                                     <li><a href="collection-fullwidth.html">Visi&oacute;n</a></li>
                                     <li><a href="collection-grid.html">Justificaci&oacute;n</a></li>
@@ -89,7 +83,7 @@
                                 </ul>
                             </li>
                             <li><a href="news-standard.html">Noticias</a> </li>
-                            <li><a href="contact.html">Contacto</a></li>
+                            <li><a href="contact.html">Cont&aacute;ctenos</a></li>
                         </ul>
                     </div>
                     <div class="main-nav__right">
@@ -114,28 +108,28 @@
                         <div class="col-sm">
                             <div>
                                 <h4 class="" style="color: #f7ab05;">Direcci&oacute;n</h4>
-                                <p>Calle 12B # 4 - 38</p>
-                                <p>Barrio La Candelaria</p>
-                                <p>Bogot&aacute;, D. C., Colombia</p>
-                                <p>111711</p>
+                                <p style="color: rgb(222, 221, 221);">Calle 12B # 4 - 38</p>
+                                <p style="color: rgb(222, 221, 221);">Barrio La Candelaria</p>
+                                <p style="color: rgb(222, 221, 221);">Bogot&aacute;, D. C., Colombia</p>
+                                <p style="color: rgb(222, 221, 221);">111711</p>
                             </div>
                         </div>
                         <div class="col-sm">
                             <div>
                                 <h4 class="" style="color: #f7ab05;">Tel&eacute;fonos</h4>
-                                <p>(+57) 1 284 2168</p>
-                                <p>(+57) 1 805 0774</p>
-                                <p>(+57) 1 805 0772</p>
+                                <p style="color: rgb(222, 221, 221);">(+57) 1 284 2168</p>
+                                <p style="color: rgb(222, 221, 221);">(+57) 1 805 0774</p>
+                                <p style="color: rgb(222, 221, 221);">(+57) 1 805 0772</p>
                             </div>
                         </div>
                         <div class="col-sm">
                             <div>
                                 <h4 class="" style="color: #f7ab05;">Fax</h4>
-                                <p>(+57) 1 284 3465</p>
+                                <p style="color: rgb(222, 221, 221);">(+57) 1 284 3465</p>
                             </div>
                             <div>
                                 <h4 class="" style="color: #f7ab05;">E-Mail</h4>
-                                <p>poblacion@onic.org.co</p>
+                                <p style="color: rgb(222, 221, 221);">poblacion@onic.org.co</p>
                             </div>
                         </div>
                         <div class="col-sm">
@@ -149,7 +143,7 @@
             
             <div class="site-footer__bottom">
                 <div class="container">
-                    <div class="inner-container">
+                    <div class="inner-container" style="color: rgb(222, 221, 221);">
                         <p><span>&copy;&nbsp;<script>
                             document.write(new Date().getFullYear())
                             </script> ONIC</span>
@@ -181,11 +175,11 @@
             <div class="cursor-follower"></div>
         </div>
         <div class="side-content__block-inner ">
-            <a href="{% url 'generales:home' %}">
+            <div class="text-center"><a href="{% url 'generales:home' %}">
                 <img src="/static/base/assets/images/logo-smt.png" alt="" width="143">
-            </a>
+            </a></div>
             <div class="side-content__block-about">
-                <h3 class="side-content__block__title">Nosotros</h3>
+                <h3 class="side-content__block__title">Qui&eacute;nes somos:</h3>
                 <p class="side-content__block-about__text">{{nosotros}}</p>
                 <a href="#" class="thm-btn side-content__block-about__btn">Ver M&aacute;s</a>
             </div>
@@ -211,11 +205,13 @@
                     </li>
                     <li class="side-content__block-contact__list-item">
                         <i class="fa fa-clock"></i>
-                        Horario de Atenci&oacute;n: 09.00 a 17.00 Lunes - Viernes
+                        Horario de Atenci&oacute;n: <small>09.00 a 17.00 Lunes - Viernes</small>
                     </li>
                 </ul>
             </div>
-            <p class="side-content__block__text site-footer__copy-text"><a href="#">ONIC</a> <small><i class="fa fa-copyright"></i> {{hoy.year}} Todos los derechos reservados.</small></p>
+            <div class="text-center"><img src="/static/base/assets/images/logo-onic-png.png" alt="" width="120">
+                <p class="side-content__block__text site-footer__copy-text"><a href="#">ONIC</a><br> <small>&copy;&nbsp; {{hoy.year}} Todos los derechos reservados.</small></p>
+            </div>
         </div>
     </div>
 
