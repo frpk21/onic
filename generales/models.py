@@ -18,7 +18,6 @@ class ClaseModelo(models.Model):
     class Meta:
         abstract=True
 
-"""
 class Categoria(ClaseModelo):
     nombre = models.CharField(max_length=100, help_text='Categoría', unique=True)
     imagen = models.FileField("Imagen categoria", upload_to="imagenes/categorias",default="")
@@ -27,7 +26,6 @@ class Categoria(ClaseModelo):
         return '{}'.format(self.nombre)
 
     def save(self):
-        self.nombre = self.nombre.upper()
         super(Categoria, self).save()
 
     class Meta:
@@ -42,13 +40,12 @@ class SubCategoria(ClaseModelo):
         return '{}: {}'.format(self.categoria.nombre,self.nombre)
 
     def save(self):
-        self.nombre = self.nombre.upper()
         super(SubCategoria, self).save()
 
     class Meta:
         verbose_name_plural = "Sub Categorías"
         unique_together = ('categoria','nombre')
-"""
+
 
 class Suscribir(ClaseModelo):
     email = models.CharField(max_length=200, help_text='eMail', unique=True)
@@ -66,9 +63,10 @@ class Nosotros(ClaseModelo):
     justificacion = RichTextField('Justificación', max_length=10000, blank=True, null=False, default='')
     objetivos = RichTextField(max_length=10000, blank=True, null=False, default='')
     usuarios = RichTextField(max_length=10000, blank=True, null=False, default='')
+    imagen = models.FileField("Imagen", upload_to="imagenes/", blank=True, null=False)
 
     def __str__(self):
-        return '{}'.format(self.idEmisora)
+        return '{}'.format(self.id)
 
     def save(self):
         super(Nosotros, self).save()
@@ -112,6 +110,8 @@ class Contacto(ClaseModelo):
         verbose_name_plural = "Contactos"
 
 class Noticias(ClaseModelo):
+    categoria=models.ForeignKey(Categoria, on_delete=models.CASCADE, default=0, null=False, blank=False)
+    subcategoria=models.ForeignKey(SubCategoria, on_delete=models.CASCADE, default=0, null=False, blank=False)
     titulo = models.CharField(help_text='Título de la noticia', blank=False, null=False, max_length=200)
     subtitulo = models.CharField(help_text='Sub título de la noticia', blank=False, null=False, max_length=500)
     descripcion = RichTextField(max_length=15000, blank=True, null=True)

@@ -56,34 +56,20 @@
                     </div>
                     <div class="main-nav__main-navigation">
                         <ul class="main-nav__navigation-box">
-                            <li class="dropdown">
-                                <a href="about.html">Qui&eacute;nes somos</a>
-                                <ul>
-                                    <li><a href="collection-fullwidth.html">Visi&oacute;n</a></li>
-                                    <li><a href="collection-grid.html">Justificaci&oacute;n</a></li>
-                                    <li><a href="collection-masonary.html">Objetivos</a></li>
-                                    <li><a href="collection-masonary.html">Usuarios</a></li>
-                                </ul>
-                            </li>
-                            <li class="dropdown">
-                                <a href="collection-grid.html">Mediateca</a>
-                                <ul>
-                                    <li><a href="collection-fullwidth.html">Cat&aacute;stro Ind&iacute;gena</a></li>
-                                    <li><a href="collection-grid.html">Salvaguardamos</a></li>
-                                    <li><a href="collection-masonary.html">Censo</a></li>
-                                </ul>
-                            </li>
-                            <li class="dropdown">
-                                <a href="collection-grid.html">Ludoteca</a>
-                                <ul>
-                                    <li><a href="collection-fullwidth.html">Pueblos Ind&iacute;genas</a></li>
-                                    <li><a href="collection-grid.html">Capsulas Pedag&oacute;gicas</a></li>
-                                    <li><a href="collection-masonary.html">Catastro Ind&iacute;gena</a></li>
-                                    <li><a href="collection-masonary.html">Aprendamos con SMT</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="news-standard.html">Noticias</a> </li>
-                            <li><a href="contact.html">Cont&aacute;ctenos</a></li>
+                            {% for categoria in categorias %}
+                                <li class="dropdown">
+
+                                    <a href="{% url 'generales:seccion' categoria.id %}">{{categoria.nombre}}</a>
+                                    <ul>
+                                        {% for subcategoria in subcategorias %}
+                                            {% if subcategoria.categoria.id == categoria.id %}
+                                                <li><a href="{% url 'generales:subseccion' subcategoria.id %}">{{subcategoria.nombre}}</a></li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+                            {% endfor %}
+                            <li><a href="{% url 'generales:contact' %}">Cont&aacute;ctenos</a></li>
                         </ul>
                     </div>
                     <div class="main-nav__right">
@@ -176,7 +162,7 @@
         </div>
         <div class="side-content__block-inner ">
             <div class="text-center"><a href="{% url 'generales:home' %}">
-                <img src="/static/base/assets/images/smt.gif" alt="" width="143">
+                <img src="/static/base/assets/images/smt1.gif" alt="" width="100%">
             </a></div>
             <div class="side-content__block-about">
                 <h3 class="side-content__block__title">Qui&eacute;nes somos:</h3>
@@ -263,9 +249,6 @@
 
     <!-- Custom Scripts -->
     <script src="/static/base/assets/js/theme.js"></script>
-
-
-
 
 
 

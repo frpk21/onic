@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from generales.models import Noticias, Suscribir, VideoSMT, Contacto, Nosotros
+from generales.models import Noticias, Suscribir, VideoSMT, Contacto, Nosotros, Categoria, SubCategoria
 
 from django.contrib.admin.widgets import AutocompleteSelect
 
@@ -24,7 +24,7 @@ class NoticiasAdmin(admin.ModelAdmin):
         obj.save()
 
 
-"""
+
 class CategoriaAdmin(admin.ModelAdmin):
     list_display = ('id', 'nombre', 'imagen',)
     ordering = ('id', )
@@ -44,7 +44,7 @@ class SubCategoriaAdmin(admin.ModelAdmin):
 
     def save_model(self, request, obj, form, change):
         super().save_model(request, obj, form, change)
-"""
+
 
 class VideoSMTAdmin(admin.ModelAdmin):
     list_display = ('titulo', 'url_video',)
@@ -77,8 +77,8 @@ class ContactoAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         super().save_model(request, obj, form, change)
 
-#admin.site.register(Categoria, CategoriaAdmin)
-#admin.site.register(SubCategoria, SubCategoriaAdmin)
+admin.site.register(Categoria, CategoriaAdmin)
+admin.site.register(SubCategoria, SubCategoriaAdmin)
 admin.site.register(Noticias, NoticiasAdmin)
 admin.site.register(VideoSMT, VideoSMTAdmin)
 admin.site.register(Nosotros, NosotrosAdmin)

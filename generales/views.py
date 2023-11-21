@@ -6,7 +6,7 @@ from django.views import generic
 
 from django.contrib.auth.mixins import PermissionRequiredMixin
 
-from generales.models import Noticias, Comentario, Contacto, VideoSMT, Nosotros
+from generales.models import Noticias, Comentario, Contacto, VideoSMT, Nosotros, Categoria, SubCategoria
 
 from datetime import date
 
@@ -37,7 +37,9 @@ def HomeView(request):
         'nosotros': nosotros,
         'novedades': novedades,
         'boletines': boletines,
-        'mediateca': mediateca
+        'mediateca': mediateca,
+        'categorias' : Categoria.objects.all(),
+        'subcategorias': SubCategoria.objects.all()
         }
     manana = hoy + timedelta(days=1)
     if request.POST.get('email'):
@@ -95,36 +97,17 @@ def HomeView(request):
 
     return render(request, template_name, context)
 
-
-
-
-
-
 def SeccionView(request, pk):
     template_name = 'generales/seccion.html'
-
+    if pk == 1:
+        nosotros = Nosotros.objects.all().last()
     hoy = date.today()
-    id_titular=0
-    titular = Noticias.objects.filter(subcategoria__categoria__gte=pk).order_by('-id')[:1]
-    if titular:
-        for i, item in enumerate(titular):
-            id_titular=item.id
-            cat=item.subcategoria
-    else:
-        cat=0
-    titulares1 = Noticias.objects.filter(orden=0, subcategoria__id=1).exclude(subcategoria=12).order_by('-id')[:2]
-    #titular1 = Noticias.objects.filter(subcategoria__categoria__id=pk).exclude(id=id_titular).order_by('-id')[:1]
-    #titular2 = Noticias.objects.filter(subcategoria__categoria__id=pk).exclude(id=id_titular).exclude(id=id_titular).order_by('-id')[:20]
-    ultima_hora = Noticias.objects.filter(ultima_hora=True).order_by('-id')[:1]
-    categorias = Categoria.objects.all().order_by("nombre")
-    subcategorias = SubCategoria.objects.all().order_by("nombre")
-    recientes = Noticias.objects.filter(viral=False, ultima_hora=False).exclude(subcategoria=12).order_by('-id')[:3]
+    categorias = Categoria.objects.all()
+    subcategorias = SubCategoria.objects.all()
     seccion = Categoria.objects.get(id=pk)
-    noticias = Noticias.objects.filter(subcategoria__categoria__id=pk, ultima_hora=False).order_by('-id', 'subcategoria__id','orden')[:20]
+    noticias = Noticias.objects.filter(subcategoria__categoria__id=pk).order_by('-id', 'subcategoria__id','orden')[:20]
+    context = {'hoy': hoy, 'noticias': noticias, 'categorias': categorias, 'subcategorias': subcategorias, 'seccion': seccion}
 
-    context = {'hoy': hoy, 'titular': titular, 'noticias': noticias, 'ultima_hora': ultima_hora, 'categorias': categorias,
-               'subcategorias': subcategorias, 'seccion': seccion, 'cat': cat, 'titulares1': titulares1}
-    context['regresivo'] = {'activo': False}
     if request.POST.get('buscar'):
         buscar = (request.POST.get('buscar').upper())
         template_name="generales/search.html"
@@ -155,30 +138,12 @@ def SeccionView(request, pk):
 
 def SubSeccionView(request, pk):
     template_name = 'generales/seccion.html'
-
     hoy = date.today()
-    id_titular=0
-    titular = Noticias.objects.filter(subcategoria__id=pk).order_by('-id')[:1]
-    if titular:
-        for i, item in enumerate(titular):
-            id_titular=item.id
-            cat=item.subcategoria
-        #titular1 = Noticias.objects.filter(subcategoria__categoria__id=pk).exclude(id=id_titular).order_by('-id')[:1]
-        #titular2 = Noticias.objects.filter(subcategoria__categoria__id=pk).exclude(id=id_titular).exclude(id=id_titular).order_by('-id')[:20]
-        noticias = Noticias.objects.filter(subcategoria__id=pk, ultima_hora=False).order_by('-id', 'subcategoria')[:20]
-    else:
-        cat=[]
-        noticias=[]
-    ultima_hora = Noticias.objects.filter(ultima_hora=True).order_by('-id')[:1]
     categorias = Categoria.objects.all().order_by("nombre")
     subcategorias = SubCategoria.objects.all().order_by("nombre")
     seccion = SubCategoria.objects.get(id=pk)
-    recientes = Noticias.objects.filter(viral=False, ultima_hora=False).exclude(subcategoria=12).order_by('-id')[:3]
-
-
-    context = {'hoy': hoy, 'titular': titular, 'noticias': noticias, 'ultima_hora': ultima_hora, 'categorias': categorias,
-            'subcategorias': subcategorias, 'seccion': seccion, 'cat': cat, 'recientes': recientes}
-    context['regresivo'] = {'activo': False}
+    noticias = Noticias.objects.filter(subcategoria__categoria__id=pk).order_by('-id', 'subcategoria__id','orden')[:20]
+    context = {'hoy': hoy, 'noticias': noticias, 'categorias': categorias, 'subcategorias': subcategorias, 'seccion': seccion}
     if request.POST.get('buscar'):
         buscar = (request.POST.get('buscar').upper())
         template_name="generales/search.html"
