@@ -110,7 +110,6 @@ class Contacto(ClaseModelo):
         verbose_name_plural = "Contactos"
 
 class Noticias(ClaseModelo):
-    categoria=models.ForeignKey(Categoria, on_delete=models.CASCADE, default=0, null=False, blank=False)
     subcategoria=models.ForeignKey(SubCategoria, on_delete=models.CASCADE, default=0, null=False, blank=False)
     titulo = models.CharField(help_text='Título de la noticia', blank=False, null=False, max_length=200)
     subtitulo = models.CharField(help_text='Sub título de la noticia', blank=False, null=False, max_length=500)
