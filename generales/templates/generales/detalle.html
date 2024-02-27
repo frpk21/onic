@@ -50,11 +50,8 @@
                     <p>&nbsp;</p>
                 {% endif %}
             </div>
-            {% if detalle.vimeo_id != None and detalle.vimeo_id != '' %}
-                <iframe class="vimeo" src="https://player.vimeo.com/video/{{detalle.vimeo_id}}?autoplay=1" width="100%" height="500px" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-            {% endif %}
-            <div class="col-xl-6 text-left"><img src="{{detalle.imagen_destacado.url}}" alt="" width="720" height="460"/>
-                <small><span>{{detalle.fuente}} | <i class="fal fa-calendar-alt"></i> {{detalle.fecha_inicio_publicacion.date}}</span></small>
+            <div class="col-xl-6 text-left"><img src="{{detalle.imagen.url}}" alt="" width="720" height="460"/>
+                <small><span>{{detalle.fuente}} | <i class="fal fa-calendar-alt"></i></span></small>
                 <div class="col-xl-12 text-center">
                     
                 </div>
@@ -64,11 +61,7 @@
 </section>
 
 <section class="section section-lg text-center bg-default">
-    <div class="ads mb-30">
-        {% if pauta_detalle1.banner %}
-            <img src="{{pauta_detalle1.banner.url}}" alt="Ads detalle1" class="w-100">
-        {% endif %}
-    </div>
+
     <div class="container container-bigger">
         <h3>Comentarios</h3>
         <div class="divider divider-default"></div>
@@ -132,12 +125,7 @@
     </div>
 </section>
 
-    
-                        <div class="ads mb-30">
-                            {% if pauta_detalle1.banner %}
-                                <img src="{{pauta_detalle1.banner.url}}" alt="Ads detalle1" class="w-100">
-                            {% endif %}
-                        </div>
+
 
 
 
