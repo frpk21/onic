@@ -36,11 +36,13 @@
 # common
 --------------------------------------------------------------*/
 
-/* Template Variables */
+/* Template Variables 
+font-family: 'Work Sans', sans-serif; 
+*/
 
-/* font-family: 'Karla', sans-serif;
-font-family: 'Playfair Display', serif;
-font-family: 'Work Sans', sans-serif; */
+font-family: 'Source Code Pro', woff2;
+font-family: 'Source Code Pro', woff2;
+
 
 
 :root {
