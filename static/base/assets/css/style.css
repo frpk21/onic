@@ -45,8 +45,8 @@ font-family: 'Work Sans', sans-serif; */
 
 :root {
 	--thm-font: "Source Code Variable", woff2;
-	--heading-font: "Source Code Variable", woff2;
-	--special-font: "Source Code Variable", woff2;
+	--heading-font: "Source Code Pro", woff2;
+	--special-font: "Source Code Variable", woff2; 
 	--thm-base: #aaa081;
 	--thm-base-rgb: 170, 160, 129;
 	--thm-black: #252930;
