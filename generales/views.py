@@ -140,8 +140,8 @@ def NosotrosView(request):
     hoy = date.today()
     categorias = Categoria.objects.all()
     subcategorias = SubCategoria.objects.all()
-    mision = Nosotros.objects.all().last()
-    context = {'hoy': hoy, 'mision': mision, 'categorias': categorias, 'subcategorias': subcategorias}
+    nosotros = Nosotros.objects.all().last()
+    context = {'hoy': hoy, 'nosotros': nosotros, 'categorias': categorias, 'subcategorias': subcategorias}
 
     return render(request, template_name, context)
 
