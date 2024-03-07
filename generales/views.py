@@ -182,7 +182,7 @@ def DetalleView(request, slug):
         scat = item.subcategoria.id
     categorias = Categoria.objects.all().order_by("nombre")
     subcategorias = SubCategoria.objects.all().order_by("nombre")
-    seccion = Categoria.objects.filter(id=cat)
+    seccion = Categoria.objects.get(id=cat)
     noticias = Noticias.objects.filter(subcategoria__id=scat).order_by('-id')[:20]
     print(noticias)
     context = {'hoy': hoy, 'noticias': noticias, 'categorias': categorias, 'subcategorias': subcategorias, 'seccion': seccion, 'detalle':detalle, 'cat': cat}
