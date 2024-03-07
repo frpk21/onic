@@ -57,7 +57,7 @@ class VideoSMTAdmin(admin.ModelAdmin):
         super().save_model(request, obj, form, change)
 
 class NosotrosAdmin(admin.ModelAdmin):
-    list_display = ('descripcion','vision', 'justificacion', 'objetivos', 'usuarios')
+    list_display = ('descripcion','vision', 'justificacion', 'objetivos', 'usuarios','imagen', 'imagen_vision', 'imagen_jus', 'imagen_obj', 'imagen_users')
 
     class Meta:
         model = Nosotros
