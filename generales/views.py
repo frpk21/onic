@@ -179,13 +179,13 @@ def DetalleView(request, slug):
     cat, scat = 0, 0
     for i, item in enumerate(detalle):
         cat = item.subcategoria.categoria.id
-        scat = item.subcategoria.categoria.id
+        scat = item.subcategoria.id
     categorias = Categoria.objects.all().order_by("nombre")
     subcategorias = SubCategoria.objects.all().order_by("nombre")
     seccion = Categoria.objects.filter(id=cat)
     noticias = Noticias.objects.filter(subcategoria__id=scat).order_by('-id')[:20]
     print(noticias)
-    context = {'hoy': hoy, 'noticias': noticias, 'categorias': categorias, 'subcategorias': subcategorias, 'seccion': seccion, 'detalle':detalle}
+    context = {'hoy': hoy, 'noticias': noticias, 'categorias': categorias, 'subcategorias': subcategorias, 'seccion': seccion, 'detalle':detalle, 'cat': cat}
 
     if request.POST.get('buscar'):
         buscar = (request.POST.get('buscar').upper())
