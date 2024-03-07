@@ -14,7 +14,7 @@
     <div class="container">
         <div class="row">
             {% if noticias|length > 0 %}
-                {% for item in noticias %}
+                {% for noticias in noticias %}
                     <div class="col-lg-12">
                         <div class="event-one__single">
                             <div class="event-one__image">
@@ -32,7 +32,7 @@
                                 <p>{{noticias.subtitulo}}</p>
                             </div>
                             <div class="event-one__btn-block">
-                                <a href="" class="thm-btn event-one__btn">Ler M&aacute;s</a>
+                                <a href="" class="thm-btn event-one__btn">Leer M&aacute;s</a>
                             </div>
                         </div>
                     </div>
