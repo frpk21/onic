@@ -215,7 +215,7 @@
                             <img src="{{item.imagen.url}}" alt="">
                         </div>
                         <div class="collection-two__content">
-                            <h3><a href="#">{{item.titulo}}</a></h3>
+                            <h3><a href="{% url 'generales:detalle' item.slug %}">{{item.titulo}}</a></h3>
                             <p>{{item.autor}}</p>
                         </div>
                     </div>
@@ -232,7 +232,7 @@
                 <h3>SMT en los territorios</h3>
             </div>
             <div class="more-post__block">
-                <a class="more-post__link" href="#">
+                <a class="more-post__link" href="{% url 'generales:seccion' 1 %}">
                     Ver Todo
                     <span class="curved-circle">ver m&aacute;s &nbsp;&emsp;ver m&aacute;s &nbsp;&emsp;ver m&aacute;s ver m&aacute;s</span>
                 </a>
@@ -254,7 +254,7 @@
                                 <li><a href="#">Por {{item.autor}}</a></li>
                             </ul>
                             <h3><a href="news-details.html">{{item.titulo}}</a></h3>
-                            <p>{item.subtitulo}</p>
+                            <p>{{item.subtitulo}}</p>
                             <a href="{% url 'generales:detalle' item.slug %}" class="blog-one__link">Ver M&aacute;s</a>
                         </div>
                     </div>
