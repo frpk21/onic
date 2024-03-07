@@ -62,7 +62,7 @@
                                     <ul>
                                         {% for subcategoria in subcategorias %}
                                             {% if subcategoria.categoria.id == categoria.id %}
-                                                {% if subcategoria.categoria.id == 19 %}
+                                                {% if subcategoria.id == 19 %}
                                                     <li><a href=" https://smt-onic.com/" target="_blank">{{subcategoria.nombre}}</a></li>
                                                 {% else %}
                                                     <li><a href="{% url 'generales:subseccion' subcategoria.id %}">{{subcategoria.nombre}}</a></li>
