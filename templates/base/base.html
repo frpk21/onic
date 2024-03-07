@@ -59,7 +59,11 @@
                             <li><a href="{% url 'generales:home' %}">Inicio</a></li>
                             {% for categoria in categorias %}
                                 <li class="dropdown">
-                                    <a href="{% url 'generales:seccion' categoria.id %}">{{categoria.nombre}}</a>
+                                    {% if subcategoria.categoria.id == 13 %}
+                                        <a href="{% url 'generales:nosotros' %}">{{categoria.nombre}}</a>
+                                    {% else %}
+                                        <a href="{% url 'generales:seccion' categoria.id %}">{{categoria.nombre}}</a>
+                                    {% endif %}
                                     <ul>
                                         {% for subcategoria in subcategorias %}
                                             {% if subcategoria.categoria.id == categoria.id %}

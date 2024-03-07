@@ -135,6 +135,15 @@ def SeccionView(request, pk):
 
     return render(request, template_name, context)
 
+def NosotrosView(request):
+    template_name = 'generales/nosotros.html'
+    hoy = date.today()
+    categorias = Categoria.objects.all()
+    subcategorias = SubCategoria.objects.all()
+    mision = Nosotros.objects.all().last()
+    context = {'hoy': hoy, 'mision': mision, 'categorias': categorias, 'subcategorias': subcategorias}
+
+    return render(request, template_name, context)
 
 def SubSeccionView(request, pk):
     template_name = 'generales/seccion.html'

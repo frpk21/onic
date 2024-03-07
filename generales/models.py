@@ -64,6 +64,10 @@ class Nosotros(ClaseModelo):
     objetivos = RichTextField(max_length=10000, blank=True, null=False, default='')
     usuarios = RichTextField(max_length=10000, blank=True, null=False, default='')
     imagen = models.FileField("Imagen", upload_to="imagenes/", blank=True, null=False)
+    imagen_vision = models.FileField("Imagen-vision", upload_to="imagenes/", blank=True, null=False)
+    imagen_jus = models.FileField("Imagen-justificacion", upload_to="imagenes/", blank=True, null=False)
+    imagen_obj = models.FileField("Imagen-objetivos", upload_to="imagenes/", blank=True, null=False)
+    imagen_users = models.FileField("Imagen-usuarios", upload_to="imagenes/", blank=True, null=False)
 
     def __str__(self):
         return '{}'.format(self.id)
