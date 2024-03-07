@@ -4,126 +4,93 @@
 
 {% block contenido %}
 
-<section class="section breadcrumbs-custom parallax-container context-dark" data-parallax-img="{{detalle.subcategoria.imagen.url}}">
-    <div class="parallax-content">
-        <div class="container">
-            <p class="heading-1 breadcrumbs-custom-title">{{detalle.subcategoria.categoria.nombre}}</p>
-            <ul class="breadcrumbs-custom-path">
-                <li><a href="{% url 'generales:home' %}">Inicio</a></li>
-                <li><a href="{% url 'generales:seccion' detalle.subcategoria.categoria.id %}">{{detalle.subcategoria.nombre}}</a></li>
-                <li class="active">{{detalle.titulo}}</li>
-            </ul>
-        </div>
+<section class="page-header" style="background-image: url({{seccion.imagen.url}});">
+    <div class="container">
+        <h2>{{seccion.nombre}}</h2>
     </div>
 </section>
-<section class="section section-lg text-center text-md-start bg-default">
-    <div class="container container-bigger">
-        <div class="row row-50 justify-content-md-center justify-content-xl-between">
-            <div class="col-md-9 col-xl-5">
-                <h3>{{detalle.titulo}}</h3>
-                <div class="divider divider-default"></div>
-                {% if detalle.archivo_audio %}
-                    <div class="col-xl-6 text-center">
-                        <audio controls autoplay>
-                            <source src="{{detalle.archivo_audio.url}}" type="audio/mpeg">
-                            Su browser no soporta el elemento de audio.
-                        </audio>
+
+<section class="blog-one blog-details-page">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="blog-details__main">
+                    <div class="blog-details__image">
+                        <img src="{{detalle.imagen.url}}" class="img-fluid" alt="">
+                    </div><!-- /.blog-details__image -->
+                    <ul class="blog-one__meta list-unstyled">
+                        <li><a href="#">By Diana Leach</a></li>
+                        <li><a href="#">03 Comments</a></li>
+                    </ul><!-- /.blog-one__meta list-unstyled -->
+                    <h3>{{detalle.titulo}}</h3>
+                    <br>
+                    <p>{{detalle.subtitulo}}</p>
+                    <br>
+                    <p>{{detalle.descripcion|safe}}</p>
+                    <p>{{detalle.html|safe}}</p>
+                    {% if detalle.pdf %}
+                        <h4 style="color:rgb(206, 5, 162);">ARCHIVO ORIGINAL</h4>
+                        <div class="divider divider-default"></div>
+                        <embed height="700px" width="100%"  name="plugin" src="{{detalle.pdf.url}}"  type="application/pdf">
+                        <p>&nbsp;</p>
+                    {% endif %}
+                    <p class="blog-details__tags">
+                        <span>Fuente: </span>{{detalle.fuente}}</a>
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="sidebar">
+                    <div class="sidebar__single">
+                        <h3 class="sidebar__title">Secciones</h3>
+                        <ul class="list-unstyled sidebar__cat-list">
+                            {% for item in categorias %}
+                                <li><a href="{% url 'generales:seccion' item.id %}">{{item.nombre}}</a></li>
+                            {% endfor %}
+                        </ul>
                     </div>
-                {% endif %}
-                <div class="col-xl-12 text-center">
-                    <ul class="group-xs group-middle">
-                        <li><a class="icon icon-md-middle icon-circle icon-secondary-1-filled mdi mdi-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://elsonajero.com/noticia/{{detalle.slug}}" target="_blank"></a></li>
-                        <li><a class="icon icon-md-middle icon-circle icon-secondary-1-filled mdi mdi-twitter" href="https://twitter.com/share?url=http://elsonajero.com/noticia/{{detalle.slug}}&amp;text={{detalle.subtitulo}}" target="_blank"></a></li>
-                        <li><a class="icon icon-md-middle icon-circle icon-secondary-1-filled mdi mdi-whatsapp" href="whatsapp://send?text=Mira%20esta%20noticia%3A%20http://elsonajero.com/noticia/{{detalle.id}}" target="_blank"></a></li>
-                    </ul>
-                </div>
-                <article class="quote-minimal">
-                    <p class="quote-minimal-text">{{detalle.subtitulo}}</p>
-                </article>
-                <p>{{detalle.descripcion|safe}}</p>
-                <!--<a class="button" href="#">Order Now</a>-->
-                <p>{{detalle.html|safe}}</p>
-                {% if detalle.pdf %}
-                    <h4 style="color:rgb(206, 5, 162);">ARCHIVO ORIGINAL</h4>
-                    <div class="divider divider-default"></div>
-                    <embed height="700px" width="100%"  name="plugin" src="{{detalle.pdf.url}}"  type="application/pdf">
-                    <p>&nbsp;</p>
-                {% endif %}
-            </div>
-            <div class="col-xl-6 text-left"><img src="{{detalle.imagen.url}}" alt="" width="720" height="460"/>
-                <small><span>{{detalle.fuente}} | <i class="fal fa-calendar-alt"></i></span></small>
-                <div class="col-xl-12 text-center">
-                    
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="section section-lg text-center bg-default">
-
-    <div class="container container-bigger">
-        <h3>Comentarios</h3>
-        <div class="divider divider-default"></div>
-        <div class="vs-comment-area list-style-none  vs-comments-layout1 space-top mt-lg-n2 ">
-            <ul class="comment-list">
-                {% for item in comentarios %}
-                    <li class="vs-comment">
-                        <div class="vs-post-comment bg-white">
-                            <div class="author-img">
-                                <i class="fal fa-user mr-1"></i>
-                            </div>
-                            <div class="comment-content">
-                                <div class="comment-top">
-                                    <div class="comment-author">
-                                        <span class="commented-on">{{item.fecha_inicio_publicacion.date}}</span>
-                                        <h4 class="name">{{item.nombre}}</h4>
+                    {% if noticias|length > 0 %}
+                        <div class="sidebar__single">
+                            <h3 class="sidebar__title">&Uacute;ltimas noticias</h3>
+                            <div class="sidebar__post">
+                                {% for item in noticias %}
+                                    <div class="sidebar__post-single">
+                                        <div class="sidebar__post-image">
+                                            <img src="item.imagen.url" alt="">
+                                        </div>
+                                        <div class="sidebar__post-content">
+                                            <a class="sidebar__post-date" href="#">
+                                                <i class="far fa-calendar-alt"></i>
+                                                {{item.fecha}}
+                                            </a>
+                                            <h3><a href="{% url 'generales:detalle' item.slug %}">{{item.titulo}}</a></h3>
+                                        </div>
                                     </div>
-                                    <!--<div class="reply_and_edit">
-                                        <a href="blog-details.html" class="vs-btn mask-style1"><i class="fal fa-reply-all mr-10"></i>Replay</a>
-                                    </div>-->
-                                </div>
-                                <p class="text">{{item.comentario}}</p>
+                                {% endfor %}
                             </div>
                         </div>
-                    </li>
-                    <div class="divider divider-default"></div>
-                {% endfor %}
-            </ul>
-        </div> <!-- Comment Form -->
-    </div>
-</section>
-
-<section class="section section-lg text-center bg-default">
-    <div class="container container-bigger">
-        <div >
-            <div class="form-title">
-                <h3 class="h3 mb-0 text-medium">Deja un Comentario</h3>
-                <p class="mb-20">Su dirección de correo electrónico no será publicada. Los campos obligatorios están marcados *</p>
-            </div>
-            <div class="row justify-content-center">
-                <div class="col-xl-6">
-                    <form id="id-form-comentario" name="comentario" method="POST">{% csrf_token %}
-                        <div class="row mx-n2">
-                            <div class="col-md-6 form-group">
-                                {{ form_comentario.nombre }}
-                            </div>
-                            <div class="col-md-6 form-group">
-                                {{ form_comentario.email }}
-                            </div>
+                    {% endif %}
+                    <div class="sidebar__single">
+                        <h3 class="sidebar__title">Otros temas</h3>
+                        <div class="sidebar__tags">
+                            {% for item in subcategorias %}
+                                <a href="{% url 'generales:subseccion' item.id %}">{{item.nombre}}</a>
+                            {% endfor %}
                         </div>
-                        <div class="col-12 form-group">
-                            {{ form_comentario.comentario }}
-                        </div>
-                        <div class="text-center mb-1">
-                            <button type="submit" class="btn btn-lg btn-primary" onclick="comentarios();">Publicar comentario</button>
-                        </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
+
+
+
+
+
+
+
+
 
 
 

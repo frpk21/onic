@@ -175,16 +175,16 @@ def SubSeccionView(request, pk):
 def DetalleView(request, slug):
     template_name = 'generales/detalle.html'
     hoy = date.today()
-    detalle0 = Noticias.objects.filter(slug=slug)
-    for i, item in enumerate(detalle0):
-        cat = item.subcategoria
-        detalle = item
-        pk = item.id
+    detalle = Noticias.objects.filter(slug=slug)
+    for i, item in enumerate(detalle):
+        cat = item.subcategoria.id
+        scat = item.subcategoria.categoria.id
     categorias = Categoria.objects.all().order_by("nombre")
     subcategorias = SubCategoria.objects.all().order_by("nombre")
-    seccion = SubCategoria.objects.get(id=pk)
-    noticias = Noticias.objects.filter(subcategoria__categoria__id=pk).order_by('-id', 'subcategoria__id','orden')[:20]
-    context = {'hoy': hoy, 'noticias': noticias, 'categorias': categorias, 'subcategorias': subcategorias, 'seccion': seccion}
+    seccion = SubCategoria.objects.all()
+    noticias = Noticias.objects.filter(subcategoria__id=scat).order_by('-id')[:20]
+    print(noticias)
+    context = {'hoy': hoy, 'noticias': noticias, 'categorias': categorias, 'subcategorias': subcategorias, 'seccion': seccion, 'detalle':detalle}
 
     if request.POST.get('buscar'):
         buscar = (request.POST.get('buscar').upper())
