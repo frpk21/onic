@@ -179,16 +179,16 @@
                         <li>Contemporary Design</li>
                         <li>War History</li>
                         <li>Middle Eastern Art</li>
-                    </ul><!-- /.list-unstyled cta-three__list -->
+                    </ul>
                     <ul class="list-unstyled cta-three__list">
                         <li>20th Century Design</li>
                         <li>Arts of Global Africa</li>
                         <li>Gardens</li>
-                    </ul><!-- /.list-unstyled cta-three__list -->
-                </div><!-- /.cta-three__list-wrap -->
-            </div><!-- /.cta-three__content -->
-        </div><!-- /.inner-container -->
-    </div><!-- /.container -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 <section class="collection-two">
     <div class="container-fluid">
@@ -255,7 +255,7 @@
                             </ul>
                             <h3><a href="news-details.html">{{item.titulo}}</a></h3>
                             <p>{item.subtitulo}</p>
-                            <a href="news-details.html" class="blog-one__link">Ver M&aacute;s</a>
+                            <a href="{% url 'generales:detalle' item.slug %}" class="blog-one__link">Ver M&aacute;s</a>
                         </div>
                     </div>
                 </div>
