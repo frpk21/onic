@@ -176,6 +176,7 @@ def DetalleView(request, slug):
     template_name = 'generales/detalle.html'
     hoy = date.today()
     detalle = Noticias.objects.filter(slug=slug)
+    cat, scat = 0, 0
     for i, item in enumerate(detalle):
         cat = item.subcategoria.id
         scat = item.subcategoria.categoria.id

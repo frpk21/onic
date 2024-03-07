@@ -63,7 +63,7 @@
                                                 <i class="far fa-calendar-alt"></i>
                                                 {{item.fecha}}
                                             </a>
-                                            <h3><a href="">{{item.titulo}}</a></h3>
+                                            <h3><a href="{% url 'generales:detalle' item.slug %}">{{item.titulo}}</a></h3>
                                         </div>
                                     </div>
                                 {% endfor %}
@@ -83,75 +83,6 @@
         </div>
     </div>
 </section>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<script>
-
-	function comentarios() {
-
-		$('#id-form-comentario').on('submit', function() {
-			var formData = new FormData(this);
-
-			$.ajax({
-				url : '{% url 'generales:detalle' detalle.slug %}',
-				type: "POST",
-				data : formData,
-				processData: false,
-				contentType: false,
-				success:function(response){
-
-					var message = response.content.message;
-                    $("#id_email").val(' ');
-                    
-					alert(message);
-
-				},
-			});
-
-			return false;
-		});
-	};
-
-
-    function suscribirse() {
-
-        $('#id-form-suscribirseform').on('submit', function() {
-
-            var formData = new FormData(this);
-
-            $.ajax({
-                url : '{% url 'generales:home' %}',
-                type: "POST",
-                data : formData,
-                processData: false,
-                contentType: false,
-                success:function(response){
-                    var message = response.content.message;
-                    $("#id_email").val(' ');
-                    
-                    alert(message);
-
-                },
-            });
-
-            return false;
-        });
-    };
-
-</script>
-
 
 {% endblock contenido %}
 
