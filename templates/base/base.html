@@ -56,6 +56,7 @@
                     </div>
                     <div class="main-nav__main-navigation">
                         <ul class="main-nav__navigation-box">
+                            <li><a href="{% url 'generales:home' %}">Inicio</a></li>
                             {% for categoria in categorias %}
                                 <li class="dropdown">
                                     <a href="{% url 'generales:seccion' categoria.id %}">{{categoria.nombre}}</a>
