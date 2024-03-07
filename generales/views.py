@@ -178,11 +178,11 @@ def DetalleView(request, slug):
     detalle = Noticias.objects.filter(slug=slug)
     cat, scat = 0, 0
     for i, item in enumerate(detalle):
-        cat = item.subcategoria.id
+        cat = item.subcategoria.categoria.id
         scat = item.subcategoria.categoria.id
     categorias = Categoria.objects.all().order_by("nombre")
     subcategorias = SubCategoria.objects.all().order_by("nombre")
-    seccion = SubCategoria.objects.all()
+    seccion = Categoria.objects.filetr(id=cat)
     noticias = Noticias.objects.filter(subcategoria__id=scat).order_by('-id')[:20]
     print(noticias)
     context = {'hoy': hoy, 'noticias': noticias, 'categorias': categorias, 'subcategorias': subcategorias, 'seccion': seccion, 'detalle':detalle}
