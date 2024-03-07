@@ -13,7 +13,7 @@ urlpatterns = [
     path('noticias/subseccion/<int:pk>', views.SubSeccionView, name="subseccion"),
     path('noticia/detalle/<slug>', views.DetalleView, name="detalle"),
     path('contacto', views.ContactView.as_view(), name="contact"),
-    path('nosotros', views.NosotrosView, name="Nosotros"),
+    path('nosotros', views.NosotrosView, name="nosotros"),
     path('update/', views.ajax_update, name='upd'),
 
 ]
