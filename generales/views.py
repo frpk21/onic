@@ -27,7 +27,7 @@ def HomeView(request):
     video_smt = VideoSMT.objects.all().last()
     nosotros = Nosotros.objects.all().last()
     novedades = Noticias.objects.filter(orden=2).order_by('-id')[:5]
-    boletines = Noticias.objects.filter(orden=3).order_by('-id')[:7]
+    boletines = Noticias.objects.filter(orden=3).order_by('-id')[:10]
     mediateca = Noticias.objects.filter(orden=4).order_by('-id')[:3]
     context = {
         'hoy': hoy,
