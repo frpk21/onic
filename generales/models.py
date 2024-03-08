@@ -65,7 +65,7 @@ class Nosotros(ClaseModelo):
     usuarios = RichTextField(max_length=10000, blank=True, null=False, default='')
     imagen = models.FileField("Imagen 1020x 1042px", upload_to="imagenes/", blank=True, null=False)
     imagen_vision = models.FileField("Imagen-vision 470x610px", upload_to="imagenes/", blank=True, null=False)
-    imagen_jus = models.FileField("Imagen-justificacion 277x382px", upload_to="imagenes/", blank=True, null=False)
+    imagen_jus = models.FileField("Imagen-justificacion 500x382px", upload_to="imagenes/", blank=True, null=False)
     imagen_obj = models.FileField("Imagen-objetivos 500x30px", upload_to="imagenes/", blank=True, null=False)
     imagen_users = models.FileField("Imagen-usuarios 500x370", upload_to="imagenes/", blank=True, null=False)
 
