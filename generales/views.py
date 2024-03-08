@@ -105,8 +105,9 @@ def SeccionView(request, pk):
     categorias = Categoria.objects.all()
     subcategorias = SubCategoria.objects.all()
     seccion = Categoria.objects.get(id=pk)
+    sub = SubCategoria.objects.filter(categoria__id=pk)
     noticias = Noticias.objects.filter(subcategoria__categoria__id=pk).order_by('-id', 'subcategoria__id','orden')[:20]
-    context = {'hoy': hoy, 'noticias': noticias, 'categorias': categorias, 'subcategorias': subcategorias, 'seccion': seccion}
+    context = {'hoy': hoy, 'noticias': noticias, 'categorias': categorias, 'subcategorias': subcategorias, 'seccion': seccion, 'sub': sub}
 
     if request.POST.get('buscar'):
         buscar = (request.POST.get('buscar').upper())
@@ -148,8 +149,8 @@ def NosotrosView(request):
 def SubSeccionView(request, pk):
     template_name = 'generales/seccion.html'
     hoy = date.today()
-    categorias = Categoria.objects.all().order_by("nombre")
-    subcategorias = SubCategoria.objects.all().order_by("nombre")
+    categorias = Categoria.objects.all()
+    subcategorias = SubCategoria.objects.all()
     seccion = SubCategoria.objects.get(id=pk)
     noticias = Noticias.objects.filter(subcategoria__id=pk).order_by('-id')[:20]
     context = {'hoy': hoy, 'noticias': noticias, 'categorias': categorias, 'subcategorias': subcategorias, 'seccion': seccion}
@@ -189,8 +190,8 @@ def DetalleView(request, slug):
     for i, item in enumerate(detalle):
         cat = item.subcategoria.categoria.id
         scat = item.subcategoria.id
-    categorias = Categoria.objects.all().order_by("nombre")
-    subcategorias = SubCategoria.objects.all().order_by("nombre")
+    categorias = Categoria.objects.all()
+    subcategorias = SubCategoria.objects.all()
     seccion = Categoria.objects.get(id=cat)
     noticias = Noticias.objects.filter(subcategoria__id=scat).order_by('-id')[:20]
     print(noticias)
