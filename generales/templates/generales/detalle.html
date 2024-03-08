@@ -29,7 +29,7 @@
                     {% if detalle.pdf %}
                         <h4 style="color:rgb(206, 5, 162);">ARCHIVO ORIGINAL</h4>
                         <div class="divider divider-default"></div>
-                        <embed height="700px" width="100%"  name="plugin" src="{{detalle.pdf|safe}}"  type="application/pdf">
+                        <embed height="700px" width="100%"  name="plugin" src="{{detalle.pdf.url}}"  type="application/pdf">
                         <p>&nbsp;</p>
                     {% endif %}
                     <p class="blog-details__tags">
