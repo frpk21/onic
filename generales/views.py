@@ -151,7 +151,7 @@ def SubSeccionView(request, pk):
     categorias = Categoria.objects.all().order_by("nombre")
     subcategorias = SubCategoria.objects.all().order_by("nombre")
     seccion = SubCategoria.objects.get(id=pk)
-    noticias = Noticias.objects.filter(subcategoria__categoria__id=pk).order_by('-id', 'subcategoria__id','orden')[:20]
+    noticias = Noticias.objects.filter(subcategoria__id=pk).order_by('-id')[:20]
     context = {'hoy': hoy, 'noticias': noticias, 'categorias': categorias, 'subcategorias': subcategorias, 'seccion': seccion}
     if request.POST.get('buscar'):
         buscar = (request.POST.get('buscar').upper())
