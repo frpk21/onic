@@ -38,12 +38,12 @@
 
 /* Template Variables 
 font-family: 'Work Sans', sans-serif; 
+
+
+font-family: 'Source Code Pro', woff2;
+font-family: 'Source Code Pro', woff2;
+
 */
-
-font-family: 'Source Code Pro', woff2;
-font-family: 'Source Code Pro', woff2;
-
-
 
 :root {
 	--thm-font: "Source Code Variable", woff2;
@@ -59,7 +59,7 @@ body {
 	font-family: var(--thm-font);
 	font-size: 16px;
 	line-height: 28px;
-	color: #848484;
+	color: #1f1f1f;
 }
 
 [dir=rtl] .thm__owl-carousel {
