@@ -78,20 +78,19 @@
                                                                 {% if subcategoria.id == 15 %}
                                                                     <li><a href="{% url 'generales:nosotros' %}">{{subcategoria.nombre}}</a></li>
                                                                 {% else %}
-                                                                    {% if subcategoria.categoria.id == 20 %}
-                                                                        <li class="dropdown"><a href="{% url 'generales:nosotros' %}">M&oacute;dulos</a>
-                                                                            <ul>
-                                                                                {% for modulo in modulos %}
-                                                                                    <li><a href="{% url 'generales:subseccion' subcategoria.id %}">{{modulo.nombre}}</a></li>
-                                                                                {% endfor %}
-                                                                            </ul>
-                                                                        </li>
-                                                                    {% else %}
-                                                                        <li><a href="{% url 'generales:subseccion' subcategoria.id %}">{{subcategoria.nombre}}</a></li>
-                                                                    {% endif %}
+                                                                    <li><a href="{% url 'generales:subseccion' subcategoria.id %}">{{subcategoria.nombre}}</a></li>
                                                                 {% endif %}
                                                             {% endif %}
                                                         {% endif %}
+                                                    {% else %}
+                                                        {% if subcategoria.categoria.id == 20 %}
+                                                            <li class="dropdown"><a href="{% url 'generales:nosotros' %}">M&oacute;dulos</a>
+                                                                <ul>
+                                                                    {% for modulo in modulos %}
+                                                                        <li><a href="{% url 'generales:subseccion' subcategoria.id %}">{{modulo.nombre}}</a></li>
+                                                                    {% endfor %}
+                                                                </ul>
+                                                            </li>
                                                     {% endif %}
                                                 {% endfor %}
                                             </ul>
