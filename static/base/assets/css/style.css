@@ -877,7 +877,7 @@ a:focus {
 
 .main-nav__main-navigation .main-nav__navigation-box>li ul .dropdown>a::after {
 	position: absolute;
-	right: 30px;
+	right: 35px;
 	top: 50%;
 	-webkit-transform: translateY(-50%) rotate(-90deg);
 	        transform: translateY(-50%) rotate(-90deg);
