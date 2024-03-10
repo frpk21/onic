@@ -845,7 +845,7 @@ a:focus {
 
 .main-nav__main-navigation .main-nav__navigation-box>li ul {
 	position: absolute;
-	width: 200px;
+	width: 210px;
 	background-color: #fff;
 	border-top: 2px solid var(--thm-black);
 	box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.05),
@@ -877,7 +877,7 @@ a:focus {
 
 .main-nav__main-navigation .main-nav__navigation-box>li ul .dropdown>a::after {
 	position: absolute;
-	right: 25px;
+	right: 30px;
 	top: 50%;
 	-webkit-transform: translateY(-50%) rotate(-90deg);
 	        transform: translateY(-50%) rotate(-90deg);
