@@ -39,7 +39,8 @@ def HomeView(request):
         'boletines': boletines,
         'mediateca': mediateca,
         'categorias' : Categoria.objects.all().order_by('id'),
-        'subcategorias': SubCategoria.objects.all().order_by('id')
+        'subcategorias': SubCategoria.objects.all().order_by('id'),
+        'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')
         }
     manana = hoy + timedelta(days=1)
     if request.POST.get('email'):
