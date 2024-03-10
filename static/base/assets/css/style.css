@@ -822,7 +822,7 @@ a:focus {
 }
 
 .main-nav-one .main-nav__navigation-box>li>a {
-	font-size: 18px;
+	font-size: 14px;
 	color: var(--thm-black);
 	display: -webkit-box;
 	display: flex;
