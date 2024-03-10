@@ -108,7 +108,7 @@ def SeccionView(request, pk):
     seccion = Categoria.objects.get(id=pk)
     sub = SubCategoria.objects.filter(categoria__id=pk)
     noticias = Noticias.objects.filter(subcategoria__categoria__id=pk).order_by('-id', 'subcategoria__id','orden')[:20]
-    context = {'hoy': hoy, 'noticias': noticias, 'categorias': categorias, 'subcategorias': subcategorias, 'seccion': seccion, 'sub': sub}
+    context = {'hoy': hoy, 'noticias': noticias, 'categorias': categorias, 'subcategorias': subcategorias, 'seccion': seccion, 'sub': sub, 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
 
     if request.POST.get('buscar'):
         buscar = (request.POST.get('buscar').upper())
@@ -143,7 +143,7 @@ def NosotrosView(request):
     categorias = Categoria.objects.all().order_by('id')
     subcategorias = SubCategoria.objects.all().order_by('id')
     nosotros = Nosotros.objects.all().last()
-    context = {'hoy': hoy, 'nosotros': nosotros, 'categorias': categorias, 'subcategorias': subcategorias}
+    context = {'hoy': hoy, 'nosotros': nosotros, 'categorias': categorias, 'subcategorias': subcategorias, 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
 
     return render(request, template_name, context)
 
@@ -154,7 +154,7 @@ def SubSeccionView(request, pk):
     subcategorias = SubCategoria.objects.all().order_by('id')
     seccion = SubCategoria.objects.get(id=pk)
     noticias = Noticias.objects.filter(subcategoria__id=pk).order_by('-id')[:20]
-    context = {'hoy': hoy, 'noticias': noticias, 'categorias': categorias, 'subcategorias': subcategorias, 'seccion': seccion}
+    context = {'hoy': hoy, 'noticias': noticias, 'categorias': categorias, 'subcategorias': subcategorias, 'seccion': seccion, 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
     if request.POST.get('buscar'):
         buscar = (request.POST.get('buscar').upper())
         template_name="generales/search.html"
@@ -196,7 +196,7 @@ def DetalleView(request, slug):
     seccion = Categoria.objects.get(id=cat)
     noticias = Noticias.objects.filter(subcategoria__id=scat).order_by('-id')[:20]
     print(noticias)
-    context = {'hoy': hoy, 'noticias': noticias, 'categorias': categorias, 'subcategorias': subcategorias, 'seccion': seccion, 'detalle':detalle, 'cat': cat}
+    context = {'hoy': hoy, 'noticias': noticias, 'categorias': categorias, 'subcategorias': subcategorias, 'seccion': seccion, 'detalle':detalle, 'cat': cat, 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
 
     if request.POST.get('buscar'):
         buscar = (request.POST.get('buscar').upper())
