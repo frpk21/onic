@@ -60,32 +60,34 @@
                         <ul class="main-nav__navigation-box">
                             <li><a href="{% url 'generales:home' %}">Inicio</a></li>
                             {% for categoria in categorias %}
-                                <li class="dropdown">
-                                    <a href="{% url 'generales:seccion' categoria.id %}">{{categoria.nombre}}</a>
-                                    <ul>
-                                        {% for subcategoria in subcategorias %}
-                                            {% if subcategoria.categoria.id == categoria.id %}
-                                                {% if subcategoria.id == 19 %}
-                                                    <li><a href=" https://smt-onic.com/" target="_blank">{{subcategoria.nombre}}</a></li>
-                                                {% else %}
-                                                    {% if subcategoria.id == 14 %}
-                                                        <li><a href="{% url 'generales:nosotros' %}">{{subcategoria.nombre}}</a></li>
+                                {% if categoria.id != 17 %}
+                                    <li class="dropdown">
+                                        <a href="{% url 'generales:seccion' categoria.id %}">{{categoria.nombre}}</a>
+                                        <ul>
+                                            {% for subcategoria in subcategorias %}
+                                                {% if subcategoria.categoria.id == categoria.id %}
+                                                    {% if subcategoria.id == 19 %}
+                                                        <li><a href=" https://smt-onic.com/" target="_blank">{{subcategoria.nombre}}</a></li>
                                                     {% else %}
-                                                        {% if subcategoria.id == 15 %}
+                                                        {% if subcategoria.id == 14 %}
                                                             <li><a href="{% url 'generales:nosotros' %}">{{subcategoria.nombre}}</a></li>
                                                         {% else %}
-                                                            {% if subcategoria.id == 16 %}
+                                                            {% if subcategoria.id == 15 %}
                                                                 <li><a href="{% url 'generales:nosotros' %}">{{subcategoria.nombre}}</a></li>
                                                             {% else %}
-                                                                <li><a href="{% url 'generales:subseccion' subcategoria.id %}">{{subcategoria.nombre}}</a></li>
+                                                                {% if subcategoria.id == 16 %}
+                                                                    <li><a href="{% url 'generales:nosotros' %}">{{subcategoria.nombre}}</a></li>
+                                                                {% else %}
+                                                                    <li><a href="{% url 'generales:subseccion' subcategoria.id %}">{{subcategoria.nombre}}</a></li>
+                                                                {% endif %}
                                                             {% endif %}
                                                         {% endif %}
                                                     {% endif %}
                                                 {% endif %}
-                                            {% endif %}
-                                        {% endfor %}
-                                    </ul>
-                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </li>
+                                {% endif %}
                             {% endfor %}
                             <li><a href="{% url 'generales:contact' %}">Cont&aacute;ctenos</a></li>
                         </ul>
