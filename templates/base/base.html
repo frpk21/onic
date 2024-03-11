@@ -78,18 +78,29 @@
                                                                 {% if subcategoria.id == 15 %}
                                                                     <li><a href="{% url 'generales:team' %}">{{subcategoria.nombre}}</a></li>
                                                                 {% else %}
-                                                                    {% if subcategoria.id == 20 %}
-                                                                        <li><a href="{% url 'generales:public' %}">{{subcategoria.nombre}}</a></li>
+                                                                    {% if subcategoria.id == 27 %}
+                                                                        <li class="dropdown"><a href="{% url 'generales:subseccion' subcategoria.id %}">{{subcategoria.nombre}}</a>
+                                                                            <ul>
+                                                                                {% for modulo in modulos %}
+                                                                                    <li><a href="{% url 'generales:subseccion' subcategoria.id %}">{{modulo.nombre}}</a></li>
+                                                                                {% endfor %}
+                                                                            </ul>
+                                                                        </li>
                                                                     {% else %}
-                                                                        {% if subcategoria.id == 22 %}
+                                                                        {% if subcategoria.id == 20 %}
                                                                             <li><a href="{% url 'generales:public' %}">{{subcategoria.nombre}}</a></li>
                                                                         {% else %}
-                                                                            {% if subcategoria.id == 23 %}
-                                                                                <li><a href="{% url 'generales:publics' %}">{{subcategoria.nombre}}</a></li>
+                                                                            {% if subcategoria.id == 22 %}
+                                                                                <li><a href="{% url 'generales:public' %}">{{subcategoria.nombre}}</a></li>
                                                                             {% else %}
-                                                                                <li><a href="{% url 'generales:subseccion' subcategoria.id %}">{{subcategoria.nombre}}</a></li>
+                                                                                {% if subcategoria.id == 23 %}
+                                                                                    <li><a href="{% url 'generales:public' %}">{{subcategoria.nombre}}</a></li>
+                                                                                {% else %}
+                                                                                    <li><a href="{% url 'generales:subseccion' subcategoria.id %}">{{subcategoria.nombre}}</a></li>
+                                                                                {% endif %}
                                                                             {% endif %}
                                                                         {% endif %}
+                                                                    {% endif %}
                                                                 {% endif %}
                                                             {% endif %}
                                                         {% endif %}
