@@ -99,7 +99,7 @@
                                                                                     {% if subcategoria.id == 25 %}
                                                                                         <li><a href="{% url 'generales:public' 25 %}">{{subcategoria.nombre}}</a></li>
                                                                                     {% else %}
-                                                                                        {% if subcategoria.id > 40 AND subcategoria.id < 50 %}
+                                                                                        {% if subcategoria.id > 40 | subcategoria.id < 50 %}
                                                                                             <li><a href="{% url 'generales:modulos' subcategoria.id %}">{{subcategoria.nombre}}</a></li>
                                                                                         {% else %}
                                                                                             <li><a href="{% url 'generales:subseccion' subcategoria.id %}">{{subcategoria.nombre}}</a></li>
