@@ -23,7 +23,8 @@
                         {{ forloop.counter }}
                     </div>
                     {% if forloop.counter == 1 %}
-                        <li data-filter=".filter-item" class="active"><span>{{item.nombre}}</span></li>
+                        <li data-filter=".filter-item" class="active"><span>Todo</span></li>
+                        <li data-filter=".{{item.subcategoria.id}}"><span>{{item.nombre}}</span></li>
                     {% else %}
                         <li data-filter=".{{item.subcategoria.id}}"><span>{{item.nombre}}</span></li>
                     {% endif %}
