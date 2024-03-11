@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from generales.models import Noticias, Suscribir, VideoSMT, Contacto, Nosotros, Categoria, SubCategoria
+from generales.models import Noticias, Suscribir, VideoSMT, Contacto, Nosotros, Categoria, SubCategoria, Equipo
 
 from django.contrib.admin.widgets import AutocompleteSelect
 
@@ -73,6 +73,15 @@ class NosotrosAdmin(admin.ModelAdmin):
 
     class Meta:
         model = Nosotros
+
+    def save_model(self, request, obj, form, change):
+        super().save_model(request, obj, form, change)
+
+class EquipoAdmin(admin.ModelAdmin):
+    list_display = ('nombre', 'cargo', 'fb', 'tw', 'ln', 'imagen')
+
+    class Meta:
+        model = Equipo
 
     def save_model(self, request, obj, form, change):
         super().save_model(request, obj, form, change)

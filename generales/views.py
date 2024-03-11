@@ -6,7 +6,7 @@ from django.views import generic
 
 from django.contrib.auth.mixins import PermissionRequiredMixin
 
-from generales.models import Noticias, Comentario, Contacto, VideoSMT, Nosotros, Categoria, SubCategoria
+from generales.models import Noticias, Comentario, Contacto, VideoSMT, Nosotros, Categoria, SubCategoria, Equipo
 
 from datetime import date
 
@@ -144,6 +144,16 @@ def NosotrosView(request):
     subcategorias = SubCategoria.objects.all().order_by('id')
     nosotros = Nosotros.objects.all().last()
     context = {'hoy': hoy, 'nosotros': nosotros, 'categorias': categorias, 'subcategorias': subcategorias, 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
+
+    return render(request, template_name, context)
+
+def EquipoView(request):
+    template_name = 'generales/equipo.html'
+    hoy = date.today()
+    categorias = Categoria.objects.all().order_by('id')
+    subcategorias = SubCategoria.objects.all().order_by('id')
+    equipo = Equipo.objects.all().order_by('nombre')
+    context = {'hoy': hoy, 'equipo': equipo, 'categorias': categorias, 'subcategorias': subcategorias, 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
 
     return render(request, template_name, context)
 

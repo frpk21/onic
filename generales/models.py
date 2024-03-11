@@ -78,6 +78,22 @@ class Nosotros(ClaseModelo):
     class Meta:
         verbose_name_plural = "Nosotros"
 
+class Equipo(ClaseModelo):
+    nombre = models.CharField(max_length=150, help_text='Nombre colaborador')
+    cargo = models.CharField(max_length=70, help_text='Cargo')
+    fb = models.CharField('FaceBook', max_length=300, blank=True, null=False, default='')
+    tw = models.CharField('Twitter', max_length=300, blank=True, null=False, default='')
+    ln = models.CharField('Linkedin', max_length=300, blank=True, null=False, default='')
+    imagen = models.FileField("Imagen 320 x 320px", upload_to="equipo/", blank=True, null=False)
+
+    def __str__(self):
+        return '{}'.format(self.nombre)
+
+    def save(self):
+        super(Equipo, self).save()
+
+    class Meta:
+        verbose_name_plural = "Equipo"
 
 class VideoSMT(ClaseModelo):
     titulo = models.CharField(blank=False, null=False, max_length=200)
