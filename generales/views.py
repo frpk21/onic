@@ -164,8 +164,21 @@ def PublicacionesView(request, pk):
     subcategoria = SubCategoria.objects.get(id=pk)
     subcategorias = SubCategoria.objects.all().order_by('id')
     publicaciones = Noticias.objects.filter(subcategoria__id=pk)
-    c_p = Categoria.objects.get(id=14)
+    c_p = Categoria.objects.get(id=14)  # 14 = Publicaciones
     context = {'hoy': hoy, 'subcategorias': subcategorias, 'cat_p': c_p, 'nosotros': Nosotros.objects.all().last(), 'publicaciones': publicaciones, 'categorias': categorias, 'subcategoria': subcategoria, 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
+
+    return render(request, template_name, context)
+
+def ModulosView(request, pk):
+    template_name = 'generales/modulos.html'
+    hoy = date.today()
+    categorias = Categoria.objects.all().order_by('id')
+    subcategorias = SubCategoria.objects.all().order_by('id')
+    modulo = SubCategoria.objects.get(id=pk)
+    modulos2 = SubCategoria.objects.get(categoria__id=20)   # 20=modulos
+    noticias = Noticias.objects.filter(subcategoria__id=pk).last()
+    c_p = Categoria.objects.get(id=20)  # 20 = modulos
+    context = {'hoy': hoy, 'modulos2': modulos2, 'subcategorias': subcategorias, 'cat_p': c_p, 'nosotros': Nosotros.objects.all().last(), 'noticias': noticias, 'categorias': categorias, 'modulo': modulo, 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
 
     return render(request, template_name, context)
 

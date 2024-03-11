@@ -1,0 +1,103 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+{% block contenido %}
+
+<section class="page-header" style="background-image: url({{modulo.imagen.url}});">
+    <div class="container">
+        <h2>{{modulo.nombre}}</h2>
+    </div>
+</section>
+
+<section class="event-one event-one__event-page-2">
+    <div class="container">
+        <div class="row">
+            {% if noticias|length > 0 %}
+                {% for noticias in noticias %}
+                    <div class="col-lg-12">
+                        <div class="event-one__single">
+                            <div class="event-one__image">
+                                <div class="event-one__date">
+                                    <span>{{noticias.fecha}}</span>
+                                </div>
+                                <div class="event-one__image-box">
+                                    <div class="event-one__image-inner">
+                                        <img src="{{noticias.imagen.url}}" height="80px;" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="event-one__content">
+                                <h3><a href="">{{noticias.slug}}</a></h3>
+                                <p>{{noticias.subtitulo}}</p>
+                            </div>
+                            <div class="event-one__btn-block">
+                                <a href="{% url 'generales:detalle' noticias.slug %}" class="thm-btn event-one__btn">Leer M&aacute;s</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="event-details">
+    <div class="container">
+        {% if noticias|length > 0 %}
+        <div class="event-details__top">
+            <p>{{noticias.fecha}}</p>
+            <h3>{{noticias.titulo}}</h3>
+        </div>
+        <div class="row high-gutter">
+            <div class="col-lg-8">
+                <div class="event-details__main">
+                    <div class="event-details__image">
+                        <img src="{{noticias.imagen.url}}" alt="">
+                    </div>
+                    <div class="event-details__content">
+                        <p>{{detalle.subtitulo}}</p>
+                        <br>
+                        <p>{{detalle.descripcion|safe}}</p>
+                        <p>{{detalle.html|safe}}</p>
+                        {% if detalle.pdf %}
+                            <h4 style="color:rgb(206, 5, 162);">ARCHIVO ORIGINAL</h4>
+                            <div class="divider divider-default"></div>
+                            <embed height="700px" width="100%"  name="plugin" src="{{detalle.pdf.url}}"  type="application/pdf">
+                            <p>&nbsp;</p>
+                        {% endif %}
+                        <p class="blog-details__tags">
+                            <span>Fuente: </span>{{detalle.fuente}}</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="event-details__booking">
+                    <ul class="event-details__booking-info list-unstyled">
+                        {% for item in modulos2 %}
+                            <li>
+                                <span> {{forloop.counter}}</span>
+                                <a href="{% url 'generales:modulos' item.subcategoria.id %}" class="thm-btn event-details__book-btn">{{item.nombre}}</a>
+                            </li>
+                       {% endfor %}
+                    </ul>
+                    <a href="#" class="thm-btn event-details__book-btn">Book Ticket</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock contenido %}

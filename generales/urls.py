@@ -16,6 +16,7 @@ urlpatterns = [
     path('nosotros', views.NosotrosView, name="nosotros"),
     path('team', views.EquipoView, name="team"),
     path('post/<int:pk>', views.PublicacionesView, name="public"),
+    path('modulos/<int:pk>', views.ModulosView, name="modulos"),
     path('update/', views.ajax_update, name='upd'),
 
 ]
