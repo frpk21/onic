@@ -151,7 +151,7 @@ def EquipoView(request):
     template_name = 'generales/equipo.html'
     hoy = date.today()
     categorias = Categoria.objects.all().order_by('id')
-    subcategorias = SubCategoria.objects.filter(categoria__id=14)
+    subcategorias = SubCategoria.objects.all().order_by('id')
     equipo = Equipo.objects.all().order_by('nombre')
     context = {'hoy': hoy, 'nosotros': Nosotros.objects.all().last(), 'equipo': equipo, 'categorias': categorias, 'subcategorias': subcategorias, 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
 
@@ -162,9 +162,10 @@ def PublicacionesView(request, pk):
     hoy = date.today()
     categorias = Categoria.objects.all().order_by('id')
     subcategoria = SubCategoria.objects.get(id=pk)
+    subcategorias = SubCategoria.objects.all().order_by('id')
     publicaciones = Noticias.objects.filter(subcategoria__id=pk)
     c_p = Categoria.objects.get(id=14)
-    context = {'hoy': hoy, 'cat_p': c_p, 'nosotros': Nosotros.objects.all().last(), 'publicaciones': publicaciones, 'categorias': categorias, 'subcategoria': subcategoria, 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
+    context = {'hoy': hoy, 'subcategorias': subcategorias, 'cat_p': c_p, 'nosotros': Nosotros.objects.all().last(), 'publicaciones': publicaciones, 'categorias': categorias, 'subcategoria': subcategoria, 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
 
     return render(request, template_name, context)
 
