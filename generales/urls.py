@@ -15,7 +15,7 @@ urlpatterns = [
     path('contacto', views.ContactView.as_view(), name="contact"),
     path('nosotros', views.NosotrosView, name="nosotros"),
     path('team', views.EquipoView, name="team"),
-    path('post', views.PublicacionesView, name="public"),
+    path('post/<int:pk>', views.PublicacionesView, name="public"),
     path('update/', views.ajax_update, name='upd'),
 
 ]

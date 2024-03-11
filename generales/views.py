@@ -157,12 +157,12 @@ def EquipoView(request):
 
     return render(request, template_name, context)
 
-def PublicacionesView(request):
+def PublicacionesView(request, pk):
     template_name = 'generales/public.html'
     hoy = date.today()
     categorias = Categoria.objects.all().order_by('id')
     subcategorias = SubCategoria.objects.filter(categoria__id=14)
-    publicaciones = Noticias.objects.filter(subcategoria__categoria__id=14)
+    publicaciones = Noticias.objects.filter(subcategoria__id=pk)
     c_p = Categoria.objects.get(id=14)
     context = {'hoy': hoy, 'cat_p': c_p, 'nosotros': Nosotros.objects.all().last(), 'publicaciones': publicaciones, 'categorias': categorias, 'subcategorias': subcategorias, 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
 
