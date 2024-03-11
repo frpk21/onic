@@ -73,7 +73,7 @@
                         <h3 class="sidebar__title">Otros temas</h3>
                         <div class="sidebar__tags">
                             {% for item in categorias %}
-                                <a href="{% url 'generales:subseccion' item.id %}">{{item.nombre}}</a>
+                                <a href="{% url 'generales:seccion' item.id %}">{{item.nombre}}</a>
                             {% endfor %}
                         </div>
                     </div>
