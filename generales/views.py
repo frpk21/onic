@@ -162,7 +162,7 @@ def PublicacionesView(request):
     hoy = date.today()
     categorias = Categoria.objects.all().order_by('id')
     subcategorias = SubCategoria.objects.all().order_by('id')
-    publicaciones = Noticias.objects.filter(subcategoria__categoria__id=14).last()
+    publicaciones = Noticias.objects.filter(subcategoria__categoria__id=14)
     c_p = Categoria.objects.get(id=14)
     context = {'hoy': hoy, 'cat_p': c_p, 'nosotros': Nosotros.objects.all().last(), 'publicaciones': publicaciones, 'categorias': categorias, 'subcategorias': subcategorias, 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
 
