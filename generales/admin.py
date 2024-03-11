@@ -104,4 +104,5 @@ admin.site.register(Noticias, NoticiasAdmin)
 admin.site.register(VideoSMT, VideoSMTAdmin)
 admin.site.register(Nosotros, NosotrosAdmin)
 admin.site.register(Contacto, ContactoAdmin)
+admin.site.register(Equipo, EquipoAdmin)
 
