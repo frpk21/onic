@@ -14,23 +14,9 @@
     <div class="container">
         <div class="collection-grid__top">
             <div class="block-title-two text-center">
-                <p>{{subcategorias.nombre}}</p>
+                <p>{{subcategoria.nombre}}</p>
                 <h3>Explore <br> nuestro contenido</h3>
             </div>
-            <!--
-            <ul class="collection-filter post-filter list-unstyled">
-                {% for item in subcategorias %}
-                    <div style="display: none">
-                        {{ forloop.counter }}
-                    </div>
-                    {% if forloop.counter == 1 %}
-                        <li data-filter=".filter-item" class="active"><span>Todo</span></li>
-                        <li data-filter=".{{item.subcategoria.id}}"><span>{{item.nombre}}</span></li>
-                    {% else %}
-                        <li data-filter=".{{item.subcategoria.id}}"><span>{{item.nombre}}</span></li>
-                    {% endif %}
-                {% endfor %}
-            </ul>-->
         </div>
         <div class="row high-gutter filter-layout">
             {% for item in publicaciones %}
