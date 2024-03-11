@@ -14,7 +14,11 @@
     <div class="container">
         <div class="collection-grid__top">
             <div class="block-title-two text-center">
-                <p>{{cat_p.nombre}}</p>
+                {% if subcategoria.id == 25 %}
+                    <p>MAPAS</p>
+                {% else %}
+                    <p>{{cat_p.nombre}}</p>
+                {% endif %}
                 <h3>{{subcategoria.nombre}}</h3>
             </div>
         </div>
