@@ -44,8 +44,8 @@
                         <ul class="event-details__booking-info list-unstyled">
                             {% for item in modulos2 %}
                                 <li>
-                                    <span> {{forloop.counter}}</span>
-                                    <a href="{% url 'generales:modulos' item.id %}">{{item.nombre}}</a>
+                                    <span style="color: rgb(110, 108, 108);"> {{forloop.counter}}</span>
+                                    <a href="{% url 'generales:modulos' item.id %}" style="color: rgb(213, 213, 213);">{{item.nombre}}</a>
                                 </li>
                             {% endfor %}
                         </ul>
