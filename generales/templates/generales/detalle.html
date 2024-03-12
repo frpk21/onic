@@ -50,7 +50,7 @@
                     </div>
                     {% if noticias|length > 0 %}
                         <div class="sidebar__single">
-                            <h3 class="sidebar__title">&Uacute;ltimas noticias</h3>
+                            <h3 class="sidebar__title">M&aacute;s publicaciones</h3>
                             <div class="sidebar__post">
                                 {% for item in noticias %}
                                     <div class="sidebar__post-single">
@@ -60,7 +60,7 @@
                                         <div class="sidebar__post-content">
                                             <a class="sidebar__post-date" href="#">
                                                 <i class="far fa-calendar-alt"></i>
-                                                {{item.fecha}}
+                                                {{item.modificado}}
                                             </a>
                                             <h3><a href="{% url 'generales:detalle' item.slug %}">{{item.titulo}}</a></h3>
                                         </div>
