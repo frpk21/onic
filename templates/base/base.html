@@ -78,7 +78,7 @@
                                                                 {% if subcategoria.id == 15 %}
                                                                     <li><a href="{% url 'generales:team' %}">{{subcategoria.nombre}}</a></li>
                                                                 {% else %}
-                                                                    {% if subcategoria.categoria.id == 20 %}
+                                                                    {% if categoria.id == 20 %}
                                                                         <li class="dropdown"><a href="{% url 'generales:subseccion' subcategoria.id %}">{{subcategoria.nombre}}kkkkkk</a>
                                                                             <ul>
                                                                                 {% for modulo in modulos %}
