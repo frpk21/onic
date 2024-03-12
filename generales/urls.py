@@ -10,6 +10,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     url(r'^$', views.HomeView, name='home'),
     path('noticias/seccion/<int:pk>', views.SeccionView, name="seccion"),
+    path('noticias/multimedia', views.MultimediaView, name="multimedia"),
     path('noticias/subseccion/<int:pk>', views.SubSeccionView, name="subseccion"),
     path('noticia/detalle/<slug>', views.DetalleView, name="detalle"),
     path('contacto', views.ContactView.as_view(), name="contact"),

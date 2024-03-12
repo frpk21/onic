@@ -182,6 +182,18 @@ def ModulosView(request, pk):
 
     return render(request, template_name, context)
 
+def MultimediaView(request):
+    template_name = 'generales/multimedia.html'
+    hoy = date.today()
+    categorias = Categoria.objects.all().order_by('id')
+    subcategoria = SubCategoria.objects.get(id=16)
+    subcategorias = SubCategoria.objects.all().order_by('id')
+    multimedia = Noticias.objects.filter(subcategoria__id=16)
+    c_p = Categoria.objects.get(id=14)  # 14 = Publicaciones
+    context = {'hoy': hoy, 'subcategorias': subcategorias, 'cat_p': c_p, 'nosotros': Nosotros.objects.all().last(), 'multimedia': multimedia, 'categorias': categorias, 'subcategoria': subcategoria, 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
+
+    return render(request, template_name, context)
+
 def SubSeccionView(request, pk):
     template_name = 'generales/seccion.html'
     hoy = date.today()

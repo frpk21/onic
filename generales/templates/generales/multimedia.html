@@ -1,0 +1,48 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+{% block contenido %}
+
+<section class="page-header" style="background-image: url({{seccion.imagen.url}});">
+    <div class="container">
+        <h2>{{seccion.nombre}}</h2>
+    </div>
+</section>
+
+<section class="collection-two collection-two__collection-full-page">
+    <div class="container-fluid">
+        <div class="block-title-two text-center">
+            <p>Galer&iacute;a</p>
+            <h3>Explore <br> Nuestro Contenido</h3>
+        </div><!-- /.block-title-two -->
+        <div class="collection-two__carousel shadowed__carousel thm__owl-carousel owl-carousel owl-theme" data-options='{
+    "loop": true, "margin": 0, "autoplay": true, "autoplayTimeout": 5000, "autoplayHoverPause": true, "items": 5, "smartSpeed": 700, "dots": false, "nav": true, "responsive": {
+        "1920": { "items": 5},
+        "1440": { "items": 4},
+        "1199": { "items": 4},
+        "991": { "items": 3},
+        "767": { "items": 2},
+        "575": { "items": 2},
+        "480": { "items": 2},
+        "0": { "items": 1}
+    }
+}'>
+        {% for item in multimedia %}
+            <div class="item">
+                <div class="collection-two__single">
+                    <div class="collection-two__image">
+                        <img src="{{item.imagen.url}}" alt="">
+                    </div>
+                    <div class="collection-two__content">
+                        <h3><a href="#">{{item.titulo}}</a></h3>
+                        <p>{{item.fuente}}</p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+</section>
+
+{% endblock contenido %}
