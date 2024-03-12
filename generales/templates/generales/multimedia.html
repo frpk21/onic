@@ -4,9 +4,9 @@
 
 {% block contenido %}
 
-<section class="page-header" style="background-image: url({{seccion.imagen.url}});">
+<section class="page-header" style="background-image: url({{subcategoria.imagen.url}});">
     <div class="container">
-        <h2>{{seccion.nombre}}</h2>
+        <h2>{{subcategoria.nombre}}</h2>
     </div>
 </section>
 
@@ -35,7 +35,7 @@
                         <img src="{{item.imagen.url}}" alt="">
                     </div>
                     <div class="collection-two__content">
-                        <h3><a href="#">{{item.titulo}}</a></h3>
+                        <h3><a href="{% url 'generales:detalle' item.slug %}">{{item.titulo}}</a></h3>
                         <p>{{item.fuente}}</p>
                     </div>
                 </div>
