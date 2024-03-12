@@ -45,7 +45,7 @@
                             {% for item in modulos2 %}
                                 <li>
                                     <span> {{forloop.counter}}</span>
-                                    <a href="">{{item.nombre}}</a>
+                                    <a href="{% url 'generales:modulos' item.id %}">{{item.nombre}}</a>
                                 </li>
                             {% endfor %}
                         </ul>
