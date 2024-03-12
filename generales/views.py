@@ -197,7 +197,7 @@ def MultimediaView(request):
 
     return render(request, template_name, context)
 
-def MultimediaView2(request, pk):
+def Multimedia2View(request, pk):
     template_name = 'generales/multimedia2.html'
     hoy = date.today()
     categorias = Categoria.objects.all().order_by('id')
