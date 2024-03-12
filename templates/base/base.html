@@ -69,7 +69,7 @@
                                                 <ul>
                                                     {% for subcategoria in subcategorias %}
                                                         {% if subcategoria.categoria.id == 16 %}
-                                                            <li><a href="{% url 'generales:multimedia-s' subcategoria.id %}">{{modulo.nombre}}</a></li>
+                                                            <li><a href="{% url 'generales:multimedia-s' subcategoria.id %}">{{subcategoria.nombre}}</a></li>
                                                         {% endif %}
                                                     {% endfor %}
                                                 </ul>
