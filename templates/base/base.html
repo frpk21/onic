@@ -99,10 +99,42 @@
                                                                                     {% if subcategoria.id == 25 %}
                                                                                         <li><a href="{% url 'generales:public' 25 %}">{{subcategoria.nombre}}</a></li>
                                                                                     {% else %}
-                                                                                        {% if subcategoria.id > 40 and subcategoria.id < 50 %}
+                                                                                        {% if subcategoria.id == 41 %}
                                                                                             <li><a href="{% url 'generales:modulos' subcategoria.id %}">{{subcategoria.nombre}}</a></li>
                                                                                         {% else %}
-                                                                                            <li><a href="{% url 'generales:subseccion' subcategoria.id %}">{{subcategoria.nombre}}</a></li>
+                                                                                            {% if subcategoria.id == 42 %}
+                                                                                                <li><a href="{% url 'generales:modulos' subcategoria.id %}">{{subcategoria.nombre}}</a></li>
+                                                                                            {% else %}
+                                                                                                {% if subcategoria.id == 43 %}
+                                                                                                    <li><a href="{% url 'generales:modulos' subcategoria.id %}">{{subcategoria.nombre}}</a></li>
+                                                                                                {% else %}
+                                                                                                    {% if subcategoria.id == 44 %}
+                                                                                                        <li><a href="{% url 'generales:modulos' subcategoria.id %}">{{subcategoria.nombre}}</a></li>
+                                                                                                    {% else %}
+                                                                                                        {% if subcategoria.id == 45 %}
+                                                                                                            <li><a href="{% url 'generales:modulos' subcategoria.id %}">{{subcategoria.nombre}}</a></li>
+                                                                                                        {% else %}
+                                                                                                            {% if subcategoria.id == 46 %}
+                                                                                                                <li><a href="{% url 'generales:modulos' subcategoria.id %}">{{subcategoria.nombre}}</a></li>
+                                                                                                            {% else %}
+                                                                                                                {% if subcategoria.id == 47 %}
+                                                                                                                    <li><a href="{% url 'generales:modulos' subcategoria.id %}">{{subcategoria.nombre}}</a></li>
+                                                                                                                {% else %}
+                                                                                                                    {% if subcategoria.id == 48 %}
+                                                                                                                        <li><a href="{% url 'generales:modulos' subcategoria.id %}">{{subcategoria.nombre}}</a></li>
+                                                                                                                    {% else %}
+                                                                                                                        {% if subcategoria.id == 49 %}
+                                                                                                                            <li><a href="{% url 'generales:modulos' subcategoria.id %}">{{subcategoria.nombre}}</a></li>
+                                                                                                                        {% else %}
+                                                                                                                            <li><a href="{% url 'generales:subseccion' subcategoria.id %}">{{subcategoria.nombre}}</a></li>
+                                                                                                                        {% endif %}
+                                                                                                                    {% endif %}
+                                                                                                                {% endif %}
+                                                                                                            {% endif %}
+                                                                                                        {% endif %}
+                                                                                                    {% endif %}
+                                                                                                {% endif %}
+                                                                                            {% endif %}
                                                                                         {% endif %}
                                                                                     {% endif %}
                                                                                 {% endif %}
