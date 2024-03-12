@@ -186,7 +186,7 @@ def MultimediaView(request):
     template_name = 'generales/multimedia.html'
     hoy = date.today()
     categorias = Categoria.objects.all().order_by('id')
-    subcategoria = SubCategoria.objects.get(id=16)
+    subcategoria = SubCategoria.objects.get(categoria__id=16)
     subcategorias = SubCategoria.objects.all().order_by('id')
     multimedia = Noticias.objects.filter(subcategoria__categoria__id=16)
     catastro = multimedia.filter(subcategoria__id=33)
