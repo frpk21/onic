@@ -6,13 +6,12 @@
 
 <section class="page-header" style="background-image: url({{modulo.imagen.url}});">
     <div class="container">
-        <h2>{{modulo.nombre}} MOD ***</h2>
+        <h2>{{modulo.nombre}}</h2>
     </div>
 </section>
 
 <section class="event-details">
     <div class="container">
-        {% if noticias|length > 0 %}
             <div class="event-details__top">
                 <p>{{noticias.fecha}}</p>
                 <h3>{{noticias.titulo}}</h3>
@@ -24,18 +23,18 @@
                             <img src="{{noticias.imagen.url}}" alt="">
                         </div>
                         <div class="event-details__content">
-                            <p>{{detalle.subtitulo}}</p>
+                            <p>{{noticias.subtitulo}}</p>
                             <br>
-                            <p>{{detalle.descripcion|safe}}</p>
-                            <p>{{detalle.html|safe}}</p>
-                            {% if detalle.pdf %}
+                            <p>{{noticias.descripcion|safe}}</p>
+                            <p>{{noticias.html|safe}}</p>
+                            {% if noticias.pdf %}
                                 <h4 style="color:rgb(206, 5, 162);">ARCHIVO ORIGINAL</h4>
                                 <div class="divider divider-default"></div>
-                                <embed height="700px" width="100%"  name="plugin" src="{{detalle.pdf.url}}"  type="application/pdf">
+                                <embed height="700px" width="100%"  name="plugin" src="{{noticias.pdf.url}}"  type="application/pdf">
                                 <p>&nbsp;</p>
                             {% endif %}
                             <p class="blog-details__tags">
-                                <span>Fuente: </span>{{detalle.fuente}}</a>
+                                <span>Fuente: </span>{{noticias.fuente}}</a>
                             </p>
                         </div>
                     </div>
@@ -48,13 +47,12 @@
                                     <span> {{forloop.counter}}</span>
                                     <a href="{% url 'generales:modulos' item.subcategoria.id %}" class="thm-btn event-details__book-btn">{{item.nombre}}</a>
                                 </li>
-                        {% endfor %}
+                            {% endfor %}
                         </ul>
                         <a href="#" class="thm-btn event-details__book-btn">Book Ticket</a>
                     </div>
                 </div>
             </div>
-        {% endif %}
     </div>
 </section>
 
