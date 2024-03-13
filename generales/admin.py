@@ -14,7 +14,7 @@ class NoticiasAdmin(admin.ModelAdmin):
     exclude = ('slug','autor', 'modificado', 'vistas',)
     ordering = ('orden', 'titulo', '-modificado',)
     search_fields = ('titulo','subtitulo')
-    list_filter = ('modificado', 'orden')
+    list_filter = ('subcategoria.categoria','subcategoria', 'modificado', 'orden')
 
     class Meta:
         model = Noticias
