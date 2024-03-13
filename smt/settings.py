@@ -25,8 +25,6 @@ SECRET_KEY = 'django-insecure-xn65i4o2w*7pm+qpi9!q6p0$d8u(2!023+4&@7^d&dv(trbjza
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -146,6 +144,7 @@ STATIC_URL = '/static/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
+ALLOWED_HOSTS = ['*']
 
 # cuando el usuario se logee, el programa lo manda al home:
 LOGIN_REDIRECT_URL = '/'
