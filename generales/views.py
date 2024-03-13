@@ -249,8 +249,8 @@ def DetalleView(request, slug):
     template_name = 'generales/detalle.html'
     hoy = date.today()
     detalle = Noticias.objects.filter(slug=slug).last()
-    cat = detalle["subcategoria.categoria.id"]
-    scat = detalle["subcategoria.id"]
+    cat = detalle.subcategoria.categoria.id
+    scat = detalle.subcategoria.id
     categorias = Categoria.objects.all().order_by('id')
     subcategorias = SubCategoria.objects.all().order_by('id')
     seccion = Categoria.objects.get(id=cat)
