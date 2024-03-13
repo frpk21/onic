@@ -13,7 +13,10 @@ import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'media'),)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -35,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
     'generales',
     'ckeditor',
 ]
@@ -46,16 +50,6 @@ CKEDITOR_CONFIGS = {
     }
 }
 
-TEMPLATE_CONTEXT_PROCESSORS = (
-    'django.contrib.auth.context_processors.auth',
-    'django.core.context_processors.debug',
-    'django.core.context_processors.i18n',
-    'django.core.context_processors.media',
-    'django.core.context_processors.request',
-    'django.core.context_processors.static',
-    'django.core.context_processors.tz',
-    'django.contrib.messages.context_processors.messages',
-)
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -144,8 +138,6 @@ USE_L10N = True
 
 USE_TZ = False
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.2/howto/static-files/
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
@@ -162,9 +154,9 @@ LOGIN_REDIRECT_URL = '/'
 # cuando el usuario salga (logout), el programa lo manda al login.html
 LOGOUT_REDIRECT_URL = '/login/'
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
 ALLOWED_HOSTS = ['*']
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 try:
     exec(open(os.path.join(BASE_DIR, 'smt', 'settings_local.py')).read())
