@@ -249,15 +249,11 @@ def DetalleView(request, slug):
     template_name = 'generales/detalle.html'
     hoy = date.today()
     detalle = Noticias.objects.filter(slug=slug).last()
-    cat, scat = 0, 0
-    for i, item in enumerate(detalle):
-        cat = item.subcategoria.categoria.id
-        scat = item.subcategoria.id
     categorias = Categoria.objects.all().order_by('id')
     subcategorias = SubCategoria.objects.all().order_by('id')
-    seccion = Categoria.objects.get(id=cat)
-    noticias = Noticias.objects.filter(subcategoria__id=scat).exclude(slug=slug).order_by('-id')[:10]
-    context = {'hoy': hoy, 'noticias': noticias, 'categorias': categorias, 'subcategorias': subcategorias, 'seccion': seccion, 'detalle':detalle, 'cat': cat, 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
+    seccion = Categoria.objects.get(id=detalle.subcategoria.id)
+    noticias = Noticias.objects.filter(subcategoria__id=detalle.subcategoria.id).exclude(slug=slug).order_by('-id')[:10]
+    context = {'hoy': hoy, 'noticias': noticias, 'categorias': categorias, 'subcategorias': subcategorias, 'seccion': seccion, 'detalle':detalle, 'cat': detalle.subcategoria.categoria.id, 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
 
     if request.POST.get('buscar'):
         buscar = (request.POST.get('buscar').upper())
