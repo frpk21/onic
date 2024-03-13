@@ -9,7 +9,7 @@ import random
 
 class NoticiasAdmin(admin.ModelAdmin):
 
-    list_display = ('subcategoria', 'titulo', 'subtitulo', 'orden', 'imagen', 'modificado','activo', )
+    list_display = ('titulo', 'subtitulo', 'orden', 'imagen', 'modificado', 'subcategoria', 'activo', )
     fields = ['subcategoria', 'titulo', 'subtitulo', ('orden', 'imagen'), 'descripcion', 'archivo_audio', 'fuente', 'html', 'pdf', 'activo']
     exclude = ('slug','autor', 'modificado', 'vistas',)
     ordering = ('orden', 'titulo', '-modificado',)
