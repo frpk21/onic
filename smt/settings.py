@@ -164,6 +164,7 @@ LOGOUT_REDIRECT_URL = '/login/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+ALLOWED_HOSTS = ['*']
 
 # archivo que contiene la seguridad de acceso a la base de datos
 
