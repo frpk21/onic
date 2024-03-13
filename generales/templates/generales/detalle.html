@@ -27,7 +27,7 @@
                     <p>{{detalle.descripcion|safe}}</p>
                     <p>{{detalle.html|safe}}</p>
                     {% if detalle.pdf %}
-                        <h5 style="color:rgb(206, 5, 162);">ARCHIVO ORIGINAL</h5>
+                        <h5 style="color:rgb(206, 5, 162);">ARCHIVO ORIGINAL: {{detalle.pdf.url}}</h5>
                         <embed height="700px" width="100%"  name="plugin" src="{{detalle.pdf.url}}"  type="application/pdf">
                         <p>&nbsp;</p>
                     {% endif %}
