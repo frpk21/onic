@@ -166,8 +166,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 ALLOWED_HOSTS = ['*']
 
-# archivo que contiene la seguridad de acceso a la base de datos
-
 try:
     exec(open(os.path.join(BASE_DIR, 'smt', 'settings_local.py')).read())
 except IOError:
