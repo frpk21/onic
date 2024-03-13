@@ -248,7 +248,7 @@ def SubSeccionView(request, pk):
 def DetalleView(request, slug):
     template_name = 'generales/detalle.html'
     hoy = date.today()
-    detalle = Noticias.objects.filter(slug=slug)
+    detalle = Noticias.objects.filter(slug=slug).last()
     cat, scat = 0, 0
     for i, item in enumerate(detalle):
         cat = item.subcategoria.categoria.id
