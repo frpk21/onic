@@ -15,7 +15,6 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8">
-                {% for detalle in detalle %}
                 <div class="blog-details__main">
                     <div class="blog-details__image">
                         <img src="{{detalle.imagen.url}}" class="img-fluid" alt="">
@@ -35,7 +34,6 @@
                         <span>Fuente: </span>{{detalle.fuente}}</a>
                     </p>
                 </div>
-                {% endfor %}
             </div>
             <div class="col-lg-4">
                 <div class="sidebar">
