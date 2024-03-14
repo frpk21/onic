@@ -86,6 +86,7 @@ class Equipo(ClaseModelo):
     tw = models.CharField('Twitter', max_length=300, blank=True, null=False, default='')
     ln = models.CharField('Linkedin', max_length=300, blank=True, null=False, default='')
     imagen = models.FileField("Imagen 320 x 320px", upload_to="equipo/", blank=True, null=False)
+    orden = models.CharField(max_length=4, help_text='Orden')
 
     def __str__(self):
         return '{}'.format(self.nombre)
