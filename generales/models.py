@@ -81,6 +81,7 @@ class Nosotros(ClaseModelo):
 class Equipo(ClaseModelo):
     nombre = models.CharField(max_length=150, help_text='Nombre colaborador')
     cargo = models.CharField(max_length=70, help_text='Cargo')
+    perfil = RichTextField('Perfil', max_length=2000, blank=True, null=False, default='')
     fb = models.CharField('FaceBook', max_length=300, blank=True, null=False, default='')
     tw = models.CharField('Twitter', max_length=300, blank=True, null=False, default='')
     ln = models.CharField('Linkedin', max_length=300, blank=True, null=False, default='')

@@ -78,7 +78,7 @@ class NosotrosAdmin(admin.ModelAdmin):
         super().save_model(request, obj, form, change)
 
 class EquipoAdmin(admin.ModelAdmin):
-    list_display = ('nombre', 'cargo', 'fb', 'tw', 'ln', 'imagen')
+    list_display = ('nombre', 'perfil', 'cargo', 'fb', 'tw', 'ln', 'imagen')
 
     class Meta:
         model = Equipo
