@@ -64,7 +64,7 @@
                             {% for categoria in categorias %}
                                 {% if categoria.id != 20 %}
                                     {% if categoria.id == 17 %}
-                                        <li><a href="">{{categoria.nombre}}</a></li>
+                                        <li><a href="#">{{categoria.nombre}}</a></li>
                                     {% else %}
                                         {% if categoria.id == 16 %}
                                             <li class="dropdown"><a href="{% url 'generales:multimedia' %}">{{categoria.nombre}}</a>
