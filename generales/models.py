@@ -137,7 +137,7 @@ class Noticias(ClaseModelo):
     subtitulo = models.CharField(help_text='Sub título de la noticia', blank=False, null=False, max_length=500)
     descripcion = RichTextField(max_length=15000, blank=True, null=True)
     archivo_audio = models.FileField("Archivo Audio", upload_to="audio/", blank=True, null=True, default='')
-    CHOICES = ((0,'Carrusel'),(1,'Noticia 1'),(2,'Novedades 2'),(3,'Boletines 3'),(4,'Mediateca 4'))
+    CHOICES = ((0,'Carrusel'),(1,'Noticia 1'),(2,'Novedades 2'),(3,'Boletines 3'),(4,'Mediateca 4'), (5,'General'))
     orden = models.IntegerField(choices=CHOICES, default=0, blank=False, null=False)
     imagen = models.FileField("Imagen Destacado", upload_to="imagenes/", blank=False, null=False)
     autor = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True,default='')
