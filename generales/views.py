@@ -107,7 +107,7 @@ def SeccionView(request, pk):
     subcategorias = SubCategoria.objects.all().order_by('id')
     seccion = Categoria.objects.get(id=pk)
     sub = SubCategoria.objects.filter(categoria__id=pk)
-    noticias = Noticias.objects.filter(subcategoria__categoria__id=pk).order_by('-id', 'subcategoria__id','orden')[:20]
+    noticias = Noticias.objects.filter(subcategoria__categoria__id=pk).order_by('-id')[:20]
     context = {'hoy': hoy, 'noticias': noticias, 'categorias': categorias, 'subcategorias': subcategorias, 'seccion': seccion, 'sub': sub, 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
 
     if request.POST.get('buscar'):
