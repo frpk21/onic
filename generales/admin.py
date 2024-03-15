@@ -51,11 +51,7 @@ class SubCategoriaAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         super().save_model(request, obj, form, change)
     
-    def has_add_permission(self, request):
-        return False
-    
-    def has_delete_permission(self, request, obj=None):
-       return False
+
 
 
 class VideoSMTAdmin(admin.ModelAdmin):
