@@ -7,4 +7,3 @@ geojson==3.1.0
 geopandas==0.10.2
 greenlet==0.4.15
 gsconfig-py3==1.0.8
-h5py==2.10.0
