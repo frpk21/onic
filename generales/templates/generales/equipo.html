@@ -16,6 +16,25 @@
             <p>Nuestro Equipo</p>
             <h3>Miembros Expertos</h3>
         </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="team-one__single">
+                    <div class="team-one__image">
+                        <img src="{{concejero.imagen.url}}" alt="">
+                        <div class="team-one__social">
+                            <a href="{{concejero.fb}}" class="fab fa-facebook-f" target="_blank"></a>
+                            <a href="{{concejero.tw}}"><img src="/static/base/assets/images/twitter-x-white.png" height="14px;"/></a>
+                            <a href="{{concejero.ln}}" class="fab fa-linkedin-in" target="_blank"></a>
+                        </div>
+                    </div>
+                    <div class="team-one__content">
+                        <h3>{{concejero.nombre}}</h3>
+                        <p>{{concejero.cargo}}</p>
+                    </div>
+                    <p>{{concejero.perfil|safe}}</p>
+                </div>
+            </div>
+        </div>
         <div class="row">
             {% for item in equipo %}
                 <div class="col-lg-4">
