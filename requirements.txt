@@ -5,12 +5,6 @@ geopandas==0.10.2
 pyproj==3.2.1
 geojson==3.1.0
 geopandas==0.10.2
-google-api-core==2.11.0
-google-api-python-client==2.86.0
-google-auth==2.17.3
-google-auth-httplib2==0.1.0
-google-auth-oauthlib==1.0.0
-googleapis-common-protos==1.59.0
 greenlet==0.4.15
 gsconfig-py3==1.0.8
 h5py==2.10.0
