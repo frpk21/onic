@@ -706,7 +706,6 @@ class ajax_updateCapas(generic.View):
         catalogo=[]
         for i, item in enumerate(layers_catalogue):
             catalogo.append(item)
-            print("Capa # ", i, item)
         
         # Get map
         if geom_type == 'Point':
@@ -743,7 +742,7 @@ class Visor(LoginRequiredMixin, generic.TemplateView):
         layers_catalogue = wfs.contents
         catalogo=[]
         for i, item in enumerate(layers_catalogue):
-            catalogo.append(item) #[8:]
+            catalogo.append(item.replace('geonode:', '')) #[8:]
         context = super().get_context_data(**kwargs)
         context = {'mapa': m, 'l': len(layers_catalogue)}
         
