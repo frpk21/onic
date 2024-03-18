@@ -728,14 +728,13 @@ class ajax_updateCapas(generic.View):
         )
     
 class Visor(LoginRequiredMixin, generic.TemplateView):
-    template_name='generales/home.html'
+    template_name='generales/visor.html'
     login_url='generales:login'
 
     def get(self, request, *args, **kwargs):
         lat = 4.668730
         lon = -72.100403
         logo_path = "static/base/image/favicon.png"
-        #logo = os.path.join(settings.BASE_DIR, logo_path)
         m = folium.Map(location=[lat, lon], zoom_start=5, attributionControl = False)     
         m = m._repr_html_()
         wfs_url = 'https://smt-test.onic.org.co/geoserver/wfs?'
@@ -746,7 +745,6 @@ class Visor(LoginRequiredMixin, generic.TemplateView):
             catalogo.append(item) #[8:]
         context = super().get_context_data(**kwargs)
         context = {'catalogo': catalogo, 'mapa': m, 'l': len(layers_catalogue)}
-        #print("xxxxxxxxxxxxxxxxxxxxxxxxxxx ", type(layers_catalogue), layers_catalogue, catalogo)
         
         return self.render_to_response( 
             self.get_context_data(

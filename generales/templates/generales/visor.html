@@ -1,0 +1,39 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+{% block contenido %}
+
+<section class="history-one">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2">
+              <select class="form-control" name='catalogo1' id='id-catalogo1' style="color: red;" onchange="val_capa()">
+                {% for opc in ctx.catalogo %}
+                  <option value={{forloop.counter0}}>{{opc}}</option>
+                {% endfor %}
+              </select>
+            </div>
+          <div class="col-md-8 ml-auto mr-auto">
+            <div id="id_mapa" style="border: solid; border-radius: 5px; border-color: rgb(131, 130, 130);">
+              {{mapa | safe}}
+            </div>
+          </div>
+    </div>
+</section>
+
+<script type="text/javascript">
+
+    function val_capa() {
+      var select = document.getElementById('id-catalogo1');
+      var selectedOption = select.options[select.selectedIndex];
+      var capa = selectedOption.value;
+      var datos = {'capa': capa, 'nombre': selectedOption.text};
+      $.get( "{% url 'generales:update_capas' %}", datos, function( data ) {
+        $('#id_mapa').html(data.content.mapa);
+      })
+    }
+  
+  </script>
+  
+{% endblock contenido %}
