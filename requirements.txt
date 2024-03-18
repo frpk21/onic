@@ -7,3 +7,17 @@ geojson==3.1.0
 geopandas==0.10.2
 greenlet==0.4.15
 gsconfig-py3==1.0.8
+psycopg2-binary==2.9.7
+gunicorn==19.9.0
+uwsgi==2.0.18
+Django==3.2.19
+django-choices==1.7.2
+django-ckeditor==5.9.0
+django-colorfield==0.8.0
+django-filter==2.3.0
+django-import-export==2.5.0
+django-js-asset==1.2.2
+django-multiselectfield==0.1.12
+django-recaptcha==3.0.0
+django-storages==1.11.1
+django-tempus-dominus==5.1.2.13
