@@ -749,7 +749,7 @@ class Visor(LoginRequiredMixin, generic.TemplateView):
         
         return self.render_to_response( 
             self.get_context_data(
-                ctx=context,
+                context=context,
                 mapa=m
             )
         )
