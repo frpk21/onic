@@ -22,7 +22,7 @@ import folium
 from folium.features import CustomIcon
 from folium.plugins import Search,  MarkerCluster, FastMarkerCluster
 from folium import plugins
-from geoserver.catalog import Catalog
+#from geoserver.catalog import Catalog
 from django.views import generic
 from owslib.wms import WebMapService
 from owslib.wfs import WebFeatureService
