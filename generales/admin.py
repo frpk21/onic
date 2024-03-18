@@ -44,6 +44,7 @@ class CategoriaAdmin(admin.ModelAdmin):
 class SubCategoriaAdmin(admin.ModelAdmin):
     list_display = ('id', 'categoria', 'nombre', 'imagen',)
     ordering = ('id', )
+    list_filter = ('categoria',)
 
     class Meta:
         model = SubCategoria
