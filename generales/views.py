@@ -405,7 +405,6 @@ class ContactView(generic.CreateView):
             )
         )
 
-
 def create_wfs(url):
     """
     Function that connect to GeoServer and return a WFS/OWS service
@@ -732,6 +731,8 @@ class Visor(LoginRequiredMixin, generic.TemplateView):
     login_url='generales:login'
 
     def get(self, request, *args, **kwargs):
+        categorias = Categoria.objects.all().order_by('id')
+        subcategorias = SubCategoria.objects.all().order_by('id')
         lat = 4.668730
         lon = -72.100403
         logo_path = "static/base/image/favicon.png"
@@ -744,7 +745,7 @@ class Visor(LoginRequiredMixin, generic.TemplateView):
         for i, item in enumerate(layers_catalogue):
             catalogo.append(item) #[8:]
         context = super().get_context_data(**kwargs)
-        context = {'catalogo': catalogo, 'mapa': m, 'l': len(layers_catalogue)}
+        context = {'catalogo': catalogo, 'mapa': m, 'l': len(layers_catalogue), 'categorias': categorias, 'subcategorias': subcategorias, 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
         
         return self.render_to_response( 
             self.get_context_data(

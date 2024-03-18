@@ -4,6 +4,14 @@
 
 {% block contenido %}
 
+<div class="modal" id="wait_modal">
+	<div class="modal-dialog" >
+		<div class="modal-content" style="width: 100%;  margin-top:25px;background: #cac7c7; background-image:url(/static/base/cristalinas/img/basic/fondo-header.png);">
+			<h3 class="text-center" style="color: yellow;">Cargando..</h3>
+		</div>
+	</div>
+</div>
+
 <section class="history-one">
     <div class="container">
         <div class="row">
@@ -14,7 +22,7 @@
                 {% endfor %}
               </select>
             </div>
-          <div class="col-md-8 ml-auto mr-auto">
+          <div class="col-md-10 ml-auto mr-auto">
             <div id="id_mapa" style="border: solid; border-radius: 5px; border-color: rgb(131, 130, 130);">
               {{mapa | safe}}
             </div>
@@ -25,13 +33,15 @@
 <script type="text/javascript">
 
     function val_capa() {
-      var select = document.getElementById('id-catalogo1');
-      var selectedOption = select.options[select.selectedIndex];
-      var capa = selectedOption.value;
-      var datos = {'capa': capa, 'nombre': selectedOption.text};
-      $.get( "{% url 'generales:update_capas' %}", datos, function( data ) {
-        $('#id_mapa').html(data.content.mapa);
-      })
+        $('#wait_modal').modal("show");
+        var select = document.getElementById('id-catalogo1');
+        var selectedOption = select.options[select.selectedIndex];
+        var capa = selectedOption.value;
+        var datos = {'capa': capa, 'nombre': selectedOption.text};
+        $.get( "{% url 'generales:update_capas' %}", datos, function( data ) {
+            $('#id_mapa').html(data.content.mapa);
+            $('#wait_modal').modal("hide");
+        })
     }
   
 </script>
