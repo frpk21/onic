@@ -9,6 +9,10 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     url(r'^$', views.HomeView, name='home'),
+    path('login/', auth_views.LoginView.as_view(template_name='generales/login.html'), name='login'),
+    path('logout/', auth_views.LogoutView.as_view(template_name='generales/login.html'), name='logout'),
+    path('loginunlock/', auth_views.LoginView.as_view(template_name='generales/lock.html'), name='loginunlock'),
+    path('sin_privilegios/', views.HomeSinPrivilegios.as_view(), name='sin_privilegios'),
     path('noticias/seccion/<int:pk>', views.SeccionView, name="seccion"),
     path('multimedia', views.MultimediaView, name="multimedia"),
     path('multimedia2/<int:pk>', views.Multimedia2View, name="multimedia-s"),
