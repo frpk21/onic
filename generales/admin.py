@@ -9,12 +9,12 @@ import random
 
 class NoticiasAdmin(admin.ModelAdmin):
 
-    list_display = ('titulo', 'subtitulo', 'orden', 'imagen', 'modificado', 'subcategoria', 'activo', )
-    fields = ['subcategoria', 'titulo', 'subtitulo', ('orden', 'imagen'), 'descripcion', 'archivo_audio', 'fuente', 'html', 'pdf', 'activo']
+    list_display = ('titulo', 'subtitulo', 'fecha', 'orden', 'imagen', 'modificado', 'subcategoria', 'activo', )
+    fields = ['subcategoria', 'titulo', 'subtitulo', 'fecha', ('orden', 'imagen'), 'descripcion', 'archivo_audio', 'fuente', 'html', 'pdf', 'activo']
     exclude = ('slug','autor', 'modificado', 'vistas',)
-    ordering = ('orden', 'titulo', '-modificado',)
-    search_fields = ('titulo','subtitulo')
-    list_filter = ('subcategoria__categoria','subcategoria', 'modificado', 'orden')
+    ordering = ('orden', 'titulo', 'fecha',)
+    search_fields = ('titulo','subtitulo','fecha', )
+    list_filter = ('subcategoria__categoria','subcategoria', 'modificado', 'orden', 'fecha',)
 
     class Meta:
         model = Noticias

@@ -133,6 +133,7 @@ class Contacto(ClaseModelo):
 
 class Noticias(ClaseModelo):
     subcategoria=models.ForeignKey(SubCategoria, on_delete=models.CASCADE, default=0, null=False, blank=False)
+    fecha = models.DateField('Fecha de publicación', blank=True, null=True, default=datetime.now)
     titulo = models.CharField(help_text='Título de la noticia', blank=False, null=False, max_length=200)
     subtitulo = models.CharField(help_text='Sub título de la noticia', blank=False, null=False, max_length=500)
     descripcion = RichTextField(max_length=15000, blank=True, null=True)
