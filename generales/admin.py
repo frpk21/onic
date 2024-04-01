@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from generales.models import Noticias, Suscribir, VideoSMT, Contacto, Nosotros, Categoria, SubCategoria, Equipo
+from generales.models import Noticias, Suscribir, VideoSMT, Contacto, Nosotros, Categoria, SubCategoria, Equipo, Imagenes, Videos, Podcast
 
 from django.contrib.admin.widgets import AutocompleteSelect
 
@@ -99,6 +99,39 @@ class ContactoAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         super().save_model(request, obj, form, change)
 
+class ImagenesAdmin(admin.ModelAdmin):
+    list_display = ('titulo', 'fecha', 'imagen',)
+    ordering = ('titulo', )
+    list_filter = ('titulo',)
+
+    class Meta:
+        model = Imagenes
+
+    def save_model(self, request, obj, form, change):
+        super().save_model(request, obj, form, change)
+
+class VideosAdmin(admin.ModelAdmin):
+    list_display = ('titulo', 'fecha', 'html',)
+    ordering = ('titulo', )
+    list_filter = ('titulo',)
+
+    class Meta:
+        model = Videos
+
+    def save_model(self, request, obj, form, change):
+        super().save_model(request, obj, form, change)
+
+class PodcastAdmin(admin.ModelAdmin):
+    list_display = ('titulo', 'fecha', 'archivo_audio',)
+    ordering = ('titulo', )
+    list_filter = ('titulo',)
+
+    class Meta:
+        model = Podcast
+
+    def save_model(self, request, obj, form, change):
+        super().save_model(request, obj, form, change)
+
 admin.site.register(Categoria, CategoriaAdmin)
 admin.site.register(SubCategoria, SubCategoriaAdmin)
 admin.site.register(Noticias, NoticiasAdmin)
@@ -106,4 +139,6 @@ admin.site.register(VideoSMT, VideoSMTAdmin)
 admin.site.register(Nosotros, NosotrosAdmin)
 admin.site.register(Contacto, ContactoAdmin)
 admin.site.register(Equipo, EquipoAdmin)
-
+admin.site.register(Imagenes, ImagenesAdmin)
+admin.site.register(Videos, VideosAdmin)
+admin.site.register(Podcast, PodcastAdmin)
