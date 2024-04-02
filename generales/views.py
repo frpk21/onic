@@ -34,7 +34,6 @@ import requests
 from pyproj import CRS
 import geojson
 import asyncio
-from flask import Flask, render_template_string
 from django.template.loader import render_to_string
 
 
