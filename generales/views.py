@@ -574,7 +574,6 @@ def get_polygon_map(gjson, name_layer, catalogo):
         zoom_start=6,
         titles='cartodbpositron', attributionControl = False,
         prefer_canvas=True)
-    
     names = list(gjson['features'][0]['properties'].keys())    
     popup = folium.GeoJsonPopup(
         fields=names,
@@ -590,7 +589,6 @@ def get_polygon_map(gjson, name_layer, catalogo):
     ).add_to(mymap)
     layers = catalogo
     idx_layer = layers.index(name_layer)
-
     if idx_layer == 0:
         search_field = names[2]  
     elif idx_layer == 1:
@@ -627,14 +625,11 @@ class ajax_updateCapas(generic.View):
         geom_type = gjson_data['features'][0]['geometry']['type']
 
         #capas
-        wfs_url = 'https://smt-test.onic.org.co/geoserver/wfs?'
         wfs = create_wfs(wfs_url)
         layers_catalogue = wfs.contents
         catalogo=[]
         for i, item in enumerate(layers_catalogue):
             catalogo.append(item)
-        
-        # Get map
         loop = asyncio.new_event_loop()
         asyncio.set_event_loop(loop)
         if geom_type == 'Point':
