@@ -33,6 +33,9 @@ import geopandas as gpd
 import requests
 from pyproj import CRS
 import geojson
+import asyncio
+from flask import Flask, render_template_string
+from django.template.loader import render_to_string
 
 
 def HomeView(request):
@@ -506,99 +509,45 @@ def get_gdf(layer):
     gdf.crs = CRS.from_epsg(4686)
     return gdf
 
-def get_point_map(gjson, gdf, name_layer, catalogo):
-    """
-    Function that returns a layer point map instance
-    
-    Args:
-        gdf: GeoDataFrame of point data layer -> DataFrame
-        name_layer: A layer name -> str
-    
-    Return:
-        A layer point map -> FoliumMap
-    """
-
+async def get_point_map(gjson, gdf, name_layer, catalogo):
     # Create a map instance
     mymap = folium.Map(
         location=[4.668730, -72.100403],
-        zoom_start=6,
-        tiles='cartodbpositron', attributionControl = False)
-
-    fields = list(gjson['features'][0]['properties'].keys()) 
-
+        zoom_start=12,
+        tiles='cartodbpositron',
+        #attributionControl = False,
+        prefer_canvas=True)
+    fields = list(gjson['features'][0]['properties'].keys())
     names = ""
     vakues_list = []
     for field in fields:
         names += '<b>' + field + '</b>' + ':{}<br>'
         innerlist = gdf[field].values.tolist()
         vakues_list.append(innerlist)
-    
-    #print(fields_list[5])
-    
-    # Get x and y coordinates for each point
     lat = gdf["geometry"].apply(lambda geom: geom.x)
     lon = gdf["geometry"].apply(lambda geom: geom.y)
-    
-    # Create a list of coordinate pairs
-    #locations = list(zip(gdf["y"], gdf["x"]))
-
     marker_cluster = MarkerCluster(
         name=name_layer,
         overlay=True,
         control=False,
         icon_create_function=None
     )
-    
     for k in range(len(lon)):
         values = [item[k] for item in vakues_list]
         location = lon[k], lat[k]
         marker = folium.Marker(location=location)
-        popup = names.format(*values) 
-        #popup = '<b>lon</b>:{}<br><b>lon</b>:{}'.format(location[1], location[0])
+        popup = names.format(*values)
         folium.Popup(popup).add_to(marker)
         marker_cluster.add_child(marker)
-    
     marker_cluster.add_to(mymap)
-        
-    #print(type(gjson))
-    #popup = folium.GeoJsonPopup(
-    #    fields=names,
-    ##    #aliases=["Nombre", "Departamento"],
-    #    localize=True,
-    #    labels=True,
-    ##    style="""
-    ##        background-color: #F0EFEF;
-    ##    """
-    #)
-
-    #tooltip = folium.GeoJsonTooltip(
-    #    fields=names[:-1],
-    #    #aliases=["Nombre", "Departamento"],
-    #    localize=True,
-    #    #sticky=False,
-    #    #labels=False,
-    #    #style="""
-    #    #    background-color: #F0EFEF;
-    #    #    border: 1px solid black;
-    #    #    border-radius: 3px;
-    #    #    box-shadow: 1px;
-    #    #""",
-    #    max_width=600,
-    #)
-    
     mapdata = folium.GeoJson(
         gjson,
         name = name_layer,
-        #tooltip=tooltip,
-        #popup=popup,
-        #highlight_function=lambda x: {"fillOpacity": 0.8},
         zoom_on_click=True,
         show=False
     ).add_to(mymap)
-    
     layers = catalogo
     idx_layer = layers.index(name_layer)
-
     if idx_layer == 0:
         search_field = fields[2]  
     elif idx_layer == 1:
@@ -609,36 +558,23 @@ def get_point_map(gjson, gdf, name_layer, catalogo):
         search_field = fields[7]    
     else: 
         search_field = fields[0]
-
     controlsearch = Search(
         layer=mapdata,
         geom_type='Point',
         placeholder='Buscador capa ' + name_layer,
         cllapsed=False,
         search_label=search_field,    
-    ).add_to(mymap)
-            
+    ).add_to(mymap)  
     folium.LayerControl().add_to(mymap)
+
     return mymap
 
 def get_polygon_map(gjson, name_layer, catalogo):
-    """
-    Function that returns a layer polygon map instance
-    
-    Args:
-        gdf: GeoJSON of polygon data layer -> geojson
-        name_layer: A layer name -> str
-    
-    Return:
-        A layer polygon map -> FoliumMap
-    """
-    
-    # Create a map instance
-
     mymap = folium.Map(
         location=[4.668730, -72.100403],
         zoom_start=6,
-        titles='cartodbpositron', attributionControl = False)
+        titles='cartodbpositron', attributionControl = False,
+        prefer_canvas=True)
     
     names = list(gjson['features'][0]['properties'].keys())    
     popup = folium.GeoJsonPopup(
@@ -646,19 +582,13 @@ def get_polygon_map(gjson, name_layer, catalogo):
         localize=True,
         labels=True,
     )
-
     mapdata = folium.GeoJson(
         gjson,
         name = name_layer,
-        #tooltip=tooltip,
         popup=popup,
         highlight_function=lambda x: {"fillOpacity": 0.8},
         zoom_on_click=True,
-        #popup_keep_highlighted=True
     ).add_to(mymap)
-    #fg.add_child(mapdata)    
-    #mymap.add_child(fg)
-
     layers = catalogo
     idx_layer = layers.index(name_layer)
 
@@ -672,7 +602,6 @@ def get_polygon_map(gjson, name_layer, catalogo):
         search_field = names[7]    
     else: 
         search_field = names[0]
-
     controlsearch = Search(
         layer=mapdata,
         geom_type='Polygon',
@@ -680,7 +609,6 @@ def get_polygon_map(gjson, name_layer, catalogo):
         cllapsed=False,
         search_label=search_field,    
     ).add_to(mymap)
-
     folium.LayerControl().add_to(mymap)
 
     return mymap
@@ -696,9 +624,9 @@ class ajax_updateCapas(generic.View):
         wfs_url = 'https://smt-test.onic.org.co/geoserver/wfs?'
 
         # Get data and geometry type layer
-        gjson_data, geom_type = get_data(wfs_url, layer_name)
+        gjson_data = get_data(wfs_url, layer_name)
+        geom_type = gjson_data['features'][0]['geometry']['type']
 
-        
         #capas
         wfs_url = 'https://smt-test.onic.org.co/geoserver/wfs?'
         wfs = create_wfs(wfs_url)
@@ -708,12 +636,14 @@ class ajax_updateCapas(generic.View):
             catalogo.append(item)
         
         # Get map
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
         if geom_type == 'Point':
             gdf = gpd.GeoDataFrame.from_features(gjson_data)
             gdf.crs = CRS.from_epsg(4686)
-            my_map = get_point_map(gjson_data, gdf, layer_name, catalogo)
+            my_map = loop.run_until_complete(get_point_map(gjson_data, gdf, layer_name, catalogo))
         else:
-            my_map = get_polygon_map(gjson_data, layer_name, catalogo)
+            my_map = loop.run_until_complete(get_polygon_map(gjson_data, layer_name, catalogo))
 
         map = my_map._repr_html_()
 
