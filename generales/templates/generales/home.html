@@ -251,9 +251,9 @@
                         </div>
                         <div class="blog-one__content">
                             <ul class="blog-one__meta list-unstyled">
-                                <li><a href="#">Por {{item.autor}}</a></li>
+                                <li><a href="{% url 'generales:detalle' item.slug %}">Por {{item.autor}}</a></li>
                             </ul>
-                            <h3><a href="news-details.html">{{item.titulo}}</a></h3>
+                            <h3><a href="{% url 'generales:detalle' item.slug %}">{{item.titulo}}</a></h3>
                             <p>{{item.subtitulo}}</p>
                             <a href="{% url 'generales:detalle' item.slug %}" class="blog-one__link">Ver M&aacute;s</a>
                         </div>
