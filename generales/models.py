@@ -29,7 +29,7 @@ class Categoria_multimedia(ClaseModelo):
         super(Categoria_multimedia, self).save()
 
     class Meta:
-        verbose_name_plural = "Categoría Multimedia"
+        verbose_name_plural = "Categorías Multimedia"
 
 class Categoria(ClaseModelo):
     nombre = models.CharField(max_length=100, help_text='Categoría', unique=True)
@@ -193,7 +193,7 @@ class Imagenes(ClaseModelo):
         return '{}'.format(self.titulo)
 
     class Meta:
-        verbose_name_plural = "Imagenes"
+        verbose_name_plural = "Imagenes Multimedia"
 
 class Videos(ClaseModelo):
     categoria_multimedia=models.ForeignKey(Categoria_multimedia, on_delete=models.CASCADE, default=0, null=False, blank=False)
@@ -206,7 +206,7 @@ class Videos(ClaseModelo):
         return '{}'.format(self.titulo)
 
     class Meta:
-        verbose_name_plural = "Videos"
+        verbose_name_plural = "Videos Multimedia"
 
 class Podcast(ClaseModelo):
     categoria_multimedia=models.ForeignKey(Categoria_multimedia, on_delete=models.CASCADE, default=0, null=False, blank=False)
@@ -219,4 +219,4 @@ class Podcast(ClaseModelo):
         return '{}'.format(self.titulo)
 
     class Meta:
-        verbose_name_plural = "Podcast"
+        verbose_name_plural = "Podcast Multimedia"
