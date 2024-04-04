@@ -20,7 +20,6 @@ class ClaseModelo(models.Model):
 
 class Categoria_multimedia(ClaseModelo):
     nombre = models.CharField(max_length=100, help_text='Categoría multimedia', unique=True)
-    imagen = models.FileField("Imagen categoria multimedia", upload_to="imagenes/categorias",default="")
 
     def __str__(self):
         return '{}'.format(self.nombre)
