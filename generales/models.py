@@ -18,6 +18,19 @@ class ClaseModelo(models.Model):
     class Meta:
         abstract=True
 
+class Categoria_multimedia(ClaseModelo):
+    nombre = models.CharField(max_length=100, help_text='Categoría multimedia', unique=True)
+    imagen = models.FileField("Imagen categoria multimedia", upload_to="imagenes/categorias",default="")
+
+    def __str__(self):
+        return '{}'.format(self.nombre)
+
+    def save(self):
+        super(Categoria_multimedia, self).save()
+
+    class Meta:
+        verbose_name_plural = "Categoría Multimedia"
+
 class Categoria(ClaseModelo):
     nombre = models.CharField(max_length=100, help_text='Categoría', unique=True)
     imagen = models.FileField("Imagen categoria", upload_to="imagenes/categorias",default="")
@@ -170,6 +183,7 @@ class Comentario(ClaseModelo):
         verbose_name_plural = "Comentarios"
 
 class Imagenes(ClaseModelo):
+    categoria_multimedia=models.ForeignKey(Categoria_multimedia, on_delete=models.CASCADE, default=0, null=False, blank=False)
     fecha = models.DateField('Fecha de publicación', blank=True, null=True, default=datetime.now)
     titulo = models.CharField(help_text='Título de la noticia', blank=False, null=False, max_length=200)
     descripcion = RichTextField(max_length=15000, blank=True, null=True)
@@ -182,6 +196,7 @@ class Imagenes(ClaseModelo):
         verbose_name_plural = "Imagenes"
 
 class Videos(ClaseModelo):
+    categoria_multimedia=models.ForeignKey(Categoria_multimedia, on_delete=models.CASCADE, default=0, null=False, blank=False)
     fecha = models.DateField('Fecha de publicación', blank=True, null=True, default=datetime.now)
     titulo = models.CharField(help_text='Título de la noticia', blank=False, null=False, max_length=200)
     descripcion = RichTextField(max_length=15000, blank=True, null=True)
@@ -194,6 +209,7 @@ class Videos(ClaseModelo):
         verbose_name_plural = "Videos"
 
 class Podcast(ClaseModelo):
+    categoria_multimedia=models.ForeignKey(Categoria_multimedia, on_delete=models.CASCADE, default=0, null=False, blank=False)
     fecha = models.DateField('Fecha de publicación', blank=True, null=True, default=datetime.now)
     titulo = models.CharField(help_text='Título de la noticia', blank=False, null=False, max_length=200)
     descripcion = RichTextField(max_length=15000, blank=True, null=True)

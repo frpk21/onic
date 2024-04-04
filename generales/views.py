@@ -473,17 +473,6 @@ def get_data(wfs, layer):
     return json_, geom
 
 def get_gdf(layer):
-    """
-    Function that returns a GeoDataFrame of data layer
-    
-    Args:
-        wfs: A WFS/OWS service -> owslib.feature.wfs110.WebFeatureService_1_1_0 object
-        layer: A layer name -> str
-    
-    Return:
-        A GeoDataFrame of data layer -> DataFrame
-    """
-
     # Define parameters
     service = 'WFS'
     version = '2.0.0'

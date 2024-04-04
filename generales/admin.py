@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from generales.models import Noticias, Suscribir, VideoSMT, Contacto, Nosotros, Categoria, SubCategoria, Equipo, Imagenes, Videos, Podcast
+from generales.models import Noticias, Suscribir, VideoSMT, Contacto, Nosotros, Categoria, SubCategoria, Equipo, Imagenes, Videos, Podcast, Categoria_multimedia
 
 from django.contrib.admin.widgets import AutocompleteSelect
 
@@ -142,3 +142,4 @@ admin.site.register(Equipo, EquipoAdmin)
 admin.site.register(Imagenes, ImagenesAdmin)
 admin.site.register(Videos, VideosAdmin)
 admin.site.register(Podcast, PodcastAdmin)
+admin.site.register(Categoria_multimedia)
