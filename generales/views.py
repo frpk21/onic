@@ -6,7 +6,7 @@ from django.views import generic
 
 from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 
-from generales.models import Noticias, Comentario, Contacto, VideoSMT, Nosotros, Categoria, SubCategoria, Equipo
+from generales.models import Noticias, Comentario, Contacto, VideoSMT, Nosotros, Categoria, SubCategoria, Equipo, Podcast
 
 from datetime import date
 
@@ -223,8 +223,9 @@ def Multimedia2View(request, pk):
     subcategoria = SubCategoria.objects.get(id=pk)
     subcategorias = SubCategoria.objects.all().order_by('id')
     multimedia = Noticias.objects.filter(subcategoria__id=pk)
+    podcast = Podcast.objects.all()[:10]
     c_p = Categoria.objects.get(id=16)  # 16 = Multimedia
-    context = {'hoy': hoy, 'subcategorias': subcategorias, 'cat_p': c_p, 'nosotros': Nosotros.objects.all().last(), 'multimedia': multimedia, 'categorias': categorias, 'subcategoria': subcategoria, 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
+    context = {'podcast': podcast, 'hoy': hoy, 'subcategorias': subcategorias, 'cat_p': c_p, 'nosotros': Nosotros.objects.all().last(), 'multimedia': multimedia, 'categorias': categorias, 'subcategoria': subcategoria, 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
 
     return render(request, template_name, context)
 
