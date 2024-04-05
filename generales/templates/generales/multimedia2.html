@@ -1,8 +1,6 @@
 {% extends 'base/base.html' %}
 
 {% load static %}
-
-{% block contenido %}
 <script type="text/javascript" src="/static/base/audio/js/jquery-3.1.0.min.js"></script>
 <script type="text/javascript" src="/static/base/audio/js/jquery-ui-1.10.3.custom.min.js"></script><!-- jquery ui sortable/draggable -->
 <script type="text/javascript" src="/static/base/audio/js/jquery.ui.touch-punch.min.js"></script><!-- mobile drag/sort -->
@@ -15,6 +13,8 @@
 <script type="text/javascript" src="/static/base/audio/js/jquery.html5audio.func.js"></script>
 <script type="text/javascript" src="/static/base/audio/js/jquery.html5audio.settings_circle.js"></script>
 <section class="page-header" style="background-image: url({{subcategoria.imagen.url}});">
+{% block contenido %}
+
     <div class="container">
         <h2>Multimedia</h2>
     </div>
