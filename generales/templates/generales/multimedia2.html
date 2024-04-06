@@ -56,7 +56,7 @@
             {% endfor %}
             <div class="col-lg-4 col-md-6 filter-item masonary-item poster">
                 {% for item in podcast %}
-                    {{item.titulo}}-<span id="id_audio">{{item.archivo_audio.url}}</span>
+                    {{item.titulo}}-<div id="id_audio">{{item.archivo_audio.url}}</div>
                 {% endfor %}
             </div>
         </div>
@@ -65,12 +65,19 @@
 
 <script>
     var audio = $("#id_audio").val();
+    const audio = new Audio()
+audio.controls = true
+audio.src = audio
+    
     const wavesurfer = WaveSurfer.create({
     container: '#waveform',
     waveColor: '#4F4A85',
     progressColor: '#383351',
     url: audio,
     })
+    wavesurfer.on('click', () => {
+  wavesurfer.play()
+})
 </script>
 
 {% endblock contenido %}
