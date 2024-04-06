@@ -64,7 +64,7 @@
 </section>
 
 <script>
-    var audio = $("#id_audio1").val();
+    var audio_file = $("#id_audio1").val();
     const audio = new Audio()
     audio.controls = true
     audio.src = audio
@@ -73,7 +73,7 @@
         container: document.body,
         waveColor: 'rgb(200, 0, 200)',
         progressColor: 'rgb(100, 0, 100)',
-        media: audio, // <- this is the important part
+        media: audio_file, // <- this is the important part
     })
    
     wavesurfer.on('click', () => {
