@@ -122,7 +122,7 @@ class VideosAdmin(admin.ModelAdmin):
         super().save_model(request, obj, form, change)
 
 class PodcastAdmin(admin.ModelAdmin):
-    list_display = ('titulo', 'fecha', 'archivo_audio',)
+    list_display = ('titulo', 'fecha', 'archivo_audio','imagen')
     ordering = ('titulo', )
     list_filter = ('titulo',)
 

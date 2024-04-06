@@ -209,10 +209,11 @@ class Videos(ClaseModelo):
 
 class Podcast(ClaseModelo):
     categoria_multimedia=models.ForeignKey(Categoria_multimedia, on_delete=models.CASCADE, default=0, null=False, blank=False)
+    imagen = models.FileField("Imagen Destacado", upload_to="imagenes/", blank=False, null=False)
     fecha = models.DateField('Fecha de publicación', blank=True, null=True, default=datetime.now)
     titulo = models.CharField(help_text='Título de la noticia', blank=False, null=False, max_length=200)
     descripcion = RichTextField(max_length=15000, blank=True, null=True)
-    archivo_audio = models.FileField("Archivo Audio", upload_to="audio/", blank=True, null=True, default='')
+    archivo_audio = models.FileField("Archivo Audio", upload_to="audio/podcast/", blank=True, null=True, default='')
     
     def __str__(self):
         return '{}'.format(self.titulo)
