@@ -1,71 +1,12 @@
-<link rel="stylesheet" type="text/css" href="css/jquery.jscrollpane.css" media="all" /><!-- scroll in playlist -->
-        <link rel="stylesheet" type="text/css" href="css/html5audio_default.css" />
-		<link rel="stylesheet" type="text/css" href="css/html5audio_circle.css" />
-<script type="text/javascript" src="/static/base/audio/js/jquery-3.1.0.min.js"></script>
-<script type="text/javascript" src="/static/base/audio/js/jquery-ui-1.10.3.custom.min.js"></script><!-- jquery ui sortable/draggable -->
-<script type="text/javascript" src="/static/base/audio/js/jquery.ui.touch-punch.min.js"></script><!-- mobile drag/sort -->
-<script type="text/javascript" src="/static/base/audio/js/jquery.easing.1.3.js"></script><!-- easing for slideshow -->
-<script type="text/javascript" src="/static/base/audio/js/jquery.mousewheel.min.js"></script><!-- scroll in playlist -->
-<script type="text/javascript" src="/static/base/audio/js/jquery.jscrollpane.min.js"></script><!-- scroll in playlist -->
-<script type="text/javascript" src="/static/base/audio/js/id3-minimized.js"></script><!-- id3 tags -->
-<script type="text/javascript" src="/static/base/audio/js/jquery.touchSwipe.min.js"></script><!-- swipe for slideshow -->
-<script type="text/javascript" src="/static/base/audio/js/jquery.html5audio.min.js"></script>
-<script type="text/javascript" src="/static/base/audio/js/jquery.html5audio.func.js"></script>
-<script type="text/javascript" src="/static/base/audio/js/jquery.html5audio.settings_circle.js"></script>
+
 <link rel="stylesheet" type="text/css" href="/static/base/audio/css/hap-fontawesome.css"/>
-		<link rel="stylesheet" type="text/css" href="/static/base/audio/css/jquery.mCustomScrollbar.css" media="all" /><!-- playlist scroll -->
-		<link rel="stylesheet" type="text/css" href="/static/base/audio/css/modern9.css" />
+<link rel="stylesheet" type="text/css" href="/static/base/audio/css/jquery.mCustomScrollbar.css" media="all" /><!-- playlist scroll -->
+<link rel="stylesheet" type="text/css" href="/static/base/audio/css/modern9.css" />
+
+<script src="/static/base/audio/js/jquery-3.2.1.min.js"></script>
+<script src="/static/base/audio/js/new.js"></script>			
         
-        <script src="/static/base/audio/js/jquery-3.2.1.min.js"></script>
-        <script src="/static/base/audio/js/new.js"></script>			
-        <script>
 
-            var hap_player;  
-            jQuery(document).ready(function($){
-                
-                var settings = {
-                    instanceName:"modern9",
-                    sourcePath:"",
-                    activePlaylist:"#playlist-audio2",
-                    activeItem:0,
-                    volume:0.5,
-                    autoPlay:true,
-                    preload:"auto",
-                    randomPlay:false,
-                    loopingOn:true,
-                    soundCloudAppId:"",
-                    usePlaylistScroll:true,
-                    playlistScrollOrientation:"vertical",
-                    playlistScrollTheme:"minimal",
-                    facebookAppId:"",
-                    useNumbersInPlaylist: false,
-                    numberTitleSeparator: ".  ",
-                    artistTitleSeparator: " - ",
-                    playlistItemContent:"title,thumb"
-                };
-
-                hap_player = $("#hap-wrapper").hap(settings);
-
-                hap_player.togglePlaylist = function(){
-
-                    var playerHolder = $(this).find('.hap-player-holder'), 
-                        playlistHolder = $(this).find('.hap-playlist-holder'), 
-                        time = 500;
-
-                    if(hap_player.playlistOpened){
-                        playlistHolder.stop().animate({'left': -playlistHolder.width()+'px'},{duration: time});
-                        playerHolder.stop().animate({'left': 0+'px'},{duration:time});
-                    }else{
-                        playlistHolder.css({left: -playlistHolder.width()+'px'}).stop().animate({'left': 0+'px'},{duration:time});
-                        playerHolder.stop().animate({'left': playerHolder.width()+'px'},{duration:time});
-                    }   
-                    hap_player.playlistOpened = !hap_player.playlistOpened;
-
-                }
-
-            });
-
-        </script>
 {% extends 'base/base.html' %}
 
 {% load static %}
@@ -229,7 +170,7 @@
 
                     <div id="playlist-audio2">
                         {% for item in podcast %}
-                        <div class="hap-playlist-item" data-type="audio" data-mp3="{{item.archivo_audio.url}}" data-artist="Soundroll" data-title="A Way To The Top" data-thumb="{{item.imagen.url}}" data-share="n"></div>
+                        <div class="hap-playlist-item" data-type="audio" data-mp3="{{item.archivo_audio.url}}" data-artist="Soundroll" data-title="{{item.titulo}}" data-thumb="{{item.imagen.url}}" data-share="n"></div>
                         {% endfor %}
                      </div>
                     
@@ -238,5 +179,54 @@
         </div>
     </div>
 </section>
+
+<script>
+
+    var hap_player;  
+    jQuery(document).ready(function($){
+        
+        var settings = {
+            instanceName:"modern9",
+            sourcePath:"",
+            activePlaylist:"#playlist-audio2",
+            activeItem:0,
+            volume:0.5,
+            autoPlay:true,
+            preload:"auto",
+            randomPlay:false,
+            loopingOn:true,
+            soundCloudAppId:"",
+            usePlaylistScroll:true,
+            playlistScrollOrientation:"vertical",
+            playlistScrollTheme:"minimal",
+            facebookAppId:"",
+            useNumbersInPlaylist: false,
+            numberTitleSeparator: ".  ",
+            artistTitleSeparator: " - ",
+            playlistItemContent:"title,thumb"
+        };
+
+        hap_player = $("#hap-wrapper").hap(settings);
+
+        hap_player.togglePlaylist = function(){
+
+            var playerHolder = $(this).find('.hap-player-holder'), 
+                playlistHolder = $(this).find('.hap-playlist-holder'), 
+                time = 500;
+
+            if(hap_player.playlistOpened){
+                playlistHolder.stop().animate({'left': -playlistHolder.width()+'px'},{duration: time});
+                playerHolder.stop().animate({'left': 0+'px'},{duration:time});
+            }else{
+                playlistHolder.css({left: -playlistHolder.width()+'px'}).stop().animate({'left': 0+'px'},{duration:time});
+                playerHolder.stop().animate({'left': playerHolder.width()+'px'},{duration:time});
+            }   
+            hap_player.playlistOpened = !hap_player.playlistOpened;
+
+        }
+
+    });
+
+</script>
 
 {% endblock contenido %}
