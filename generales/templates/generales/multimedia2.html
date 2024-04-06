@@ -5,7 +5,56 @@
 
 <script src="/static/base/audio/js/jquery-3.2.1.min.js"></script>
 <script src="/static/base/audio/js/new.js"></script>			
+
+<script>
+
+    var hap_player;  
+    jQuery(document).ready(function($){
         
+        var settings = {
+            instanceName:"modern9",
+            sourcePath:"",
+            activePlaylist:"#playlist-audio2",
+            activeItem:0,
+            volume:0.5,
+            autoPlay:true,
+            preload:"auto",
+            randomPlay:false,
+            loopingOn:true,
+            soundCloudAppId:"",
+            usePlaylistScroll:true,
+            playlistScrollOrientation:"vertical",
+            playlistScrollTheme:"minimal",
+            facebookAppId:"",
+            useNumbersInPlaylist: false,
+            numberTitleSeparator: ".  ",
+            artistTitleSeparator: " - ",
+            playlistItemContent:"title,thumb"
+        };
+
+        hap_player = $("#hap-wrapper").hap(settings);
+
+        hap_player.togglePlaylist = function(){
+
+            var playerHolder = $(this).find('.hap-player-holder'), 
+                playlistHolder = $(this).find('.hap-playlist-holder'), 
+                time = 500;
+
+            if(hap_player.playlistOpened){
+                playlistHolder.stop().animate({'left': -playlistHolder.width()+'px'},{duration: time});
+                playerHolder.stop().animate({'left': 0+'px'},{duration:time});
+            }else{
+                playlistHolder.css({left: -playlistHolder.width()+'px'}).stop().animate({'left': 0+'px'},{duration:time});
+                playerHolder.stop().animate({'left': playerHolder.width()+'px'},{duration:time});
+            }   
+            hap_player.playlistOpened = !hap_player.playlistOpened;
+
+        }
+
+    });
+
+</script>
+
 
 {% extends 'base/base.html' %}
 
@@ -80,7 +129,7 @@
                                 <input class="hap-search-filter" type="text" placeholder="filter...">
                             </div>
 
-                            <div class="hap-playlist-filter-msg"><span>NOTHING FOUND!</span></div>
+                            <div class="hap-playlist-filter-msg"><span>SIN AUDIOS PODCAST!</span></div>
 
                             <div class="hap-playlist-inner">
                                 <div class="hap-playlist-content">
@@ -103,10 +152,12 @@
 
                             <div class="hap-share-toggle hap-contr-btn">
                                 <div class="hap-share-holder">
-                                    <!--<div class="hap-share-item hap-contr-btn" data-type="tumblr" data-tooltip="Share on Tumblr"><i class="hab-icon hap-icon-tumblr-square"></i></div>
+                                    <!--
+                                    <div class="hap-share-item hap-contr-btn" data-type="tumblr" data-tooltip="Share on Tumblr"><i class="hab-icon hap-icon-tumblr-square"></i></div>
                                     <div class="hap-share-item hap-contr-btn" data-type="twitter" data-tooltip="Share on Twitter"><i class="hab-icon hap-icon-twitter-square"></i></div>
                                     <div class="hap-share-item hap-contr-btn" data-type="facebook" data-tooltip="Share on Facebook"><i class="hab-icon hap-icon-facebook-square"></i></div>
-                                    --></div>
+                                    -->
+                                </div>
                                 <i class="hap-icon hap-icon-share-alt-square"></i>
                             </div>
 
@@ -158,53 +209,6 @@
     </div>
 </section>
 
-<script>
 
-    var hap_player;  
-    jQuery(document).ready(function($){
-        
-        var settings = {
-            instanceName:"modern9",
-            sourcePath:"",
-            activePlaylist:"#playlist-audio2",
-            activeItem:0,
-            volume:0.5,
-            autoPlay:true,
-            preload:"auto",
-            randomPlay:false,
-            loopingOn:true,
-            soundCloudAppId:"",
-            usePlaylistScroll:true,
-            playlistScrollOrientation:"vertical",
-            playlistScrollTheme:"minimal",
-            facebookAppId:"",
-            useNumbersInPlaylist: false,
-            numberTitleSeparator: ".  ",
-            artistTitleSeparator: " - ",
-            playlistItemContent:"title,thumb"
-        };
-
-        hap_player = $("#hap-wrapper").hap(settings);
-
-        hap_player.togglePlaylist = function(){
-
-            var playerHolder = $(this).find('.hap-player-holder'), 
-                playlistHolder = $(this).find('.hap-playlist-holder'), 
-                time = 500;
-
-            if(hap_player.playlistOpened){
-                playlistHolder.stop().animate({'left': -playlistHolder.width()+'px'},{duration: time});
-                playerHolder.stop().animate({'left': 0+'px'},{duration:time});
-            }else{
-                playlistHolder.css({left: -playlistHolder.width()+'px'}).stop().animate({'left': 0+'px'},{duration:time});
-                playerHolder.stop().animate({'left': playerHolder.width()+'px'},{duration:time});
-            }   
-            hap_player.playlistOpened = !hap_player.playlistOpened;
-
-        }
-
-    });
-
-</script>
 
 {% endblock contenido %}
