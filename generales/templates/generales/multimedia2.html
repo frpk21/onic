@@ -89,9 +89,29 @@
                 <div id="playlist_list">
                     <ul id='playlist1'>       
                         {% for item in podcast %}
-                            <li class= 'playlistItem' data-type='local' data-mp3='{{item.archivo_audio.url}}' ><a class='playlistNonSelected' href='#'>{{item.titulo}}</a></li>
+                            <li class= 'playlistItem' data-type='soundcloud' data-path='{{item.archivo_audio.url}}' ><a class='playlistNonSelected' href='#'>{{item.titulo}}</a></li>
                         {% endfor %}
-                        </ul> 
+                    </ul>
+                    <ul id='playlist2'>
+                        <li class= 'playlistItem' data-type='local' data-mp3='media/audio/2/Soundroll_-_A_Way_To_The_Top.mp3' ><a class='playlistNonSelected' href='#'>Soundroll - A Way To The Top</a></li>
+                        <li class= 'playlistItem' data-type='local' data-mp3='media/audio/2/Soundroll_-_Feel_Good_Journey.mp3' ><a class='playlistNonSelected' href='#'>Soundroll - Feel Good Journey</a></li>
+                        <li class= 'playlistItem' data-type='local' data-mp3='media/audio/2/Soundroll_-_Fight_No_More.mp3' '><a class='playlistNonSelected' href='#'>Soundroll - Fight No More</a></li>
+                        <li class= 'playlistItem' data-type='local' data-mp3='media/audio/2/Soundroll_-_Funky_Boom.mp3' ><a class='playlistNonSelected' href='#'>Soundroll - Funky Boom</a></li>
+                        <li class= 'playlistItem' data-type='local' data-mp3='media/audio/2/Soundroll_-_Pump_The_Club.mp3' ><a class='playlistNonSelected' href='#'>Soundroll - Pump The Club</a></li>
+                        <li class= 'playlistItem' data-type='local' data-mp3='media/audio/2/Soundroll_-_Rush.mp3' ><a class='playlistNonSelected' href='#'>Soundroll - Rush</a></li>
+                        <li class= 'playlistItem' data-type='local' data-mp3='media/audio/2/Soundroll_-_Sun_Is_So_Bright.mp3' ><a class='playlistNonSelected' href='#'>Soundroll - Sun Is So Bright</a></li>
+                    </ul>
+                    
+                    <!-- podcast playlist -->
+                    <ul id='playlist3'>
+                        <li class= 'playlistItem' data-type='podcast' data-path='http://gidilounge.fm/?feed=podcast' data-dlink></li>
+                    </ul>
+                           
+                    <!-- Soundcloud playlist -->
+                    <!-- track set -->
+                    <ul id='playlist4'>
+                       <li class= 'playlistItem' data-type='soundcloud' data-path='http://soundcloud.com/trance/sets/magix-revolta-2/'></li>
+                    </ul>
                 </div>
             </div>
         </div>
