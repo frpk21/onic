@@ -1,11 +1,4 @@
-<link rel="stylesheet" type="text/css" href="/static/base/audio/css/hap-fontawesome.css"/>
-    <link rel="stylesheet" type="text/css" href="/static/base/audio/css/jquery.mCustomScrollbar2.css" media="all" /><!-- playlist scroll -->
-    <link rel="stylesheet" type="text/css" href="/static/base/audio/css/modern9.css" />
-<script src="/static/base/audio/js/jquery-3.2.1.min.js"></script>
-<script src="/static/base/audio/js/new.js"></script>			
-
-
-
+<script src="https://unpkg.com/wavesurfer.js@7"></script>
 
 {% extends 'base/base.html' %}
 
@@ -150,7 +143,7 @@
 
                     <div id="playlist-audio2">
                         {% for item in podcast %}
-                        <div class="hap-playlist-item" data-type="audio" data-mp3="{{item.archivo_audio.url}}" data-artist="Soundroll" data-title="{{item.titulo}}" data-thumb="{{item.imagen.url}}" data-share="n"></div>
+                        <div class="hap-playlist-item" id="id_audio" data-type="audio" data-mp3="{{item.archivo_audio.url}}" data-artist="Soundroll" data-title="{{item.titulo}}" data-thumb="{{item.imagen.url}}" data-share="n"></div>
                         {% endfor %}
                      </div>
                     
@@ -161,52 +154,13 @@
 </section>
 
 <script>
-
-    var hap_player;  
-    jQuery(document).ready(function($){
-        
-        var settings = {
-            instanceName:"modern9",
-            sourcePath:"",
-            activePlaylist:"#playlist-audio2",
-            activeItem:0,
-            volume:0.5,
-            autoPlay:true,
-            preload:"auto",
-            randomPlay:false,
-            loopingOn:true,
-            soundCloudAppId:"",
-            usePlaylistScroll:true,
-            playlistScrollOrientation:"vertical",
-            playlistScrollTheme:"minimal",
-            facebookAppId:"",
-            useNumbersInPlaylist: false,
-            numberTitleSeparator: ".  ",
-            artistTitleSeparator: " - ",
-            playlistItemContent:"title,thumb"
-        };
-
-        hap_player = $("#hap-wrapper").hap(settings);
-
-        hap_player.togglePlaylist = function(){
-
-            var playerHolder = $(this).find('.hap-player-holder'), 
-                playlistHolder = $(this).find('.hap-playlist-holder'), 
-                time = 500;
-
-            if(hap_player.playlistOpened){
-                playlistHolder.stop().animate({'left': -playlistHolder.width()+'px'},{duration: time});
-                playerHolder.stop().animate({'left': 0+'px'},{duration:time});
-            }else{
-                playlistHolder.css({left: -playlistHolder.width()+'px'}).stop().animate({'left': 0+'px'},{duration:time});
-                playerHolder.stop().animate({'left': playerHolder.width()+'px'},{duration:time});
-            }   
-            hap_player.playlistOpened = !hap_player.playlistOpened;
-
-        }
-
-    });
-
+    var audio = $("#id_audio").val();
+    const wavesurfer = WaveSurfer.create({
+    container: '#waveform',
+    waveColor: '#4F4A85',
+    progressColor: '#383351',
+    url: '/audio.mp3',
+    })
 </script>
 
 {% endblock contenido %}
