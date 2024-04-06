@@ -4,9 +4,9 @@
 
 {% load static %}
 
-<section class="page-header" style="background-image: url({{subcategoria.imagen.url}});">
 {% block contenido %}
 
+<section class="page-header" style="background-image: url({{subcategoria.imagen.url}});">
     <div class="container">
         <h2>Multimedia</h2>
     </div>
@@ -56,7 +56,7 @@
             {% endfor %}
             <div class="col-lg-4 col-md-6 filter-item masonary-item poster">
                 {% for item in podcast %}
-                    <div class="hap-playlist-item" id="id_audio" data-type="audio" data-mp3="{{item.archivo_audio.url}}" data-artist="Soundroll" data-title="{{item.titulo}}" data-thumb="{{item.imagen.url}}" data-share="n"></div>
+                    {{item.titulo}}-<span id="id_audio">{{item.archivo_audio.url}}</span>
                 {% endfor %}
             </div>
         </div>
