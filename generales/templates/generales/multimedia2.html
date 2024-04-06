@@ -56,7 +56,7 @@
             {% endfor %}
             <div class="col-lg-4 col-md-6 filter-item masonary-item poster">
                 {% for item in podcast %}
-                    {{item.titulo}}-<div id="id_audio">{{item.archivo_audio.url}}</div>
+                    {{item.titulo}}-<div id="id_audio{{forloop.counter}}">{{item.archivo_audio.url}}</div>
                 {% endfor %}
             </div>
         </div>
@@ -64,7 +64,7 @@
 </section>
 
 <script>
-    var audio = $("#id_audio").val();
+    var audio = $("#id_audio1").val();
     const audio = new Audio()
     audio.controls = true
     audio.src = audio
