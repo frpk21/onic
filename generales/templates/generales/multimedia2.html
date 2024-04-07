@@ -118,38 +118,32 @@
                     </div>
                 </div>
             {% endfor %}
-            <div id="waveform">
-                <div id="time">0:00</div>
-                <div id="duration">0:00</div>
-                <div id="hover"></div>
-              </div>
             <div class="col-lg-4 col-md-6 filter-item masonary-item poster">
                 <div class="col-md-3 audio-player">
                     <audio id="audio_play" src="" preload="auto" controls></audio>
                 </div>
                 <table id="tbl_lista" class="table table-bordered table-sm table-striped" cellspacing="0" style="width: 100%; ">
                     <tbody id="t_body">
-                        <tr>
-                            <td>{{item.titulo}}</td>
-                            <td>{{item.categoria_multimedia.categoria_multimedia.nombre}}</td>
-                            <td class="td-actions text-center">
-                                <a href="javascript: play_audio('{{item.archivo_audio}}') ">
-                                    <button type="button" rel="tooltip" class="btn btn-info btn-round">
-                                        <i class="material-icons">play_circle</i>
-                                    </button>
-                                </a>
-                                <a href="javascript: stop_audio() ">
-                                    <button type="button" rel="tooltip" class="btn btn-danger btn-round">
-                                        <i class="material-icons">stop_circle</i>
-                                    </button>
-                                </a>
-                            </td>
-                        </tr>
+                        {% for item in podcast %}
+                            <tr>
+                                <td>{{item.titulo}}</td>
+                                <td>{{item.categoria_multimedia.categoria_multimedia.nombre}}</td>
+                                <td class="td-actions text-center">
+                                    <a href="javascript: play_audio('{{item.archivo_audio.url}}') ">
+                                        <button type="button" rel="tooltip" class="btn btn-info btn-round">
+                                            <i class="material-icons">play_circle</i>
+                                        </button>
+                                    </a>
+                                    <a href="javascript: stop_audio() ">
+                                        <button type="button" rel="tooltip" class="btn btn-danger btn-round">
+                                            <i class="material-icons">stop_circle</i>
+                                        </button>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
                     </tbody>
                 </table>
-                {% for item in podcast %}
-                    {{item.titulo}}-<div id="id_audio{{forloop.counter}}">{{item.archivo_audio.url}}</div>
-                {% endfor %}
             </div>
         </div>
     </div>
@@ -164,7 +158,7 @@
     });
 
     function play_audio(file){
-        var file_audio = "https://inraispace.sfo3.cdn.digitaloceanspaces.com/media/"+file;
+        var file_audio = file;
         var audio = document.getElementById("audio_play");
         $("#audio_play").attr('src',file_audio);
         audio.play();
