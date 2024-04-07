@@ -6,45 +6,70 @@
 
 {% block contenido %}
 <style>
-    #waveform {
-      cursor: pointer;
-      position: relative;
-    }
-    #hover {
-      position: absolute;
-      left: 0;
-      top: 0;
-      z-index: 10;
-      pointer-events: none;
-      height: 100%;
-      width: 0;
-      mix-blend-mode: overlay;
-      background: rgba(255, 255, 255, 0.5);
-      opacity: 0;
-      transition: opacity 0.2s ease;
-    }
-    #waveform:hover #hover {
-      opacity: 1;
-    }
-    #time,
-    #duration {
-      position: absolute;
-      z-index: 11;
-      top: 50%;
-      margin-top: -1px;
-      transform: translateY(-50%);
-      font-size: 11px;
-      background: rgba(0, 0, 0, 0.75);
-      padding: 2px;
-      color: #ddd;
-    }
-    #time {
-      left: 0;
-    }
-    #duration {
-      right: 0;
-    }
-  </style>
+    .audio-player {
+     width: 100%;
+     max-width: 400px;
+     margin: 0 auto;
+     text-align: center;
+ }
+ 
+ .audio-player audio {
+     display: inline-block;
+     width: 100%;
+     border: 1px solid #ccc;
+     border-radius: 5px;
+     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+ }
+ 
+ .audio-player audio::-webkit-media-controls-play-button {
+     background-color: #ff7300;
+     color: #fff;
+     border-radius: 30%;
+     width: 24px;
+     height: 24px;
+ }
+ 
+ .audio-player audio::-webkit-media-controls-timeline {
+     background-color: #f5f5f5;
+ }
+ 
+ .audio-player audio::-webkit-media-controls-current-time-display {
+     color: #278312;
+ }
+ 
+ .audio-player audio::-webkit-media-controls-time-remaining-display {
+     color: #f00000;
+ }
+ 
+ .audio-player audio::-webkit-media-controls-mute-button {
+     display: none;
+ }
+ 
+ .audio-player audio::-webkit-media-controls-volume-slider {
+     display: none;
+ }
+     .button {
+             display: inline-flex;
+             align-items: center;
+             padding: 5px 10px;
+             text-align: center;
+             text-decoration: none;
+             color: #000;
+             background-color: #f2f2f2;
+             border: 1px solid #000;
+             border-radius: 4px;
+             cursor: pointer;
+         }
+ 
+         .button:hover {
+             background-color: #fdec05d4;
+         }
+ 
+         .icon {
+             font-size: 18px;
+             margin-right: 5px;
+         }
+ </style>
 <section class="page-header" style="background-image: url({{subcategoria.imagen.url}});">
     <div class="container">
         <h2>Multimedia</h2>
@@ -99,6 +124,29 @@
                 <div id="hover"></div>
               </div>
             <div class="col-lg-4 col-md-6 filter-item masonary-item poster">
+                <div class="col-md-3 audio-player">
+                    <audio id="audio_play" src="" preload="auto" controls></audio>
+                </div>
+                <table id="tbl_lista" class="table table-bordered table-sm table-striped" cellspacing="0" style="width: 100%; ">
+                    <tbody id="t_body">
+                        <tr>
+                            <td>{{item.titulo}}</td>
+                            <td>{{item.categoria_multimedia.categoria_multimedia.nombre}}</td>
+                            <td class="td-actions text-center">
+                                <a href="javascript: play_audio('{{item.archivo_audio}}') ">
+                                    <button type="button" rel="tooltip" class="btn btn-info btn-round">
+                                        <i class="material-icons">play_circle</i>
+                                    </button>
+                                </a>
+                                <a href="javascript: stop_audio() ">
+                                    <button type="button" rel="tooltip" class="btn btn-danger btn-round">
+                                        <i class="material-icons">stop_circle</i>
+                                    </button>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
                 {% for item in podcast %}
                     {{item.titulo}}-<div id="id_audio{{forloop.counter}}">{{item.archivo_audio.url}}</div>
                 {% endfor %}
@@ -107,64 +155,26 @@
     </div>
 </section>
 
-<script src="https://unpkg.com/wavesurfer.js@7">
+<script>
+//src="https://unpkg.com/wavesurfer.js@7"
+    $(function () {
+        $('#fecha').datetimepicker({
+                format: 'DD/MM/YYYY'
+            });
+    });
 
-    const canvas = document.createElement('canvas')
-const ctx = canvas.getContext('2d')
+    function play_audio(file){
+        var file_audio = "https://inraispace.sfo3.cdn.digitaloceanspaces.com/media/"+file;
+        var audio = document.getElementById("audio_play");
+        $("#audio_play").attr('src',file_audio);
+        audio.play();
+    }
 
-// Define the waveform gradient
-const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height * 1.35)
-gradient.addColorStop(0, '#656666') // Top color
-gradient.addColorStop((canvas.height * 0.7) / canvas.height, '#656666') // Top color
-gradient.addColorStop((canvas.height * 0.7 + 1) / canvas.height, '#ffffff') // White line
-gradient.addColorStop((canvas.height * 0.7 + 2) / canvas.height, '#ffffff') // White line
-gradient.addColorStop((canvas.height * 0.7 + 3) / canvas.height, '#B1B1B1') // Bottom color
-gradient.addColorStop(1, '#B1B1B1') // Bottom color
+    function stop_audio(){
+        var audio = document.getElementById("audio_play");
+        audio.pause();
+    }
 
-// Define the progress gradient
-const progressGradient = ctx.createLinearGradient(0, 0, 0, canvas.height * 1.35)
-progressGradient.addColorStop(0, '#EE772F') // Top color
-progressGradient.addColorStop((canvas.height * 0.7) / canvas.height, '#EB4926') // Top color
-progressGradient.addColorStop((canvas.height * 0.7 + 1) / canvas.height, '#ffffff') // White line
-progressGradient.addColorStop((canvas.height * 0.7 + 2) / canvas.height, '#ffffff') // White line
-progressGradient.addColorStop((canvas.height * 0.7 + 3) / canvas.height, '#F6B094') // Bottom color
-progressGradient.addColorStop(1, '#F6B094') // Bottom color
-
-// Create the waveform
-const wavesurfer = WaveSurfer.create({
-  container: '#waveform',
-  waveColor: gradient,
-  progressColor: progressGradient,
-  barWidth: 2,
-  url: '/static/base/audio/media/audio/3/main/Marcozannone - Discovery.mp3',
-})
-
-// Play/pause on click
-wavesurfer.on('interaction', () => {
-  wavesurfer.playPause()
-})
-
-// Hover effect
-{
-  const hover = document.querySelector('#hover')
-  const waveform = document.querySelector('#waveform')
-  waveform.addEventListener('pointermove', (e) => (hover.style.width = `${e.offsetX}px`))
-}
-
-// Current time & duration
-{
-  const formatTime = (seconds) => {
-    const minutes = Math.floor(seconds / 60)
-    const secondsRemainder = Math.round(seconds) % 60
-    const paddedSeconds = `0${secondsRemainder}`.slice(-2)
-    return `${minutes}:${paddedSeconds}`
-  }
-
-  const timeEl = document.querySelector('#time')
-  const durationEl = document.querySelector('#duration')
-  wavesurfer.on('decode', (duration) => (durationEl.textContent = formatTime(duration)))
-  wavesurfer.on('timeupdate', (currentTime) => (timeEl.textContent = formatTime(currentTime)))
-}
 </script>
 
 {% endblock contenido %}
