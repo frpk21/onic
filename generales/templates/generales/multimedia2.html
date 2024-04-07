@@ -127,7 +127,7 @@
                         {% for item in podcast %}
                             <tr>
                                 <td>{{item.titulo}}</td>
-                                <td>{{item.categoria_multimedia.categoria_multimedia.nombre}}</td>
+                                <td>{{item.categoria_multimedia.nombre}}</td>
                                 <td class="td-actions text-center">
                                     <a href="javascript: play_audio('{{item.archivo_audio.url}}') ">
                                         <button type="button" rel="tooltip" class="btn btn-info btn-round">
