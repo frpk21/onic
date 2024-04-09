@@ -6,7 +6,7 @@ from django.views import generic
 
 from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 
-from generales.models import Noticias, Comentario, Contacto, VideoSMT, Nosotros, Categoria, SubCategoria, Equipo, Podcast, Videos, Imagenes
+from generales.models import Noticias, Comentario, Contacto, VideoSMT, Nosotros, Categoria, SubCategoria, Equipo, Podcast, Videos, Imagenes, Categoria_multimedia
 
 from datetime import date
 
@@ -58,6 +58,7 @@ def HomeView(request):
         'mediateca': mediateca,
         'categorias' : Categoria.objects.all().order_by('id'),
         'subcategorias': SubCategoria.objects.all().order_by('id'),
+        'categorias_mul': Categoria_multimedia.objects.all().order_by('id'),
         'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')
         }
     manana = hoy + timedelta(days=1)
@@ -126,7 +127,7 @@ def SeccionView(request, pk):
     seccion = Categoria.objects.get(id=pk)
     sub = SubCategoria.objects.filter(categoria__id=pk)
     noticias = Noticias.objects.filter(subcategoria__categoria__id=pk).order_by('-id')[:20]
-    context = {'hoy': hoy, 'noticias': noticias, 'categorias': categorias, 'subcategorias': subcategorias, 'seccion': seccion, 'sub': sub, 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
+    context = {'hoy': hoy, 'noticias': noticias, 'categorias_mul': Categoria_multimedia.objects.all().order_by('id'), 'categorias': categorias, 'subcategorias': subcategorias, 'seccion': seccion, 'sub': sub, 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
 
     if request.POST.get('buscar'):
         buscar = (request.POST.get('buscar').upper())
@@ -161,7 +162,7 @@ def NosotrosView(request):
     categorias = Categoria.objects.all().order_by('id')
     subcategorias = SubCategoria.objects.all().order_by('id')
     nosotros = Nosotros.objects.all().last()
-    context = {'hoy': hoy, 'nosotros': nosotros, 'categorias': categorias, 'subcategorias': subcategorias, 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
+    context = {'hoy': hoy, 'nosotros': nosotros, 'categorias_mul': Categoria_multimedia.objects.all().order_by('id'), 'categorias': categorias, 'subcategorias': subcategorias, 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
 
     return render(request, template_name, context)
 
@@ -172,7 +173,7 @@ def EquipoView(request):
     subcategorias = SubCategoria.objects.all().order_by('id')
     equipo = Equipo.objects.all().exclude(orden=0).order_by('orden')
     concejero = Equipo.objects.filter(orden=0).last()
-    context = {'hoy': hoy, 'concejero': concejero, 'nosotros': Nosotros.objects.all().last(), 'equipo': equipo, 'categorias': categorias, 'subcategorias': subcategorias, 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
+    context = {'hoy': hoy, 'categorias_mul': Categoria_multimedia.objects.all().order_by('id'), 'concejero': concejero, 'nosotros': Nosotros.objects.all().last(), 'equipo': equipo, 'categorias': categorias, 'subcategorias': subcategorias, 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
 
     return render(request, template_name, context)
 
@@ -184,7 +185,7 @@ def PublicacionesView(request, pk):
     subcategorias = SubCategoria.objects.all().order_by('id')
     publicaciones = Noticias.objects.filter(subcategoria__id=pk)
     c_p = Categoria.objects.get(id=14)  # 14 = Publicaciones
-    context = {'hoy': hoy, 'subcategorias': subcategorias, 'cat_p': c_p, 'nosotros': Nosotros.objects.all().last(), 'publicaciones': publicaciones, 'categorias': categorias, 'subcategoria': subcategoria, 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
+    context = {'hoy': hoy, 'categorias_mul': Categoria_multimedia.objects.all().order_by('id'), 'subcategorias': subcategorias, 'cat_p': c_p, 'nosotros': Nosotros.objects.all().last(), 'publicaciones': publicaciones, 'categorias': categorias, 'subcategoria': subcategoria, 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
 
     return render(request, template_name, context)
 
@@ -197,7 +198,7 @@ def ModulosView(request, pk):
     modulos2 = SubCategoria.objects.filter(categoria__id=20)   # 20=modulos
     noticias = Noticias.objects.filter(subcategoria__id=pk).last()
     c_p = Categoria.objects.get(id=20)  # 20 = modulos
-    context = {'hoy': hoy, 'modulos2': modulos2, 'subcategorias': subcategorias, 'cat_p': c_p, 'nosotros': Nosotros.objects.all().last(), 'noticias': noticias, 'categorias': categorias, 'modulo': modulo, 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
+    context = {'hoy': hoy, 'categorias_mul': Categoria_multimedia.objects.all().order_by('id'), 'modulos2': modulos2, 'subcategorias': subcategorias, 'cat_p': c_p, 'nosotros': Nosotros.objects.all().last(), 'noticias': noticias, 'categorias': categorias, 'modulo': modulo, 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
 
     return render(request, template_name, context)
 
@@ -212,7 +213,7 @@ def MultimediaView(request):
     censo = multimedia.filter(subcategoria__id=34)
     tiempo = multimedia.filter(subcategoria__id=35)
     c_p = Categoria.objects.get(id=16)  # 16 = Multimedia
-    context = {'hoy': hoy,'catastro': catastro,'censo': censo,'tiempo': tiempo, 'subcategorias': subcategorias, 'cat_p': c_p, 'nosotros': Nosotros.objects.all().last(), 'multimedia': multimedia, 'categorias': categorias, 'categoria': categoria, 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
+    context = {'hoy': hoy, 'categorias_mul': Categoria_multimedia.objects.all().order_by('id'), 'catastro': catastro,'censo': censo,'tiempo': tiempo, 'subcategorias': subcategorias, 'cat_p': c_p, 'nosotros': Nosotros.objects.all().last(), 'multimedia': multimedia, 'categorias': categorias, 'categoria': categoria, 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
 
     return render(request, template_name, context)
 
@@ -227,7 +228,7 @@ def Multimedia2View(request, pk):
     videos = Videos.objects.filter(categoria_multimedia__id=pk)[:10]
     imagenes = Imagenes.objects.filter(categoria_multimedia__id=pk)[:10]
     c_p = Categoria.objects.get(id=16)  # 16 = Multimedia
-    context = {'podcast': podcast,'videos': videos,'imagenes': imagenes, 'hoy': hoy, 'subcategorias': subcategorias, 'cat_p': c_p, 'nosotros': Nosotros.objects.all().last(), 'multimedia': multimedia, 'categorias': categorias, 'subcategoria': subcategoria, 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
+    context = {'podcast': podcast,'videos': videos,'imagenes': imagenes, 'hoy': hoy, 'categorias_mul': Categoria_multimedia.objects.all().order_by('id'), 'subcategorias': subcategorias, 'cat_p': c_p, 'nosotros': Nosotros.objects.all().last(), 'multimedia': multimedia, 'categorias': categorias, 'subcategoria': subcategoria, 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
 
     return render(request, template_name, context)
 
@@ -238,7 +239,7 @@ def SubSeccionView(request, pk):
     subcategorias = SubCategoria.objects.all().order_by('id')
     seccion = SubCategoria.objects.get(id=pk)
     noticias = Noticias.objects.filter(subcategoria__id=pk).order_by('-id')[:20]
-    context = {'hoy': hoy, 'noticias': noticias, 'categorias': categorias, 'subcategorias': subcategorias, 'seccion': seccion, 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
+    context = {'hoy': hoy, 'noticias': noticias, 'categorias_mul': Categoria_multimedia.objects.all().order_by('id'), 'categorias': categorias, 'subcategorias': subcategorias, 'seccion': seccion, 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
     if request.POST.get('buscar'):
         buscar = (request.POST.get('buscar').upper())
         template_name="generales/search.html"
@@ -277,7 +278,7 @@ def DetalleView(request, slug):
     subcategorias = SubCategoria.objects.all().order_by('id')
     seccion = Categoria.objects.get(id=cat)
     noticias = Noticias.objects.filter(subcategoria__id=scat).exclude(slug=slug).order_by('-id')[:10]
-    context = {'hoy': hoy, 'noticias': noticias, 'categorias': categorias, 'subcategorias': subcategorias, 'seccion': seccion, 'detalle':detalle, 'cat': cat, 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
+    context = {'hoy': hoy, 'noticias': noticias, 'categorias_mul': Categoria_multimedia.objects.all().order_by('id'), 'categorias': categorias, 'subcategorias': subcategorias, 'seccion': seccion, 'detalle':detalle, 'cat': cat, 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
 
     if request.POST.get('buscar'):
         buscar = (request.POST.get('buscar').upper())

@@ -67,10 +67,8 @@
                                         {% if categoria.id == 16 %}
                                             <li class="dropdown"><a href="#">{{categoria.nombre}}</a>
                                                 <ul>
-                                                    {% for subcategoria in subcategorias %}
-                                                        {% if subcategoria.categoria.id == 16 %}
-                                                            <li><a href="{% url 'generales:multimedia-s' subcategoria.id %}">{{subcategoria.nombre}}</a></li>
-                                                        {% endif %}
+                                                    {% for subcategoria in categorias_mul %}
+                                                        <li><a href="{% url 'generales:multimedia-s' subcategoria.id %}">{{subcategoria.nombre}}</a></li>
                                                     {% endfor %}
                                                 </ul>
                                             </li>
