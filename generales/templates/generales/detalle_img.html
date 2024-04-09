@@ -22,20 +22,11 @@
                     </div>
                     <h3>{{detalle.titulo}}</h3>
                     <br>
-                    <p>{{detalle.descripcion|safe}}</p>
-                    <p class="blog-details__tags">{{detalle.fecha|date:'d/m/y'}}</p>
+                    <p>{{detalle.descripcion|safe}}<br><span><i class="far fa-calendar-alt"></i>{{detalle.fecha|date:'d/m/y'}}</span></p>
                 </div>
             </div>
             <div class="col-lg-4">
                 <div class="sidebar">
-                    <div class="sidebar__single">
-                        <h3 class="sidebar__title">Secciones</h3>
-                        <ul class="list-unstyled sidebar__cat-list">
-                            {% for item in categorias %}
-                                <li><a href="{% url 'generales:seccion' item.id %}">{{item.nombre}}</a></li>
-                            {% endfor %}
-                        </ul>
-                    </div>
                     {% if noticias|length > 0 %}
                         <div class="sidebar__single">
                             <h3 class="sidebar__title">M&aacute;s publicaciones</h3>
