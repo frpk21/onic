@@ -751,7 +751,8 @@ class Visor(LoginRequiredMixin, generic.TemplateView):
                 mapa=m,
                 catalogo=catalogo,
                 subcategorias = subcategorias,
-                categorias = categorias, 
+                categorias = categorias,
+                categorias_mul = Categoria_multimedia.objects.all().order_by('id'),
                 modulos = SubCategoria.objects.filter(categoria__id=20).order_by('id')
             )
         )
