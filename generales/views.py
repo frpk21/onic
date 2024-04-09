@@ -356,7 +356,7 @@ def DetalleView(request, slug):
 def DetalleImgView(request, pk):
     template_name = 'generales/detalle_img.html'
     hoy = date.today()
-    detalle = Noticias.objects.filter(id=pk).last()
+    detalle = Imagenes.objects.filter(id=pk).last()
     categorias = Categoria.objects.all().order_by('id')
     subcategorias = SubCategoria.objects.all().order_by('id')
     noticias = Noticias.objects.all().order_by('-id')[:10]
