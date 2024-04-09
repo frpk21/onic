@@ -95,7 +95,7 @@
                     <div class="collection-grid__single">
                         <div class="collection-grid__image">
                             <img src="{{item.imagen.url}}" alt="">
-                            <a href="" class="collection-grid__link">+</a>
+                            <a href="{% url 'generales:detalle_img' item.id %}" class="collection-grid__link">+</a>
                         </div>
                         <div class="collection-grid__content">
                             <h3><a href=".">{{item.titulo}}</a></h3>

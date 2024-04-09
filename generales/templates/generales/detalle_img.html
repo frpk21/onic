@@ -1,0 +1,79 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+{% block contenido %}
+
+{% load humanize %}
+
+<section class="page-header" style="background-image: url('/static/base/assets/images/multimedia2.jpg');">
+    <div class="container block-title">
+        <h2 style="font-family: static/base/assets/fonts/WOFF/VAR/SourceCodeVariable-Roman.otf.woff;">{{seccion.nombre}}</h2>
+    </div>
+</section>
+
+<section class="blog-one blog-details-page">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="blog-details__main">
+                    <div class="blog-details__image">
+                        <img src="{{detalle.imagen.url}}" class="img-fluid" alt="">
+                    </div><!-- /.blog-details__image -->
+                    <h3>{{detalle.titulo}}</h3>
+                    <br>
+                    <p>{{detalle.descripcion|safe}}</p>
+                    <p class="blog-details__tags">
+                        {{detalle.fecha|date:'d/m/y'}}
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="sidebar">
+                    <div class="sidebar__single">
+                        <h3 class="sidebar__title">Secciones</h3>
+                        <ul class="list-unstyled sidebar__cat-list">
+                            {% for item in categorias %}
+                                <li><a href="{% url 'generales:seccion' item.id %}">{{item.nombre}}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% if noticias|length > 0 %}
+                        <div class="sidebar__single">
+                            <h3 class="sidebar__title">M&aacute;s publicaciones</h3>
+                            <div class="sidebar__post">
+                                {% for item in noticias %}
+                                    <div class="sidebar__post-single">
+                                        <div class="sidebar__post-image">
+                                            <img src="{{item.imagen.url}}" alt="">
+                                        </div>
+                                        <div class="sidebar__post-content">
+                                            <a class="sidebar__post-date" href="#">
+                                                <i class="far fa-calendar-alt"></i>
+                                                {{item.fecha}}
+                                            </a>
+                                            <h3><a href="{% url 'generales:detalle' item.slug %}">{{item.titulo}}</a></h3>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endif %}
+                    <!--
+                    <div class="sidebar__single">
+                        <h3 class="sidebar__title">Otros temas</h3>
+                        <div class="sidebar__tags">
+                            {% for item in categorias %}
+                                <a href="{% url 'generales:seccion' item.id %}">{{item.nombre}}</a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                -->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock contenido %}
+

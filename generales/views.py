@@ -353,6 +353,91 @@ def DetalleView(request, slug):
 
     return render(request, template_name, context)
 
+def DetalleImgView(request, pk):
+    template_name = 'generales/detalle_img.html'
+    hoy = date.today()
+    detalle = Noticias.objects.filter(id=pk).last()
+    cat = detalle.subcategoria.categoria.id
+    scat = detalle.subcategoria.id
+    categorias = Categoria.objects.all().order_by('id')
+    subcategorias = SubCategoria.objects.all().order_by('id')
+    seccion = Categoria.objects.get(id=cat)
+    noticias = Noticias.objects.filter(subcategoria__id=scat).order_by('-id')[:10]
+    context = {'hoy': hoy, 'noticias': noticias, 'categorias_mul': Categoria_multimedia.objects.all().order_by('id'), 'categorias': categorias, 'subcategorias': subcategorias, 'seccion': seccion, 'detalle':detalle, 'cat': cat, 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
+
+    if request.POST.get('buscar'):
+        buscar = (request.POST.get('buscar').upper())
+        template_name="generales/search.html"
+        try:
+            resultado = Noticias.objects.filter(titulo__icontains=buscar).order_by('-id')
+            #paginator5 = Paginator(resultado, 10)
+        except:
+            resultado = Noticias.objects.filter(titulo__icontains=buscar).order_by('-id')
+            #paginator5 = Paginator(resultado, 10)
+        try:
+            page = int(request.GET.get('page', '1'))
+        except ValueError:
+            page = 1
+        #try:
+        #    resultado = paginator5.page(page)
+        #except (EmptyPage, InvalidPage):
+        #    resultado = paginator5.page(paginator5.num_pages)
+
+        #context['paginator5'] = paginator5
+        context['resultado'] = resultado
+    else:
+        buscar = ''
+        resultado={}
+
+    #if request.method == "POST":
+    if request.POST.get('comentario'):
+        form_comentario = ComentarioForm(request.POST)
+        if form_comentario.is_valid():
+            post = form_comentario.save(commit=False)
+            post.noticia = detalle
+            post.save()
+
+            return JsonResponse(
+                {
+                    'content': {
+                        'message': 'Gracias por su comentario.',
+                    }
+                }
+            )
+    else:
+        form_comentario = ComentarioForm()
+
+    if request.POST.get('email'):
+        form_home = SuscribirseForm(request.POST)
+        if form_home.is_valid():
+            post = form_home.save(commit=False)
+            post.save()
+            success_url=reverse_lazy("/")
+
+            return JsonResponse(
+                {
+                    'content': {
+                        'message': 'Gracias por suscribirse.',
+                    }
+                }
+            )
+        else:
+            return JsonResponse(
+                {
+                    'content': {
+                        'message': 'Ya ha sido registrado. Gracias!',
+                    }
+                }
+            )
+    else:
+        form_home = SuscribirseForm()
+
+    context['form_home'] = form_home
+    context['form_comentario'] = form_comentario
+    context['regresivo'] = {'activo': False}
+
+    return render(request, template_name, context)
+
 class SinPrivilegios(PermissionRequiredMixin):
     login_url = 'generales:sin_privilegios'
     raise_exception = False
