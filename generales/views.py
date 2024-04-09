@@ -221,14 +221,14 @@ def Multimedia2View(request, pk):
     template_name = 'generales/multimedia2.html'
     hoy = date.today()
     categorias = Categoria.objects.all().order_by('id')
-    subcategoria = SubCategoria.objects.get(id=pk)
+    cat_multimedia = Categoria_multimedia.objects.get(id=pk)
     subcategorias = SubCategoria.objects.all().order_by('id')
     multimedia = Noticias.objects.filter(subcategoria__id=pk)
     podcast = Podcast.objects.filter(categoria_multimedia__id=pk)[:10]
     videos = Videos.objects.filter(categoria_multimedia__id=pk)[:10]
     imagenes = Imagenes.objects.filter(categoria_multimedia__id=pk)[:10]
     c_p = Categoria.objects.get(id=16)  # 16 = Multimedia
-    context = {'podcast': podcast,'videos': videos,'imagenes': imagenes, 'hoy': hoy, 'categorias_mul': Categoria_multimedia.objects.all().order_by('id'), 'subcategorias': subcategorias, 'cat_p': c_p, 'nosotros': Nosotros.objects.all().last(), 'multimedia': multimedia, 'categorias': categorias, 'subcategoria': subcategoria, 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
+    context = {'podcast': podcast,'videos': videos,'imagenes': imagenes, 'hoy': hoy, 'categorias_mul': Categoria_multimedia.objects.all().order_by('id'), 'subcategorias': subcategorias, 'cat_p': c_p, 'nosotros': Nosotros.objects.all().last(), 'multimedia': multimedia, 'categorias': categorias, 'cat_multimedia': cat_multimedia, 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
 
     return render(request, template_name, context)
 
