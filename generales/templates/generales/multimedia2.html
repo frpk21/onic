@@ -118,7 +118,7 @@
                     </div>
                 </div>
             {% endfor %}
-            <div class="col-lg-6 col-md-6 filter-item masonary-item poster">
+            <div class="col-lg-7 col-md-6 filter-item masonary-item poster">
                 <div class="col-md-2 audio-player">
                     <audio id="audio_play" src="" preload="auto" controls></audio>
                 </div><br>
@@ -127,6 +127,7 @@
                         {% for item in podcast %}
                             <tr>
                                 <td>{{item.titulo}}</td>
+                                <td>{{item.fecha}}</td>
                                 <td>{{item.categoria_multimedia.nombre}}</td>
                                 <td class="td-actions text-center">
                                     <a href="javascript: play_audio('{{item.archivo_audio.url}}') ">
