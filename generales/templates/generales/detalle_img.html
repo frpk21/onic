@@ -19,13 +19,11 @@
                 <div class="blog-details__main">
                     <div class="blog-details__image">
                         <img src="{{detalle.imagen.url}}" class="img-fluid" alt="">
-                    </div><!-- /.blog-details__image -->
+                    </div>
                     <h3>{{detalle.titulo}}</h3>
                     <br>
                     <p>{{detalle.descripcion|safe}}</p>
-                    <p class="blog-details__tags">
-                        {{detalle.fecha|date:'d/m/y'}}
-                    </p>
+                    <p class="blog-details__tags">{{detalle.fecha|date:'d/m/y'}}</p>
                 </div>
             </div>
             <div class="col-lg-4">

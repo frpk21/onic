@@ -357,10 +357,9 @@ def DetalleImgView(request, pk):
     template_name = 'generales/detalle_img.html'
     hoy = date.today()
     detalle = Noticias.objects.filter(id=pk).last()
-    scat = detalle.subcategoria.id
     categorias = Categoria.objects.all().order_by('id')
     subcategorias = SubCategoria.objects.all().order_by('id')
-    noticias = Noticias.objects.filter(subcategoria__id=scat).order_by('-id')[:10]
+    noticias = Noticias.objects.all().order_by('-id')[:10]
     context = {'hoy': hoy, 'noticias': noticias, 'categorias_mul': Categoria_multimedia.objects.all().order_by('id'), 'categorias': categorias, 'subcategorias': subcategorias, 'detalle':detalle, 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
 
     if request.POST.get('buscar'):
