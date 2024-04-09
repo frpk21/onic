@@ -223,9 +223,9 @@ def Multimedia2View(request, pk):
     subcategoria = SubCategoria.objects.get(id=pk)
     subcategorias = SubCategoria.objects.all().order_by('id')
     multimedia = Noticias.objects.filter(subcategoria__id=pk)
-    podcast = Podcast.objects.all()[:10]
-    videos = Videos.objects.all()[:10]
-    imagenes = Imagenes.objects.all()[:10]
+    podcast = Podcast.objects.filter(categoria_multimedia__id=pk)[:10]
+    videos = Videos.objects.filter(categoria_multimedia__id=pk)[:10]
+    imagenes = Imagenes.objects.filter(categoria_multimedia__id=pk)[:10]
     c_p = Categoria.objects.get(id=16)  # 16 = Multimedia
     context = {'podcast': podcast,'videos': videos,'imagenes': imagenes, 'hoy': hoy, 'subcategorias': subcategorias, 'cat_p': c_p, 'nosotros': Nosotros.objects.all().last(), 'multimedia': multimedia, 'categorias': categorias, 'subcategoria': subcategoria, 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
 
