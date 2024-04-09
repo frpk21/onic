@@ -100,7 +100,7 @@ class ContactoAdmin(admin.ModelAdmin):
         super().save_model(request, obj, form, change)
 
 class ImagenesAdmin(admin.ModelAdmin):
-    list_display = ('titulo', 'fecha', 'imagen',)
+    list_display = ('titulo', 'categoria_multimedia', 'fecha', 'imagen',)
     ordering = ('titulo', )
     list_filter = ('titulo',)
 
@@ -111,7 +111,7 @@ class ImagenesAdmin(admin.ModelAdmin):
         super().save_model(request, obj, form, change)
 
 class VideosAdmin(admin.ModelAdmin):
-    list_display = ('titulo', 'fecha', 'html',)
+    list_display = ('titulo', 'categoria_multimedia', 'fecha', 'html',)
     ordering = ('titulo', )
     list_filter = ('titulo',)
 
@@ -122,7 +122,7 @@ class VideosAdmin(admin.ModelAdmin):
         super().save_model(request, obj, form, change)
 
 class PodcastAdmin(admin.ModelAdmin):
-    list_display = ('titulo', 'fecha', 'archivo_audio','imagen')
+    list_display = ('titulo', 'categoria_multimedia', 'fecha', 'archivo_audio','imagen')
     ordering = ('titulo', )
     list_filter = ('titulo',)
 
