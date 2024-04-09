@@ -18,8 +18,9 @@
                 <div class="blog-details__main">
                     <div class="blog-details__image">
                         <img src="{{detalle.imagen.url}}" class="img-fluid" alt="">
-                    </div><!-- /.blog-details__image -->
+                    </div>
                     <h3>{{detalle.titulo}}</h3>
+                    <i class="far fa-calendar-alt"></i>&nbsp;{{detalle.fecha}}
                     <br>
                     <p>{{detalle.subtitulo}}</p>
                     <br>
@@ -36,14 +37,6 @@
             </div>
             <div class="col-lg-4">
                 <div class="sidebar">
-                    <div class="sidebar__single">
-                        <h3 class="sidebar__title">Secciones</h3>
-                        <ul class="list-unstyled sidebar__cat-list">
-                            {% for item in categorias %}
-                                <li><a href="{% url 'generales:seccion' item.id %}">{{item.nombre}}</a></li>
-                            {% endfor %}
-                        </ul>
-                    </div>
                     {% if noticias|length > 0 %}
                         <div class="sidebar__single">
                             <h3 class="sidebar__title">M&aacute;s publicaciones</h3>
