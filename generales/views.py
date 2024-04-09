@@ -40,13 +40,13 @@ from django.template.loader import render_to_string
 def HomeView(request):
     #CHOICES = ((0,'Carrusel'),(1,'Noticia 1'),(2,'Novedades 2'),(3,'Boletines 3'),(4,'Mediateca 4'))
     hoy = date.today()
-    carrusel = Noticias.objects.filter(orden=0).order_by('-id')[:3]
+    carrusel = Noticias.objects.filter(orden=0).order_by('-fecha')[:3]
     noticias = Noticias.objects.filter(orden=1).last()
     video_smt = VideoSMT.objects.all().last()
     nosotros = Nosotros.objects.all().last()
-    novedades = Noticias.objects.filter(orden=2).order_by('-id')[:7]
-    boletines = Noticias.objects.filter(orden=3).order_by('-id')[:10]
-    mediateca = Noticias.objects.filter(orden=4).order_by('-id')[:3]
+    novedades = Noticias.objects.filter(orden=2).order_by('-fecha')[:7]
+    boletines = Noticias.objects.filter(orden=3).order_by('-fecha')[:10]
+    mediateca = Noticias.objects.filter(orden=4).order_by('-fecha')[:3]
     context = {
         'hoy': hoy,
         'carrusel': carrusel,
@@ -126,7 +126,7 @@ def SeccionView(request, pk):
     subcategorias = SubCategoria.objects.all().order_by('id')
     seccion = Categoria.objects.get(id=pk)
     sub = SubCategoria.objects.filter(categoria__id=pk)
-    noticias = Noticias.objects.filter(subcategoria__categoria__id=pk).order_by('-id')[:20]
+    noticias = Noticias.objects.filter(subcategoria__categoria__id=pk).order_by('-fecha')[:20]
     context = {'hoy': hoy, 'noticias': noticias, 'categorias_mul': Categoria_multimedia.objects.all().order_by('id'), 'categorias': categorias, 'subcategorias': subcategorias, 'seccion': seccion, 'sub': sub, 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
 
     if request.POST.get('buscar'):
@@ -223,10 +223,10 @@ def Multimedia2View(request, pk):
     categorias = Categoria.objects.all().order_by('id')
     cat_multimedia = Categoria_multimedia.objects.get(id=pk)
     subcategorias = SubCategoria.objects.all().order_by('id')
-    multimedia = Noticias.objects.filter(subcategoria__id=pk)
-    podcast = Podcast.objects.filter(categoria_multimedia__id=pk)[:10]
-    videos = Videos.objects.filter(categoria_multimedia__id=pk)[:10]
-    imagenes = Imagenes.objects.filter(categoria_multimedia__id=pk)[:10]
+    multimedia = Noticias.objects.filter(subcategoria__id=pk).order_by('-fecha')
+    podcast = Podcast.objects.filter(categoria_multimedia__id=pk).order_by('-fecha')[:10]
+    videos = Videos.objects.filter(categoria_multimedia__id=pk).order_by('-fecha')[:10]
+    imagenes = Imagenes.objects.filter(categoria_multimedia__id=pk).order_by('-fecha')[:10]
     c_p = Categoria.objects.get(id=16)  # 16 = Multimedia
     context = {'podcast': podcast,'videos': videos,'imagenes': imagenes, 'hoy': hoy, 'categorias_mul': Categoria_multimedia.objects.all().order_by('id'), 'subcategorias': subcategorias, 'cat_p': c_p, 'nosotros': Nosotros.objects.all().last(), 'multimedia': multimedia, 'categorias': categorias, 'cat_multimedia': cat_multimedia, 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
 
@@ -238,7 +238,7 @@ def SubSeccionView(request, pk):
     categorias = Categoria.objects.all().order_by('id')
     subcategorias = SubCategoria.objects.all().order_by('id')
     seccion = SubCategoria.objects.get(id=pk)
-    noticias = Noticias.objects.filter(subcategoria__id=pk).order_by('-id')[:20]
+    noticias = Noticias.objects.filter(subcategoria__id=pk).order_by('-fecha')[:20]
     context = {'hoy': hoy, 'noticias': noticias, 'categorias_mul': Categoria_multimedia.objects.all().order_by('id'), 'categorias': categorias, 'subcategorias': subcategorias, 'seccion': seccion, 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
     if request.POST.get('buscar'):
         buscar = (request.POST.get('buscar').upper())
@@ -277,7 +277,7 @@ def DetalleView(request, slug):
     categorias = Categoria.objects.all().order_by('id')
     subcategorias = SubCategoria.objects.all().order_by('id')
     seccion = Categoria.objects.get(id=cat)
-    noticias = Noticias.objects.filter(subcategoria__id=scat).exclude(slug=slug).order_by('-id')[:10]
+    noticias = Noticias.objects.filter(subcategoria__id=scat).exclude(slug=slug).order_by('-fecha')[:10]
     context = {'hoy': hoy, 'noticias': noticias, 'categorias_mul': Categoria_multimedia.objects.all().order_by('id'), 'categorias': categorias, 'subcategorias': subcategorias, 'seccion': seccion, 'detalle':detalle, 'cat': cat, 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
 
     if request.POST.get('buscar'):
@@ -359,7 +359,7 @@ def DetalleImgView(request, pk):
     detalle = Imagenes.objects.filter(id=pk).last()
     categorias = Categoria.objects.all().order_by('id')
     subcategorias = SubCategoria.objects.all().order_by('id')
-    noticias = Noticias.objects.all().order_by('-id')[:10]
+    noticias = Noticias.objects.all().order_by('-fecha')[:10]
     context = {'hoy': hoy, 'noticias': noticias, 'categorias_mul': Categoria_multimedia.objects.all().order_by('id'), 'categorias': categorias, 'subcategorias': subcategorias, 'detalle':detalle, 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
 
     if request.POST.get('buscar'):
