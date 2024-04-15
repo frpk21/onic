@@ -38,7 +38,7 @@
         var selectedOption = select.options[select.selectedIndex];
         var capa = selectedOption.value;
         var datos = {'capa': capa, 'nombre': selectedOption.text};
-        $.get( "{% url 'generales:update_capas' %}", datos, function( data ) {
+        $.get( "{% url 'visor:update_capas' %}", datos, function( data ) {
             $('#id_mapa').html(data.content.mapa);
             $('#wait_modal').modal("hide");
         })

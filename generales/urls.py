@@ -25,8 +25,6 @@ urlpatterns = [
     path('post/<int:pk>', views.PublicacionesView, name="public"),
     path('modulos/<int:pk>', views.ModulosView, name="modulos"),
     path('update/', views.ajax_update, name='upd'),
-    path('visor/',views.Visor.as_view(), name='visor'),
-    path('update/capas/', views.ajax_updateCapas.as_view(), name='update_capas'),
 
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
