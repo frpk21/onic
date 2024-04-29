@@ -725,7 +725,7 @@ class ajax_updateCapas(generic.View):
         )
     
 class Visor(LoginRequiredMixin, generic.TemplateView):
-    template_name='visor/index.html'
+    template_name='visor/visor.html'
     login_url='generales:login'
 
     def get(self, request, *args, **kwargs):
