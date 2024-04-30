@@ -90,7 +90,6 @@
             </ul>
         </div>
         <div class="row high-gutter filter-layout masonary-layout">
-            <div>
             {% for item in imagenes %}
                 <div class="col-lg-4 col-md-6 filter-item masonary-item pic">
                     <div class="collection-grid__single">
@@ -105,42 +104,7 @@
                     </div>
                 </div>
             {% endfor %}
-            <div>
-            <ul class="pagination">
-                <li>
-                    {% if imagenes.has_previous %}
-                        <a href="?search={{ search }}&page={{ imagenes.previous_page_number }}">
-                            Ant.
-                        </a>
-                    {% else %}
-                        <span>Ant.</span>
-                    {% endif %}
-                </li>					  
-                    {% for page_number in paginator2.page_range %}
-                        {% if page_number ==  imagenes.number%}
-                            <li class="flex-c-c pagi-item hov-btn1 trans-03 m-all-7 pagi-active">
-                                <span >{{ page_number }}</span>
-                            </li>
-                        {% else %}
-                            <li>
-                                <a href="?search={{ search }}&page={{ page_number }}" class="flex-c-c pagi-item hov-btn1 trans-03 m-all-7">
-                                    {{ page_number }}
-                                </a>
-                            </li>
-                        {% endif %}
-                    {% endfor %}
-                <li>
-                    {% if imagenes.has_next %}
-                        <a href="?search={{ search }}&page={{ imagenes.next_page_number }}">
-                        Sig.
-                        </a>
-                    {% else %}
-                        <span>Sig.</span>
-                    {% endif %}
-                </li>
-            </ul>
-            </div>
-        </div>
+            
             {% for item in videos %}
                 <div class="col-lg-4 col-md-6 filter-item masonary-item dis">
                     <div class="collection-grid__single">
@@ -180,6 +144,39 @@
                 </table>
             </div>
         </div>
+        <ul class="pagination">
+            <li>
+                {% if imagenes.has_previous %}
+                    <a href="?search={{ search }}&page={{ imagenes.previous_page_number }}">
+                        Ant.
+                    </a>
+                {% else %}
+                    <span>Ant.</span>
+                {% endif %}
+            </li>					  
+                {% for page_number in paginator2.page_range %}
+                    {% if page_number ==  imagenes.number%}
+                        <li class="flex-c-c pagi-item hov-btn1 trans-03 m-all-7 pagi-active">
+                            <span >{{ page_number }}</span>
+                        </li>
+                    {% else %}
+                        <li>
+                            <a href="?search={{ search }}&page={{ page_number }}" class="flex-c-c pagi-item hov-btn1 trans-03 m-all-7">
+                                {{ page_number }}
+                            </a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            <li>
+                {% if imagenes.has_next %}
+                    <a href="?search={{ search }}&page={{ imagenes.next_page_number }}">
+                    Sig.
+                    </a>
+                {% else %}
+                    <span>Sig.</span>
+                {% endif %}
+            </li>
+        </ul>
     </div>
 </section>
 
