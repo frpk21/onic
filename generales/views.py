@@ -222,7 +222,8 @@ def Multimedia2View(request, pk):
     multimedia = Noticias.objects.filter(subcategoria__id=pk).order_by('-fecha')
     podcast = Podcast.objects.filter(categoria_multimedia__id=pk).order_by('-fecha')[:10]
     videos = Videos.objects.filter(categoria_multimedia__id=pk).order_by('-fecha')[:10]
-    #imagenes = Imagenes.objects.filter(categoria_multimedia__id=pk).order_by('-fecha')[:10]
+    imagenes = Imagenes.objects.filter(categoria_multimedia__id=pk).order_by('-fecha')[:10]
+    """
     try:
         imagenes = Imagenes.objects.filter(categoria_multimedia__id=pk).order_by('-id')[:10]
         paginator2 = Paginator(imagenes, 6)
@@ -237,9 +238,9 @@ def Multimedia2View(request, pk):
         imagenes = paginator2.page(page2)
     except (EmptyPage, InvalidPage):
         imagenes = paginator2.page(paginator2.num_pages)
-
+    """
     c_p = Categoria.objects.get(id=16)  # 16 = Multimedia
-    context = {'podcast': podcast,'videos': videos,'imagenes': imagenes, 'paginator2': paginator2, 'hoy': hoy, 'categorias_mul': Categoria_multimedia.objects.all().order_by('id'), 'subcategorias': subcategorias, 'cat_p': c_p, 'nosotros': Nosotros.objects.all().last(), 'multimedia': multimedia, 'categorias': categorias, 'cat_multimedia': cat_multimedia, 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
+    context = {'podcast': podcast,'videos': videos,'imagenes': imagenes, 'hoy': hoy, 'categorias_mul': Categoria_multimedia.objects.all().order_by('id'), 'subcategorias': subcategorias, 'cat_p': c_p, 'nosotros': Nosotros.objects.all().last(), 'multimedia': multimedia, 'categorias': categorias, 'cat_multimedia': cat_multimedia, 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
 
     return render(request, template_name, context)
 
