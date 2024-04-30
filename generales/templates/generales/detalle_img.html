@@ -18,7 +18,11 @@
             <div class="col-lg-8">
                 <div class="blog-details__main">
                     <div class="blog-details__image">
-                        <img src="{{detalle.imagen.url}}" class="img-fluid" alt="">
+                        {% if tarea == 1 %}
+                            <img src="{{detalle.imagen.url}}" class="img-fluid" alt="" alt="">
+                        {% else %}
+                            <p>{{detalle.html|safe}}</p>
+                        {% endif %}
                     </div>
                     <h3>{{detalle.titulo}}</h3>
                     <br>
@@ -34,11 +38,7 @@
                                 {% for item in noticias %}
                                     <div class="sidebar__post-single">
                                         <div class="sidebar__post-image">
-                                            {% if tarea == 1 %}
-                                                <img src="{{item.imagen.url}}" alt="">
-                                            {% else %}
-                                                <p>{{detalle.html|safe}}</p>
-                                            {% endif %}
+                                            <img src="{{item.imagen.url}}" alt="">
                                         </div>
                                         <div class="sidebar__post-content">
                                             <a class="sidebar__post-date" href="#">
