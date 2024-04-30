@@ -95,7 +95,7 @@
                     <div class="collection-grid__single">
                         <div class="collection-grid__image">
                             <img src="{{item.imagen.url}}" alt="">
-                            <a href="{% url 'generales:detalle_img' item.id %}" class="collection-grid__link">+</a>
+                            <a href="{% url 'generales:detalle_img' item.id  1 %}" class="collection-grid__link">+</a>
                         </div>
                         <div class="collection-grid__content">
                             <h3><a href=".">{{item.titulo}}</a></h3>
@@ -109,7 +109,7 @@
                     <div class="collection-grid__single">
                         <div class="collection-grid__image">
                             {{item.html|safe}}
-                            <a href="{% url 'generales:detalle_img' item.id %}" class="collection-grid__link">+</a>
+                            <a href="{% url 'generales:detalle_img' item.id 2 %}" class="collection-grid__link">+</a>
                         </div>
                         <div class="collection-grid__content">
                             <h3><a href=".">{{item.titulo}}</a></h3>
