@@ -13,7 +13,7 @@ from datetime import date
 from django.shortcuts import render
 
 from generales.forms import SuscribirseForm, ComentarioForm, ContactoForm
-
+from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from django.http import JsonResponse
 from datetime import timedelta
 import json 
@@ -222,9 +222,24 @@ def Multimedia2View(request, pk):
     multimedia = Noticias.objects.filter(subcategoria__id=pk).order_by('-fecha')
     podcast = Podcast.objects.filter(categoria_multimedia__id=pk).order_by('-fecha')[:10]
     videos = Videos.objects.filter(categoria_multimedia__id=pk).order_by('-fecha')[:10]
-    imagenes = Imagenes.objects.filter(categoria_multimedia__id=pk).order_by('-fecha')[:10]
+    #imagenes = Imagenes.objects.filter(categoria_multimedia__id=pk).order_by('-fecha')[:10]
+    try:
+        imagenes = Imagenes.objects.filter(categoria_multimedia__id=pk).order_by('-id')[:10]
+        paginator2 = Paginator(imagenes, 6)
+    except:
+        imagenes = Imagenes.objects.filter(categoria_multimedia__id=pk).order_by('-id')[:10]
+        paginator2 = Paginator(imagenes, 6)
+    try:
+        page2 = int(request.GET.get('page', '1'))
+    except ValueError:
+        page2 = 1
+    try:
+        imagenes = paginator2.page(page2)
+    except (EmptyPage, InvalidPage):
+        imagenes = paginator2.page(paginator2.num_pages)
+
     c_p = Categoria.objects.get(id=16)  # 16 = Multimedia
-    context = {'podcast': podcast,'videos': videos,'imagenes': imagenes, 'hoy': hoy, 'categorias_mul': Categoria_multimedia.objects.all().order_by('id'), 'subcategorias': subcategorias, 'cat_p': c_p, 'nosotros': Nosotros.objects.all().last(), 'multimedia': multimedia, 'categorias': categorias, 'cat_multimedia': cat_multimedia, 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
+    context = {'podcast': podcast,'videos': videos,'imagenes': imagenes, 'paginator2': paginator2, 'hoy': hoy, 'categorias_mul': Categoria_multimedia.objects.all().order_by('id'), 'subcategorias': subcategorias, 'cat_p': c_p, 'nosotros': Nosotros.objects.all().last(), 'multimedia': multimedia, 'categorias': categorias, 'cat_multimedia': cat_multimedia, 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
 
     return render(request, template_name, context)
 
