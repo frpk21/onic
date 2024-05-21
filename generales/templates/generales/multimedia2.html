@@ -108,7 +108,7 @@
             {% for item in videos %}
                 <div class="col-lg-4 col-md-6 filter-item masonary-item dis">
                     <div class="collection-grid__single">
-                        <div class="collection-grid__image">
+                        <div class="collection-grid__image" loading="lazy">
                             {{item.html|safe}}
                             <a href="{% url 'generales:detalle_img' item.id 2 %}" class="collection-grid__link">+</a>
                         </div>
