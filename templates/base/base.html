@@ -79,7 +79,7 @@
                                                     {% for subcategoria in subcategorias %}
                                                         {% if subcategoria.categoria.id == categoria.id %}
                                                             {% if subcategoria.id == 19 %}
-                                                                <li><a href=" https://geovisor.smt-onic.com/" target="_blank">{{subcategoria.nombre}}</a></li>
+                                                                <li><a href="https://geovisor.smt-onic.com/geovisor/" target="_blank">{{subcategoria.nombre}}</a></li>
                                                             {% else %}
                                                                 {% if subcategoria.id == 14 %}
                                                                     <li><a href="{% url 'generales:nosotros' %}">{{subcategoria.nombre}}</a></li>
