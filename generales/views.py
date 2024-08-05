@@ -171,7 +171,7 @@ def EquipoView(request):
     hoy = date.today()
     categorias = Categoria.objects.all().order_by('id')
     subcategorias = SubCategoria.objects.all().order_by('id')
-    equipo = Equipo.objects.all().exclude(orden=0).order_by('orden')
+    equipo = Equipo.objects.filter(activo=True).exclude(orden=0).order_by('orden')
     concejero = Equipo.objects.filter(orden=0).last()
     context = {'hoy': hoy, 'categorias_mul': Categoria_multimedia.objects.all().order_by('id'), 'concejero': concejero, 'nosotros': Nosotros.objects.all().last(), 'equipo': equipo, 'categorias': categorias, 'subcategorias': subcategorias, 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
     return render(request, template_name, context)
