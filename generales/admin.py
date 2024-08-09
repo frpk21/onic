@@ -60,7 +60,7 @@ class SubCategoriaAdmin(admin.ModelAdmin):
 
 class MapasAdmin(admin.ModelAdmin):
     list_display = ('fecha', 'tema', 'descripcion', 'imagen', 'activo',)
-    ordering = ('Tema', )
+    ordering = ('tema', )
     search_fields = ('tema','fecha', )
     list_filter = ('tema', 'modificado', 'fecha',)
 
