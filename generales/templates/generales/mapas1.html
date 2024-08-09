@@ -17,31 +17,31 @@
             <div class="col-lg-8">
                 <div class="blog-details__main">
                     <div class="blog-details__image">
-                        <img src="{{detalle.imagen.url}}" class="img-fluid" alt="">
+                        <img src="{{mapas1.imagen.url}}" class="img-fluid" alt="">
                     </div>
-                    <h3>{{detalle.titulo}}</h3>
-                    <i class="far fa-calendar-alt"></i>&nbsp;{{detalle.fecha}}
+                    <h3>{{mapas1.titulo}}</h3>
+                    <i class="far fa-calendar-alt"></i>&nbsp;{{mapas1.fecha}}
                     <br>
-                    <p>{{detalle.subtitulo}}</p>
+                    <p>{{mapas1.subtitulo}}</p>
                     <br>
-                    <p>{{detalle.descripcion|safe}}</p>
-                    <p>{{detalle.html|safe}}</p>
-                    {% if detalle.pdf %}
+                    <p>{{mapas1.descripcion|safe}}</p>
+                    <p>{{mapas1.html|safe}}</p>
+                    {% if mapas1.pdf %}
                         <h6 style="color:rgb(206, 5, 162);">ARCHIVO ORIGINAL</h6>
-                        <embed height="700px" width="100%"  name="plugin" src="{{detalle.pdf.url}}" type="application/pdf">
+                        <embed height="700px" width="100%"  name="plugin" src="{{mapas1.pdf.url}}" type="application/pdf">
                     {% endif %}
                     <p class="blog-details__tags">
-                        <span>Fuente: </span>{{detalle.fuente}}
+                        <span>Fuente: </span>{{mapas1.fuente}}
                     </p>
                 </div>
             </div>
             <div class="col-lg-4">
                 <div class="sidebar">
-                    {% if noticias|length > 0 %}
+                    {% if mapas|length > 0 %}
                         <div class="sidebar__single">
                             <h3 class="sidebar__title">M&aacute;s publicaciones</h3>
                             <div class="sidebar__post">
-                                {% for item in noticias %}
+                                {% for item in mapas %}
                                     <div class="sidebar__post-single">
                                         <div class="sidebar__post-image">
                                             <img src="{{item.imagen.url}}" alt="">
@@ -51,7 +51,7 @@
                                                 <i class="far fa-calendar-alt"></i>
                                                 {{item.fecha}}
                                             </a>
-                                            <h3><a href="{% url 'generales:detalle' item.slug %}">{{item.titulo}}</a></h3>
+                                            <h3><a href="{% url 'generales:mapas1' item.slug %}">{{item.titulo}}</a></h3>
                                         </div>
                                     </div>
                                 {% endfor %}
