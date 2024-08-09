@@ -169,8 +169,10 @@ class Noticias(ClaseModelo):
         verbose_name_plural = "Noticias"
 
 class Mapas(models.Model):
-    titulo = models.CharField(help_text='Título de la noticia', blank=False, null=False, max_length=200)
-    imagen = models.FileField("Imagen mapa (450x370 px)", upload_to="imagenes/mapas",default="")
+    fecha = models.DateField('Fecha de publicación', blank=True, null=True, default=datetime.now)
+    tema = models.CharField(help_text='Título del tema de mapas', blank=False, null=False, max_length=200)
+    descripion = models.CharField(help_text='Descripión', blank=False, null=False, max_length=400)
+    imagen = models.FileField("Imagen tema mapa (450x370 px)", upload_to="imagenes/mapas",default="")
  
     def save(self):
         super(Mapas, self).save()
