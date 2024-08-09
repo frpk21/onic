@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from generales.models import Noticias, Suscribir, VideoSMT, Contacto, Nosotros, Categoria, SubCategoria, SubCategoria3, Equipo, Imagenes, Videos, Podcast, Categoria_multimedia
+from generales.models import Noticias, Suscribir, VideoSMT, Contacto, Nosotros, Categoria, SubCategoria, Mapas, Equipo, Imagenes, Videos, Podcast, Categoria_multimedia
 
 from django.contrib.admin.widgets import AutocompleteSelect
 
@@ -58,24 +58,17 @@ class SubCategoriaAdmin(admin.ModelAdmin):
     def has_delete_permission(self, request, obj=None):
        return False
 
-class SubCategoria3Admin(admin.ModelAdmin):
+class MapasAdmin(admin.ModelAdmin):
     list_display = ('imagen',)
     ordering = ('imagen', )
 
     class Meta:
-        model = SubCategoria3
+        model = Mapas
 
     def save_model(self, request, obj, form, change):
         context = {'subcat': 25}
         obj.subcategoria_id = (context['subcat'])
         super().save_model(request, obj, form, change)
-    """
-    def has_add_permission(self, request):
-        return False
-    
-    def has_delete_permission(self, request, obj=None):
-       return False
-    """
     
 class VideoSMTAdmin(admin.ModelAdmin):
     list_display = ('titulo', 'url_video',)
@@ -152,7 +145,7 @@ class PodcastAdmin(admin.ModelAdmin):
 
 admin.site.register(Categoria, CategoriaAdmin)
 admin.site.register(SubCategoria, SubCategoriaAdmin)
-admin.site.register(SubCategoria3, SubCategoria3Admin)
+admin.site.register(Mapas, MapasAdmin)
 admin.site.register(Noticias, NoticiasAdmin)
 admin.site.register(VideoSMT, VideoSMTAdmin)
 admin.site.register(Nosotros, NosotrosAdmin)

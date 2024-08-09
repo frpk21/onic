@@ -6,7 +6,7 @@ from django.views import generic
 
 from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 
-from generales.models import Noticias, Comentario, Contacto, VideoSMT, Nosotros, Categoria, SubCategoria, SubCategoria3, Equipo, Podcast, Videos, Imagenes, Categoria_multimedia
+from generales.models import Noticias, Comentario, Contacto, VideoSMT, Nosotros, Categoria, SubCategoria, Equipo, Podcast, Videos, Imagenes, Categoria_multimedia
 
 from datetime import date
 
@@ -192,7 +192,7 @@ def ModulosView(request, pk):
     hoy = date.today()
     categorias = Categoria.objects.all().order_by('id')
     subcategorias = SubCategoria.objects.all().order_by('id')
-    subcategorias3 = SubCategoria3.objects.filter("subcategoria_id = 25")
+    #subcategorias3 = SubCategoria3.objects.filter("subcategoria_id = 25")
     modulo = SubCategoria.objects.get(id=pk)
     modulos2 = SubCategoria.objects.filter(categoria__id=20)   # 20=modulos
     noticias = Noticias.objects.filter(subcategoria__id=pk).last()
