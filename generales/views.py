@@ -6,7 +6,7 @@ from django.views import generic
 
 from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 
-from generales.models import Noticias, Comentario, Contacto, VideoSMT, Nosotros, Categoria, SubCategoria, Equipo, Podcast, Videos, Imagenes, Categoria_multimedia
+from generales.models import Noticias, Comentario, Contacto, VideoSMT, Nosotros, Categoria, SubCategoria, Mapas, Mapas1, Equipo, Podcast, Videos, Imagenes, Categoria_multimedia
 
 from datetime import date
 
@@ -182,7 +182,7 @@ def PublicacionesView(request, pk):
     categorias = Categoria.objects.all().order_by('id')
     subcategoria = SubCategoria.objects.get(id=pk)
     subcategorias = SubCategoria.objects.all().order_by('id')
-    publicaciones = Noticias.objects.filter(subcategoria__id=pk)
+    publicaciones = Mapas.objects.filter(activo=True)
     c_p = Categoria.objects.get(id=14)  # 14 = Publicaciones
     context = {'hoy': hoy, 'categorias_mul': Categoria_multimedia.objects.all().order_by('id'), 'subcategorias': subcategorias, 'cat_p': c_p, 'nosotros': Nosotros.objects.all().last(), 'publicaciones': publicaciones, 'categorias': categorias, 'subcategoria': subcategoria, 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
     return render(request, template_name, context)
