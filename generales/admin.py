@@ -67,7 +67,7 @@ class MapasAdmin(admin.ModelAdmin):
 
     def save_model(self, request, obj, form, change):
         context = {'subcat': 25}
-        obj.subcategoria_id = (context['subcat'])
+        obj.noticia_id = (context['subcat'])
         super().save_model(request, obj, form, change)
     
 class VideoSMTAdmin(admin.ModelAdmin):

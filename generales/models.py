@@ -169,8 +169,8 @@ class Noticias(ClaseModelo):
         verbose_name_plural = "Noticias"
 
 class Mapas(models.Model):
-    subcategoria = models.OneToOneField(Noticias, on_delete=models.CASCADE)
-    imagen = models.FileField("Imagen mapa (770x450 px)", upload_to="imagenes/categorias",default="")
+    noticia = models.OneToOneField(Noticias, on_delete=models.CASCADE)
+    imagen = models.FileField("Imagen mapa (770x450 px)", upload_to="imagenes/mapas",default="")
  
     def save(self):
         super(Mapas, self).save()
