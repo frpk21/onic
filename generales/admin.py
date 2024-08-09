@@ -66,8 +66,6 @@ class MapasAdmin(admin.ModelAdmin):
         model = Mapas
 
     def save_model(self, request, obj, form, change):
-        context = {'subcat': 25}
-        obj.noticia_id = (context['subcat'])
         super().save_model(request, obj, form, change)
 
 class Mapas1Admin(admin.ModelAdmin):
@@ -76,7 +74,7 @@ class Mapas1Admin(admin.ModelAdmin):
     exclude = ('slug','autor', 'modificado', )
     ordering = ('titulo', 'fecha',)
     search_fields = ('titulo','subtitulo','fecha', )
-    list_filter = ('mapas', 'modificado', 'fecha',)
+    list_filter = ('mapa', 'modificado', 'fecha',)
 
     class Meta:
         model = Mapas1

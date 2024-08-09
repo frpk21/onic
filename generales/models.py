@@ -176,7 +176,7 @@ class Mapas(models.Model):
         super(Mapas, self).save()
     
     class Meta:
-        verbose_name_plural = "Categoria de Mapas"
+        verbose_name_plural = "Mapas (Temas)"
 
 class Mapas1(ClaseModelo):
     mapa=models.ForeignKey(Mapas, on_delete=models.CASCADE, default=0, null=False, blank=False)
