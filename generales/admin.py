@@ -151,6 +151,7 @@ class PodcastAdmin(admin.ModelAdmin):
 
 admin.site.register(Categoria, CategoriaAdmin)
 admin.site.register(SubCategoria, SubCategoriaAdmin)
+admin.site.register(SubCategoria3, SubCategoria3Admin)
 admin.site.register(Noticias, NoticiasAdmin)
 admin.site.register(VideoSMT, VideoSMTAdmin)
 admin.site.register(Nosotros, NosotrosAdmin)
