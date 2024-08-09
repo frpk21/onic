@@ -58,16 +58,6 @@ class SubCategoria(ClaseModelo):
         verbose_name_plural = "Sub Categorías"
         unique_together = ('categoria','nombre')
 
-class SubCategoria3(models.Model):
-    subcategoria = models.OneToOneField(SubCategoria, on_delete=models.CASCADE)
-    imagen = models.FileField("Imagen subcategoria (770x450 px)", upload_to="imagenes/categorias",default="")
- 
-    def save(self):
-        super(SubCategoria3, self).save()
-    
-    class Meta:
-        verbose_name_plural = "Subcategorias +"
-
 class Suscribir(ClaseModelo):
     email = models.CharField(max_length=200, help_text='eMail', unique=True)
 
@@ -177,6 +167,16 @@ class Noticias(ClaseModelo):
 
     class Meta:
         verbose_name_plural = "Noticias"
+
+class Mapas(models.Model):
+    subcategoria = models.OneToOneField(Noticias, on_delete=models.CASCADE)
+    imagen = models.FileField("Imagen mapa (770x450 px)", upload_to="imagenes/categorias",default="")
+ 
+    def save(self):
+        super(Mapas, self).save()
+    
+    class Meta:
+        verbose_name_plural = "Mapas"
 
 class Comentario(ClaseModelo):
     noticia = models.ForeignKey(Noticias, on_delete=models.CASCADE, default=0, null=False, blank=False)
