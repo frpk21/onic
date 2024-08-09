@@ -62,7 +62,7 @@ class MapasAdmin(admin.ModelAdmin):
     list_display = ('fecha', 'tema', 'descripcion', 'imagen')
     ordering = ('tema', )
     search_fields = ('tema','fecha', )
-    list_filter = ('tema', 'modificado', 'fecha',)
+    list_filter = ('tema', 'fecha',)
 
     class Meta:
         model = Mapas
