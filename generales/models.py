@@ -58,6 +58,13 @@ class SubCategoria(ClaseModelo):
         verbose_name_plural = "Sub Categorías"
         unique_together = ('categoria','nombre')
 
+class SubCategoria3(models.Model):
+    subcategoria = models.OneToOneField(SubCategoria, on_delete=models.CASCADE)
+    imagen = models.FileField("Imagen subcategoria", upload_to="imagenes/categorias",default="")
+ 
+    def save(self):
+        self.empresa = self.empresa.upper()
+        super(SubCategoria3, self).save()
 
 class Suscribir(ClaseModelo):
     email = models.CharField(max_length=200, help_text='eMail', unique=True)
