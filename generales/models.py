@@ -46,7 +46,7 @@ class Categoria(ClaseModelo):
 class SubCategoria(ClaseModelo):
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
     nombre = models.CharField(max_length=100, help_text='Descripción de la sub categoría')
-    imagen = models.FileField("Imagen categoria (450x370 px)", upload_to="imagenes/categorias",default="")
+    imagen = models.FileField("Imagen categoria (1920x1042 px)", upload_to="imagenes/categorias",default="")
 
     def __str__(self):
         return '{}: {}'.format(self.categoria.nombre,self.nombre)
@@ -169,14 +169,36 @@ class Noticias(ClaseModelo):
         verbose_name_plural = "Noticias"
 
 class Mapas(models.Model):
-    noticia = models.OneToOneField(Noticias, on_delete=models.CASCADE)
-    imagen = models.FileField("Imagen mapa (770x450 px)", upload_to="imagenes/mapas",default="")
+    titulo = models.CharField(help_text='Título de la noticia', blank=False, null=False, max_length=200)
+    imagen = models.FileField("Imagen mapa (450x370 px)", upload_to="imagenes/mapas",default="")
  
     def save(self):
         super(Mapas, self).save()
     
     class Meta:
-        verbose_name_plural = "Mapas"
+        verbose_name_plural = "Categoria de Mapas"
+
+class Mapas1(ClaseModelo):
+    mapa=models.ForeignKey(Mapas, on_delete=models.CASCADE, default=0, null=False, blank=False)
+    fecha = models.DateField('Fecha de publicación', blank=True, null=True, default=datetime.now)
+    titulo = models.CharField(help_text='Título de la noticia', blank=False, null=False, max_length=200)
+    subtitulo = models.CharField(help_text='Sub título de la noticia', blank=False, null=False, max_length=500)
+    imagen = models.FileField("Imagen mapa (770x450 px)", upload_to="mapas/", blank=False, null=False)
+    autor = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True,default='')
+    fuente = models.CharField(help_text='Fuente noticia', blank=True, null=True, max_length=50, default="SMT")
+    html = models.TextField(max_length=10000, default="", blank=True, null=True)
+    pdf = models.FileField("Archivo PDF", upload_to="pdf/", blank=True, null=True, default='')
+    slug = models.SlugField(blank=True,null=True, max_length=250)
+    
+    def __str__(self):
+        return '{}'.format(self.titulo)
+
+    def save(self):
+        self.slug = slugify(self.titulo)
+        super(Mapas1, self).save()
+
+    class Meta:
+        verbose_name_plural = "Detalle Mapas"
 
 class Comentario(ClaseModelo):
     noticia = models.ForeignKey(Noticias, on_delete=models.CASCADE, default=0, null=False, blank=False)
