@@ -59,14 +59,15 @@ class SubCategoriaAdmin(admin.ModelAdmin):
        return False
 
 class SubCategoria3Admin(admin.ModelAdmin):
-    list_display = ('subcategoria', 'imagen',)
-    ordering = ('subcategoria', )
-    list_filter = ('subcategoria',)
+    list_display = ('imagen',)
+    ordering = ('imagen', )
 
     class Meta:
         model = SubCategoria3
 
     def save_model(self, request, obj, form, change):
+        context = {'subcat': 25}
+        obj.subcategoria_id = (context['subcat'])
         super().save_model(request, obj, form, change)
     """
     def has_add_permission(self, request):
