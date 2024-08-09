@@ -63,7 +63,6 @@ class SubCategoria3(models.Model):
     imagen = models.FileField("Imagen subcategoria", upload_to="imagenes/categorias",default="")
  
     def save(self):
-        self.empresa = self.empresa.upper()
         super(SubCategoria3, self).save()
     
     class Meta:
