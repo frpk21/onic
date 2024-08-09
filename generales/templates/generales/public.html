@@ -10,34 +10,61 @@
     </div>
 </section>
 
-<section class="collection-grid">
+<section class="event-two event-two__event-1-page">
     <div class="container">
-        <div class="collection-grid__top">
-            <div class="block-title-two text-center">
-                {% if subcategoria.id == 25 %}
-                    <p>MAPAS</p>
-                {% else %}
-                    <p>{{cat_p.nombre}}</p>
-                {% endif %}
-                <h3>{{subcategoria.nombre}}</h3>
-            </div>
-        </div>
-        <div class="row high-gutter filter-layout">
-            {% for item in publicaciones %}
-                <div class="col-lg-4 col-md-6 filter-item {{item.subcategoria.id}}">
-                    <div class="collection-grid__single">
-                        <div class="collection-grid__image">
-                            <img src="{{item.imagen.url}}" alt="">
-                            <a href="{% url 'generales:detalle' item.slug %}" class="collection-grid__link">+</a>
+        {% for item in publicaciones %}
+            {% if forloop.counter|divisibleby:2 %}
+                <div class="event-two__single">
+                    <div class="row">
+                        <div class="col-lg-5 wow fadeInLeft" data-wow-duration="1500ms">
+                            <div class="event-two__image">
+                                <div class="event-two__image-inner">
+                                    <img src="{{item.imagen.url}}" alt="">
+                                </div>
+                            </div>
                         </div>
-                        <div class="collection-grid__content">
-                            <h3><a href="{% url 'generales:detalle' item.slug %}">{{item.titulo}}</a></h3>
-                            <p>{{item.fuente}}</p>
+                        <div class="col-lg-7 d-flex">
+                            <div class="my-auto">
+                                <div class="event-two__content">
+                                    <div class="block-title event-two__title">
+                                        <p>{{item.fecha}}</p>
+                                        <h3>{{item.titulo}}</h3>
+                                    </div>
+                                    <p>{{item.subtitulo}}
+                                    </p>
+                                    <a href="{% url 'generales:detalle' item.slug %}" class="thm-btn event-two__btn">Ver M&aacute;s</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            {% endfor %}
-        </div>
+            {% else %}
+                <div class="event-two__single">
+                    <div class="row">
+                        <div class="col-lg-5 wow fadeInLeft" data-wow-duration="1500ms">
+                            <div class="event-two__image">
+                                <div class="event-two__image-inner">
+                                    <img src="{{item.imagen.url}}" alt="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-7 d-flex">
+                            <div class="my-auto">
+                                <div class="event-two__content">
+                                    <div class="block-title event-two__title">
+                                        <p>{{item.fecha}}</p>
+                                        <h3>{{item.titulo}}</h3>
+                                    </div>
+                                    <p>{{item.subtitulo}}
+                                    </p>
+                                    <a href="{% url 'generales:detalle' item.slug %}" class="thm-btn event-two__btn">Ver M&aacute;s</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
     </div>
 </section>
 
