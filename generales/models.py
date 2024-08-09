@@ -65,6 +65,9 @@ class SubCategoria3(models.Model):
     def save(self):
         self.empresa = self.empresa.upper()
         super(SubCategoria3, self).save()
+    
+    class Meta:
+        verbose_name_plural = "Subcategorias +"
 
 class Suscribir(ClaseModelo):
     email = models.CharField(max_length=200, help_text='eMail', unique=True)
