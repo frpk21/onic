@@ -171,7 +171,7 @@ class Noticias(ClaseModelo):
 class Mapas(models.Model):
     fecha = models.DateField('Fecha de publicación', blank=True, null=True, default=datetime.now)
     tema = models.CharField(help_text='Título del tema de mapas', blank=False, null=False, max_length=200)
-    descripion = models.CharField(help_text='Descripión', blank=False, null=False, max_length=400)
+    descripcion = models.CharField(help_text='Descripión', blank=False, null=False, max_length=400)
     imagen = models.FileField("Imagen tema mapa (450x370 px)", upload_to="imagenes/mapas",default="")
  
     def save(self):
