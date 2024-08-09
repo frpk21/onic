@@ -182,7 +182,7 @@ def PublicacionesView(request, pk):
     categorias = Categoria.objects.all().order_by('id')
     subcategoria = SubCategoria.objects.get(id=pk)
     subcategorias = SubCategoria.objects.all().order_by('id')
-    publicaciones = Mapas.objects.all()
+    publicaciones = Mapas.objects.all().order_by('tema')
     c_p = Categoria.objects.get(id=14)  # 14 = Publicaciones
     context = {'hoy': hoy, 'categorias_mul': Categoria_multimedia.objects.all().order_by('id'), 'subcategorias': subcategorias, 'cat_p': c_p, 'nosotros': Nosotros.objects.all().last(), 'publicaciones': publicaciones, 'categorias': categorias, 'subcategoria': subcategoria, 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
     return render(request, template_name, context)
@@ -280,6 +280,87 @@ def SubSeccionView(request, pk):
 
     return render(request, template_name, context)
 
+
+def Mapas1View(request, slug):
+    template_name = 'generales/mapas1.html'
+    hoy = date.today()
+    mapas1 = Mapas1.objects.filter(slug=slug).last()
+    mapas = Mapas.objects.all().order_by('tema')
+    categorias = Categoria.objects.all().order_by('id')
+    subcategorias = SubCategoria.objects.all().order_by('id')
+    context = {'hoy': hoy, 'mapas': mapas, 'mapas1': mapas1, 'categorias': categorias, 'subcategorias': subcategorias}
+    if request.POST.get('buscar'):
+        buscar = (request.POST.get('buscar').upper())
+        template_name="generales/search.html"
+        try:
+            resultado = Noticias.objects.filter(titulo__icontains=buscar).order_by('-id')
+            #paginator5 = Paginator(resultado, 10)
+        except:
+            resultado = Noticias.objects.filter(titulo__icontains=buscar).order_by('-id')
+            #paginator5 = Paginator(resultado, 10)
+        try:
+            page = int(request.GET.get('page', '1'))
+        except ValueError:
+            page = 1
+        #try:
+        #    resultado = paginator5.page(page)
+        #except (EmptyPage, InvalidPage):
+        #    resultado = paginator5.page(paginator5.num_pages)
+
+        #context['paginator5'] = paginator5
+        context['resultado'] = resultado
+    else:
+        buscar = ''
+        resultado={}
+
+    #if request.method == "POST":
+    if request.POST.get('comentario'):
+        form_comentario = ComentarioForm(request.POST)
+        if form_comentario.is_valid():
+            post = form_comentario.save(commit=False)
+            post.noticia = detalle
+            post.save()
+
+            return JsonResponse(
+                {
+                    'content': {
+                        'message': 'Gracias por su comentario.',
+                    }
+                }
+            )
+    else:
+        form_comentario = ComentarioForm()
+
+    if request.POST.get('email'):
+        form_home = SuscribirseForm(request.POST)
+        if form_home.is_valid():
+            post = form_home.save(commit=False)
+            post.save()
+            success_url=reverse_lazy("/")
+
+            return JsonResponse(
+                {
+                    'content': {
+                        'message': 'Gracias por suscribirse.',
+                    }
+                }
+            )
+        else:
+            return JsonResponse(
+                {
+                    'content': {
+                        'message': 'Ya ha sido registrado. Gracias!',
+                    }
+                }
+            )
+    else:
+        form_home = SuscribirseForm()
+
+    context['form_home'] = form_home
+    context['form_comentario'] = form_comentario
+    context['regresivo'] = {'activo': False}
+
+    return render(request, template_name, context)
 
 def DetalleView(request, slug):
     template_name = 'generales/detalle.html'

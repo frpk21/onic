@@ -4,7 +4,7 @@
 
 {% block contenido %}
 
-<section class="page-header" style="background-image: url({{cat_p.imagen.url}});">
+<section class="page-header" style="background-image: url('/static/base/assets/images/mapa.jpg');">
     <div class="container">
         <h2>{{cat_p.nombre}}</h2>
     </div>
@@ -32,7 +32,7 @@
                                     </div>
                                     <p>{{item.descripcion}}
                                     </p>
-                                    <a href="{% url 'generales:detalle' item.slug %}" class="thm-btn event-two__btn">Ver M&aacute;s</a>
+                                    <a href="{% url 'generales:mapas1' item.slug %}" class="thm-btn event-two__btn">Ver M&aacute;s</a>
                                 </div>
                             </div>
                         </div>
@@ -55,9 +55,9 @@
                                         <p>{{item.fecha}}</p>
                                         <h3>{{item.titulo}}</h3>
                                     </div>
-                                    <p>{{item.subtitulo}}
+                                    <p>{{item.descripcion}}
                                     </p>
-                                    <a href="{% url 'generales:detalle' item.slug %}" class="thm-btn event-two__btn">Ver M&aacute;s</a>
+                                    <a href="{% url 'generales:mapas1' item.slug %}" class="thm-btn event-two__btn">Ver M&aacute;s</a>
                                 </div>
                             </div>
                         </div>
