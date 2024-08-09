@@ -58,7 +58,6 @@ def HomeView(request):
         'mediateca': mediateca,
         'categorias' : Categoria.objects.all().order_by('id'),
         'subcategorias': SubCategoria.objects.all().order_by('id'),
-        'subcategorias3': SubCategoria3.objects.filter("subcategoria_id=25"),
         'categorias_mul': Categoria_multimedia.objects.all().order_by('id'),
         'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')
         }
@@ -193,11 +192,12 @@ def ModulosView(request, pk):
     hoy = date.today()
     categorias = Categoria.objects.all().order_by('id')
     subcategorias = SubCategoria.objects.all().order_by('id')
+    subcategorias3 = SubCategoria3.objects.filter("subcategoria_id = 25")
     modulo = SubCategoria.objects.get(id=pk)
     modulos2 = SubCategoria.objects.filter(categoria__id=20)   # 20=modulos
     noticias = Noticias.objects.filter(subcategoria__id=pk).last()
     c_p = Categoria.objects.get(id=20)  # 20 = modulos
-    context = {'hoy': hoy, 'categorias_mul': Categoria_multimedia.objects.all().order_by('id'), 'modulos2': modulos2, 'subcategorias': subcategorias, 'cat_p': c_p, 'nosotros': Nosotros.objects.all().last(), 'noticias': noticias, 'categorias': categorias, 'modulo': modulo, 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
+    context = {'hoy': hoy, 'categorias_mul': Categoria_multimedia.objects.all().order_by('id'), 'modulos2': modulos2, 'subcategorias': subcategorias, 'subcategorias3': subcategorias3, 'cat_p': c_p, 'nosotros': Nosotros.objects.all().last(), 'noticias': noticias, 'categorias': categorias, 'modulo': modulo, 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
     return render(request, template_name, context)
 
 def MultimediaView(request):
