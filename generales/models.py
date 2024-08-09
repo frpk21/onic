@@ -46,7 +46,7 @@ class Categoria(ClaseModelo):
 class SubCategoria(ClaseModelo):
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
     nombre = models.CharField(max_length=100, help_text='Descripción de la sub categoría')
-    imagen = models.FileField("Imagen categoria", upload_to="imagenes/categorias",default="")
+    imagen = models.FileField("Imagen categoria (450x370 px)", upload_to="imagenes/categorias",default="")
 
     def __str__(self):
         return '{}: {}'.format(self.categoria.nombre,self.nombre)
@@ -60,7 +60,7 @@ class SubCategoria(ClaseModelo):
 
 class SubCategoria3(models.Model):
     subcategoria = models.OneToOneField(SubCategoria, on_delete=models.CASCADE)
-    imagen = models.FileField("Imagen subcategoria", upload_to="imagenes/categorias",default="")
+    imagen = models.FileField("Imagen subcategoria (770x450 px)", upload_to="imagenes/categorias",default="")
  
     def save(self):
         super(SubCategoria3, self).save()
