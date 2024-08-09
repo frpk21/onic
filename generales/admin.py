@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from generales.models import Noticias, Suscribir, VideoSMT, Contacto, Nosotros, Categoria, SubCategoria, Mapas, Equipo, Imagenes, Videos, Podcast, Categoria_multimedia
+from generales.models import Noticias, Suscribir, VideoSMT, Contacto, Nosotros, Categoria, SubCategoria, Mapas, Mapas1, Equipo, Imagenes, Videos, Podcast, Categoria_multimedia
 
 from django.contrib.admin.widgets import AutocompleteSelect
 
@@ -69,7 +69,21 @@ class MapasAdmin(admin.ModelAdmin):
         context = {'subcat': 25}
         obj.noticia_id = (context['subcat'])
         super().save_model(request, obj, form, change)
-    
+
+class Mapas1Admin(admin.ModelAdmin):
+    list_display = ('titulo', 'subtitulo', 'fecha', 'imagen', 'modificado', 'mapa', 'activo', )
+    fields = ['mapa', 'titulo', 'subtitulo', 'fecha', 'imagen (770x450 px)', 'fuente', 'html', 'pdf', 'activo']
+    exclude = ('slug','autor', 'modificado', )
+    ordering = ('titulo', 'fecha',)
+    search_fields = ('titulo','subtitulo','fecha', )
+    list_filter = ('mapas', 'modificado', 'fecha',)
+
+    class Meta:
+        model = Mapas1
+
+    def save_model(self, request, obj, form, change):
+        obj.save()
+
 class VideoSMTAdmin(admin.ModelAdmin):
     list_display = ('titulo', 'url_video',)
     ordering = ('titulo', )
