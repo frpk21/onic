@@ -70,7 +70,7 @@ class MapasAdmin(admin.ModelAdmin):
 
 class Mapas1Admin(admin.ModelAdmin):
     list_display = ('titulo', 'subtitulo', 'fecha', 'imagen', 'modificado', 'mapa', 'activo', )
-    fields = ['mapa', 'titulo', 'subtitulo', 'fecha', 'imagen (770x450 px)', 'fuente', 'html', 'pdf', 'activo']
+    fields = ['mapa', 'titulo', 'subtitulo', 'fecha', 'imagen', 'fuente', 'html', 'pdf', 'activo']
     exclude = ('slug','autor', 'modificado', )
     ordering = ('titulo', 'fecha',)
     search_fields = ('titulo','subtitulo','fecha', )
