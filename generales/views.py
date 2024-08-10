@@ -188,11 +188,10 @@ def PublicacionesView(request, pk):
     template_name = 'generales/public.html'
     hoy = date.today()
     categorias = Categoria.objects.all().order_by('id')
-    subcategoria = SubCategoria.objects.get(id=pk)
     subcategorias = SubCategoria.objects.all().order_by('id')
     publicaciones = Mapas1.objects.filter(id=pk).order_by('titulo')
     c_p = Categoria.objects.get(id=14)  # 14 = Publicaciones
-    context = {'hoy': hoy, 'categorias_mul': Categoria_multimedia.objects.all().order_by('id'), 'subcategorias': subcategorias, 'cat_p': c_p, 'nosotros': Nosotros.objects.all().last(), 'publicaciones': publicaciones, 'categorias': categorias, 'subcategoria': subcategoria, 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
+    context = {'hoy': hoy, 'categorias_mul': Categoria_multimedia.objects.all().order_by('id'), 'subcategorias': subcategorias, 'cat_p': c_p, 'nosotros': Nosotros.objects.all().last(), 'publicaciones': publicaciones, 'categorias': categorias, 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
     return render(request, template_name, context)
 
 def ModulosView(request, pk):
