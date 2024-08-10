@@ -6,7 +6,7 @@ from django.views import generic
 
 from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 
-from generales.models import Noticias, Comentario, Contacto, VideoSMT, Nosotros, Categoria, SubCategoria, Mapas, MapasDetalle, Equipo, Podcast, Videos, Imagenes, Categoria_multimedia
+from generales.models import Noticias, Comentario, Contacto, VideoSMT, Nosotros, Categoria, SubCategoria, Mapas, Mapas1, Equipo, Podcast, Videos, Imagenes, Categoria_multimedia
 
 from datetime import date
 
@@ -189,7 +189,7 @@ def PublicacionesView(request, pk):
     hoy = date.today()
     categorias = Categoria.objects.all().order_by('id')
     subcategorias = SubCategoria.objects.all().order_by('id')
-    publicaciones = MapasDetalle.objects.filter(id=pk).order_by('titulo')
+    publicaciones = Mapas1.objects.filter(id=pk).order_by('titulo')
     c_p = Categoria.objects.get(id=14)  # 14 = Publicaciones
     context = {'hoy': hoy, 'categorias_mul': Categoria_multimedia.objects.all().order_by('id'), 'subcategorias': subcategorias, 'cat_p': c_p, 'nosotros': Nosotros.objects.all().last(), 'publicaciones': publicaciones, 'categorias': categorias, 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
     return render(request, template_name, context)
@@ -291,7 +291,7 @@ def SubSeccionView(request, pk):
 def Mapas1View(request, slug):
     template_name = 'generales/mapas1.html'
     hoy = date.today()
-    mapas1 = MapasDetalle.objects.filter(slug=slug).last()
+    mapas1 = Mapas1.objects.filter(slug=slug).last()
     mapas = Mapas.objects.all().order_by('tema')
     categorias = Categoria.objects.all().order_by('id')
     subcategorias = SubCategoria.objects.all().order_by('id')
