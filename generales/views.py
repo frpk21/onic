@@ -190,7 +190,7 @@ def PublicacionesView(request, pk):
     categorias = Categoria.objects.all().order_by('id')
     subcategoria = SubCategoria.objects.get(id=pk)
     subcategorias = SubCategoria.objects.all().order_by('id')
-    publicaciones = Mapas.objects.all().order_by('tema')
+    publicaciones = Mapas1.objects.filter(id=pk).order_by('titulo')
     c_p = Categoria.objects.get(id=14)  # 14 = Publicaciones
     context = {'hoy': hoy, 'categorias_mul': Categoria_multimedia.objects.all().order_by('id'), 'subcategorias': subcategorias, 'cat_p': c_p, 'nosotros': Nosotros.objects.all().last(), 'publicaciones': publicaciones, 'categorias': categorias, 'subcategoria': subcategoria, 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
     return render(request, template_name, context)
@@ -296,7 +296,7 @@ def Mapas1View(request, slug):
     mapas = Mapas.objects.all().order_by('tema')
     categorias = Categoria.objects.all().order_by('id')
     subcategorias = SubCategoria.objects.all().order_by('id')
-    context = {'hoy': hoy, 'mapas': mapas, 'mapas1': mapas1, 'categorias': categorias, 'subcategorias': subcategorias}  1Q
+    context = {'hoy': hoy, 'mapas': mapas, 'mapas1': mapas1, 'categorias': categorias, 'subcategorias': subcategorias}
     if request.POST.get('buscar'):
         buscar = (request.POST.get('buscar').upper())
         template_name="generales/search.html"
