@@ -204,6 +204,28 @@ class Mapas1(ClaseModelo):
     class Meta:
         verbose_name_plural = "Mapas Detalle"
 
+class MapasDetalle(ClaseModelo):
+    mapa=models.ForeignKey(Mapas, on_delete=models.CASCADE, default=0, null=False, blank=False)
+    fecha = models.DateField('Fecha de publicación', blank=True, null=True, default=datetime.now)
+    titulo = models.CharField(help_text='Título de la noticia', blank=False, null=False, max_length=200)
+    subtitulo = models.CharField(help_text='Sub título de la noticia', blank=False, null=False, max_length=500)
+    imagen = models.FileField("Imagen mapa (770x450 px)", upload_to="mapas/", blank=False, null=False)
+    autor = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True,default='')
+    fuente = models.CharField(help_text='Fuente noticia', blank=True, null=True, max_length=50, default="SMT")
+    html = models.TextField(max_length=10000, default="", blank=True, null=True)
+    pdf = models.FileField("Archivo PDF", upload_to="pdf/", blank=True, null=True, default='')
+    slug = models.SlugField(blank=True,null=True, max_length=250)
+    
+    def __str__(self):
+        return '{}'.format(self.titulo)
+
+    def save(self):
+        self.slug = slugify(self.titulo)
+        super(MapasDetalle, self).save()
+
+    class Meta:
+        verbose_name_plural = "Mapas Detalled"
+
 class Comentario(ClaseModelo):
     noticia = models.ForeignKey(Noticias, on_delete=models.CASCADE, default=0, null=False, blank=False)
     comentario = models.TextField(max_length=10000, blank=True, null=True)
