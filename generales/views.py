@@ -176,7 +176,7 @@ def EquipoView(request):
     context = {'hoy': hoy, 'categorias_mul': Categoria_multimedia.objects.all().order_by('id'), 'concejero': concejero, 'nosotros': Nosotros.objects.all().last(), 'equipo': equipo, 'categorias': categorias, 'subcategorias': subcategorias, 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
     return render(request, template_name, context)
 
-def Mapas0View(request, pk):
+def Mapas0View(request):
     template_name = 'generales/mapas0.html'
     mapas = Mapas.objects.all().order_by('tema')
     context = {'mapas': mapas}
