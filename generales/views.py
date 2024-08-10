@@ -176,6 +176,14 @@ def EquipoView(request):
     context = {'hoy': hoy, 'categorias_mul': Categoria_multimedia.objects.all().order_by('id'), 'concejero': concejero, 'nosotros': Nosotros.objects.all().last(), 'equipo': equipo, 'categorias': categorias, 'subcategorias': subcategorias, 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
     return render(request, template_name, context)
 
+def Mapas0View(request, pk):
+    template_name = 'generales/mapas0.html'
+    mapas = Mapas.objects.all().order_by('tema')
+    context = {'mapas': mapas}
+    return render(request, template_name, context)
+
+
+
 def PublicacionesView(request, pk):
     template_name = 'generales/public.html'
     hoy = date.today()
@@ -288,7 +296,7 @@ def Mapas1View(request, slug):
     mapas = Mapas.objects.all().order_by('tema')
     categorias = Categoria.objects.all().order_by('id')
     subcategorias = SubCategoria.objects.all().order_by('id')
-    context = {'hoy': hoy, 'mapas': mapas, 'mapas1': mapas1, 'categorias': categorias, 'subcategorias': subcategorias}
+    context = {'hoy': hoy, 'mapas': mapas, 'mapas1': mapas1, 'categorias': categorias, 'subcategorias': subcategorias}  1Q
     if request.POST.get('buscar'):
         buscar = (request.POST.get('buscar').upper())
         template_name="generales/search.html"

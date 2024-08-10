@@ -1,0 +1,44 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+{% block contenido %}
+
+
+<section class="page-header" style="background-image: url(assets/images/backgrounds/page-header-bg-1-1.jpg);">
+    <div class="container">
+        <h2>Mapas</h2>
+    </div>
+</section>
+
+<section class="venue-one">
+    <div class="container">
+        <div class="venue-one__top">
+            <div class="block-title">
+                <p>Mapas</p>
+            </div>
+            <p>El SMT-ONIC funciona como una herramienta de doble vía que recoge y entrega información a los pueblos indígenas respecto de los fenómenos antrópicos que se presentan en sus territorios, esto para orientar la toma de decisiones en el campo del diseño, seguimiento y evaluación de políticas públicas propias y estatales.</p>
+        </div>
+        <div class="row high-gutter">
+            {% if mapas|length > 0 %}
+                {% for item in mapas %}
+                    <div class="col-lg-4">
+                        <div class="venue-one__single">
+                            <div class="venue-one__image">
+                                <img src="{{item.imagen.url}}" alt="">
+                            </div>
+                            <div class="venue-one__content">
+                                <h3><a href="{% url 'generales:public' item.id %}">{{item.titulo}}</a></h3>
+                                <p><span class="venue-one__time">{{item.fecha}}</span></p>
+                                <a href="{% url 'generales:public' item.id %}" class="thm-btn venue-one__btn">Ver mapas</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+
+{% endblock contenido %}
