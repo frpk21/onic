@@ -182,7 +182,7 @@ class Mapas(models.Model):
     class Meta:
         verbose_name_plural = "Mapas (Temas)"
 
-class Mapas1(ClaseModelo):
+class MapasDetalle(ClaseModelo):
     mapa=models.ForeignKey(Mapas, on_delete=models.CASCADE, default=0, null=False, blank=False)
     fecha = models.DateField('Fecha de publicación', blank=True, null=True, default=datetime.now)
     titulo = models.CharField(help_text='Título de la noticia', blank=False, null=False, max_length=200)

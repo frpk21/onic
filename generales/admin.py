@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from generales.models import Noticias, Suscribir, VideoSMT, Contacto, Nosotros, Categoria, SubCategoria, Mapas, Mapas1, Equipo, Imagenes, Videos, Podcast, Categoria_multimedia
+from generales.models import Noticias, Suscribir, VideoSMT, Contacto, Nosotros, Categoria, SubCategoria, Equipo, Imagenes, Videos, Podcast, Categoria_multimedia
 
 from django.contrib.admin.widgets import AutocompleteSelect
 
@@ -58,31 +58,7 @@ class SubCategoriaAdmin(admin.ModelAdmin):
     def has_delete_permission(self, request, obj=None):
        return False
 
-class MapasAdmin(admin.ModelAdmin):
-    list_display = ('tema', 'fecha', 'descripcion', 'imagen')
-    ordering = ('tema', )
-    search_fields = ('tema','fecha', )
-    list_filter = ('tema', 'fecha',)
 
-    class Meta:
-        model = Mapas
-
-    def save_model(self, request, obj, form, change):
-        super().save_model(request, obj, form, change)
-
-class Mapas1Admin(admin.ModelAdmin):
-    list_display = ('titulo', 'subtitulo', 'fecha', 'imagen', 'modificado', 'mapa', 'activo', )
-    fields = ['mapa', 'titulo', 'subtitulo', 'fecha', 'imagen', 'fuente', 'html', 'pdf', 'activo']
-    exclude = ('slug','autor', 'modificado', )
-    ordering = ('titulo', 'fecha',)
-    search_fields = ('titulo','subtitulo','fecha', )
-    list_filter = ('mapa', 'modificado', 'fecha',)
-
-    class Meta:
-        model = Mapas1
-
-    def save_model(self, request, obj, form, change):
-        obj.save()
 
 class VideoSMTAdmin(admin.ModelAdmin):
     list_display = ('titulo', 'url_video',)
@@ -159,8 +135,6 @@ class PodcastAdmin(admin.ModelAdmin):
 
 admin.site.register(Categoria, CategoriaAdmin)
 admin.site.register(SubCategoria, SubCategoriaAdmin)
-admin.site.register(Mapas, MapasAdmin)
-admin.site.register(Mapas1, Mapas1Admin)
 admin.site.register(Noticias, NoticiasAdmin)
 admin.site.register(VideoSMT, VideoSMTAdmin)
 admin.site.register(Nosotros, NosotrosAdmin)
