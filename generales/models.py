@@ -199,7 +199,7 @@ class MapasDetalle(ClaseModelo):
 
     def save(self):
         self.slug = slugify(self.titulo)
-        super(Mapas1, self).save()
+        super(MapasDetalle, self).save()
 
     class Meta:
         verbose_name_plural = "Mapas Detalle"
