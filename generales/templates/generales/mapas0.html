@@ -28,7 +28,7 @@
                                 <img src="{{item.imagen.url}}" alt="">
                             </div>
                             <div class="venue-one__content">
-                                <h3><a href="{% url 'generales:public' item.id %}">{{item.titulo}}</a></h3>
+                                <h3><a href="{% url 'generales:public' item.id %}">{{item.tema}}</a></h3>
                                 <p><span class="venue-one__time">{{item.fecha}}</span></p>
                                 <a href="{% url 'generales:public' item.id %}" class="thm-btn venue-one__btn">Ver mapas</a>
                             </div>

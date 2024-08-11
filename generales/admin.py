@@ -59,7 +59,7 @@ class SubCategoriaAdmin(admin.ModelAdmin):
        return False
 
 class MapasAdmin(admin.ModelAdmin):
-    list_display = ('tema', 'fecha', 'descripcion', 'imagen')
+    list_display = ('tema', 'fecha', 'descripcion', 'imagen', 'activo')
     ordering = ('tema', )
     exclude = ('slug', )
     search_fields = ('tema','fecha', )

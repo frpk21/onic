@@ -178,11 +178,9 @@ def EquipoView(request):
 
 def Mapas0View(request):
     template_name = 'generales/mapas0.html'
-    mapas = Mapas.objects.all().order_by('tema')
+    mapas = Mapas.objects.filter(activo=True).order_by('tema')
     context = {'mapas': mapas}
     return render(request, template_name, context)
-
-
 
 def PublicacionesView(request, pk):
     template_name = 'generales/public.html'
