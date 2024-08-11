@@ -205,7 +205,7 @@ class MapasDetalle(ClaseModelo):
         super(MapasDetalle, self).save()
 
     class Meta:
-        verbose_name_plural = "Mapas Detalled"
+        verbose_name_plural = "Mapas Detalle"
 
 class Comentario(ClaseModelo):
     noticia = models.ForeignKey(Noticias, on_delete=models.CASCADE, default=0, null=False, blank=False)

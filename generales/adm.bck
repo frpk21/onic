@@ -71,7 +71,7 @@ class MapasAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         super().save_model(request, obj, form, change)
 
-class Mapas1Admin(admin.ModelAdmin):
+class MapasDetalleAdmin(admin.ModelAdmin):
     list_display = ('titulo', 'subtitulo', 'fecha', 'imagen', 'modificado', 'mapa', 'activo', )
     fields = ['mapa', 'titulo', 'subtitulo', 'fecha', 'imagen', 'fuente', 'html', 'pdf', 'activo']
     exclude = ('slug','autor', 'modificado', )
@@ -161,7 +161,7 @@ class PodcastAdmin(admin.ModelAdmin):
 admin.site.register(Categoria, CategoriaAdmin)
 admin.site.register(SubCategoria, SubCategoriaAdmin)
 admin.site.register(Mapas, MapasAdmin)
-admin.site.register(MapasDetalle, Mapas1Admin)
+admin.site.register(MapasDetalle, MapasDetalleAdmin)
 admin.site.register(Noticias, NoticiasAdmin)
 admin.site.register(VideoSMT, VideoSMTAdmin)
 admin.site.register(Nosotros, NosotrosAdmin)
