@@ -285,9 +285,8 @@ def SubSeccionView(request, pk):
 
     return render(request, template_name, context)
 
-
 def MapasDetalleView(request, slug):
-    template_name = 'generales/MapasDetalle.html'
+    template_name = 'generales/mapas_detalle.html'
     hoy = date.today()
     mapas1 = MapasDetalle.objects.filter(slug=slug).last()
     mapas = Mapas.objects.all().order_by('tema')
@@ -317,24 +316,7 @@ def MapasDetalleView(request, slug):
     else:
         buscar = ''
         resultado={}
-
-    #if request.method == "POST":
-    if request.POST.get('comentario'):
-        form_comentario = ComentarioForm(request.POST)
-        if form_comentario.is_valid():
-            post = form_comentario.save(commit=False)
-            post.noticia = detalle
-            post.save()
-
-            return JsonResponse(
-                {
-                    'content': {
-                        'message': 'Gracias por su comentario.',
-                    }
-                }
-            )
-    else:
-        form_comentario = ComentarioForm()
+    form_comentario = ComentarioForm()
 
     if request.POST.get('email'):
         form_home = SuscribirseForm(request.POST)
