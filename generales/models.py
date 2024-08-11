@@ -175,6 +175,9 @@ class Mapas(ClaseModelo):
     imagen = models.FileField("Imagen tema mapa (450x370 px)", upload_to="imagenes/mapas",default="")
     slug = models.SlugField(blank=True,null=True, max_length=250)
  
+    def __str__(self):
+        return '{}'.format(self.tema)
+    
     def save(self):
         self.slug = slugify(self.tema)
         super(Mapas, self).save()
