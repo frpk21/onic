@@ -76,10 +76,21 @@
                                             <li class="dropdown">
                                                 <a href="#">{{categoria.nombre}}</a>
                                                 <ul>
+                                                    {# TODO: This implementation is horrible; it goes against all design patterns and has too many unnecessary 'if' statements.#}
                                                     {% for subcategoria in subcategorias %}
                                                         {% if subcategoria.categoria.id == categoria.id %}
                                                             {% if subcategoria.id == 19 %}
-                                                                <li><a href="https://geovisor.smt-onic.com/" target="_blank">{{subcategoria.nombre}}</a></li>
+                                                                <li>
+                                                                    <a href="https://geovisor.smt-onic.com/" target="_blank">{{ subcategoria.nombre }}</a>
+                                                                </li>
+                                                            {% elif subcategoria.id == 51 %}
+                                                                <li>
+                                                                    <a href="https://geovisor.smt-onic.com/geovisor/">{{ subcategoria.nombre }}</a>
+                                                                </li>
+                                                            {% elif subcategoria.id == 26 %}
+                                                                <li>
+                                                                    <a href="https://wiki.smt-onic.com">{{ subcategoria.nombre }}</a>
+                                                                </li>
                                                             {% else %}
                                                                 {% if subcategoria.id == 14 %}
                                                                     <li><a href="{% url 'generales:nosotros' %}">{{subcategoria.nombre}}</a></li>
@@ -108,11 +119,9 @@
                                                                                         {% if subcategoria.id == 25 %}
                                                                                             <li><a href="{% url 'generales:mapas0' %}">{{subcategoria.nombre}}</a></li>
                                                                                         {% else %}
-                                                                                            {% if subcategoria.id == 51 %}
-                                                                                                <li><a href="https://geovisor.smt-onic.com/geovisor/">{{subcategoria.nombre}}</a></li>
-                                                                                            {% else %}
-                                                                                                <li><a href="{% url 'generales:subseccion' subcategoria.id %}">{{subcategoria.nombre}}</a></li>
-                                                                                            {% endif %}
+                                                                                            <li>
+                                                                                                <a href="{% url 'generales:subseccion' subcategoria.id %}">{{ subcategoria.nombre }}</a>
+                                                                                            </li>
                                                                                         {% endif %}
                                                                                     {% endif %}
                                                                                 {% endif %}
