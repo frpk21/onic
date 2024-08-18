@@ -119,9 +119,13 @@
                                                                                         {% if subcategoria.id == 25 %}
                                                                                             <li><a href="{% url 'generales:mapas0' %}">{{subcategoria.nombre}}</a></li>
                                                                                         {% else %}
-                                                                                            <li>
-                                                                                                <a href="{% url 'generales:subseccion' subcategoria.id %}">{{ subcategoria.nombre }}</a>
-                                                                                            </li>
+                                                                                            {% if subcategoria.id == 24 %}
+                                                                                                <li><a href="https://play.google.com/store/apps/details?id=com.loco0321.smt" target="_blank">{{subcategoria.nombre}}</a></li>
+                                                                                            {% else %}
+                                                                                                <li>
+                                                                                                    <a href="{% url 'generales:subseccion' subcategoria.id %}">{{ subcategoria.nombre }}</a>
+                                                                                                </li>
+                                                                                            {% endif %}
                                                                                         {% endif %}
                                                                                     {% endif %}
                                                                                 {% endif %}
@@ -213,7 +217,7 @@
             </div>
         </footer>
     </div>
-    <div class="side-content__block">
+    <div class="side-content__block" style="background-color: rgb(23, 65, 51);">
         <div class="side-content__block-overlay custom-cursor__overlay">
             <div class="cursor"></div>
             <div class="cursor-follower"></div>
