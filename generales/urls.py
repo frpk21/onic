@@ -27,5 +27,6 @@ urlpatterns = [
     path('update/', views.ajax_update, name='upd'),
     path('news/maps1/<slug>', views.MapasDetalleView, name="mapas1"),
     path('news/maps/', views.Mapas0View, name="mapas0"),
+    path('news/bol/', views.BoletinesView, name="boletines"),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

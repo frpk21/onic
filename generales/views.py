@@ -45,7 +45,7 @@ def HomeView(request):
     video_smt = VideoSMT.objects.all().last()
     nosotros = Nosotros.objects.all().last()
     novedades = Noticias.objects.filter(orden=2).order_by('-fecha')[:7]
-    boletines = Noticias.objects.filter(orden=3).order_by('-fecha')[:10]
+    #boletines = Noticias.objects.filter(orden=3).order_by('-fecha')[:10]
     mediateca = Noticias.objects.filter(orden=4).order_by('-fecha')[:3]
     context = {
         'hoy': hoy,
@@ -54,7 +54,7 @@ def HomeView(request):
         'video_smt': video_smt,
         'nosotros': nosotros,
         'novedades': novedades,
-        'boletines': boletines,
+        #'boletines': boletines,
         'mediateca': mediateca,
         'categorias' : Categoria.objects.all().order_by('id'),
         'subcategorias': SubCategoria.objects.all().order_by('id'),
@@ -174,6 +174,15 @@ def EquipoView(request):
     equipo = Equipo.objects.filter(activo=True).exclude(orden=0).order_by('orden')
     concejero = Equipo.objects.filter(orden=0).last()
     context = {'hoy': hoy, 'categorias_mul': Categoria_multimedia.objects.all().order_by('id'), 'concejero': concejero, 'nosotros': Nosotros.objects.all().last(), 'equipo': equipo, 'categorias': categorias, 'subcategorias': subcategorias, 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
+    return render(request, template_name, context)
+
+def BoletinesView(request):
+    template_name = 'generales/boletines.html'
+    hoy = date.today()
+    categorias = Categoria.objects.all().order_by('id')
+    subcategorias = SubCategoria.objects.all().order_by('id')
+    boletines = Noticias.objects.filter(orden=3).order_by('-fecha')[:10]
+    context = {'hoy': hoy, 'categorias_mul': Categoria_multimedia.objects.all().order_by('id'), 'boletines': boletines, 'nosotros': Nosotros.objects.all().last(), 'categorias': categorias, 'subcategorias': subcategorias, 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
     return render(request, template_name, context)
 
 def Mapas0View(request):
