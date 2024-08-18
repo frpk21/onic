@@ -122,9 +122,13 @@
                                                                                             {% if subcategoria.id == 24 %}
                                                                                                 <li><a href="https://play.google.com/store/apps/details?id=com.loco0321.smt" target="_blank">{{subcategoria.nombre}}</a></li>
                                                                                             {% else %}
+                                                                                                {% if subcategoria.id == 20 %}
+                                                                                                    <li><a href="{% url 'generales:boletines' %}">{{subcategoria.nombre}}</a></li>
+                                                                                                {% else %}
                                                                                                     <li>
                                                                                                         <a href="{% url 'generales:subseccion' subcategoria.id %}">{{ subcategoria.nombre }}</a>
                                                                                                     </li>
+                                                                                                {% endif %}
                                                                                             {% endif %}
                                                                                         {% endif %}
                                                                                     {% endif %}
@@ -140,8 +144,6 @@
                                             </li>
                                         {% endif %}
                                     {% endif %}
-                                {% else %}
-                                    <li><a href="{% url 'generales:boletines' %}" target="_blank">{{subcategoria.nombre}}</a></li>
                                 {% endif %}
                             {% endfor %}
                             <li><a href="{% url 'generales:contact' %}">Cont&aacute;ctenos</a></li>
