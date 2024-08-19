@@ -9,7 +9,7 @@
         <h2>{{cat_p.nombre}}</h2>
     </div>
 </section>
-
+<!--
 <section class="event-two event-two__event-1-page">
     <div class="container">
         {% for item in publicaciones %}
@@ -65,6 +65,29 @@
                 </div>
             {% endif %}
         {% endfor %}
+    </div>
+</section>-->
+
+<section class="venue-one">
+    <div class="container">
+        <div class="row high-gutter">
+            {% if publicaciones|length > 0 %}
+                {% for item in publicaciones %}
+                    <div class="col-lg-4">
+                        <div class="venue-one__single">
+                            <div class="venue-one__image">
+                                <img src="{{item.imagen.url}}" alt="">
+                            </div>
+                            <div class="venue-one__content">
+                                <h3><a href="{% url 'generales:public' item.id %}">{{item.tema}}</a></h3>
+                                <p><span class="venue-one__time">{{item.fecha}}</span></p>
+                                <a href="{% url 'generales:public' item.id %}" class="thm-btn venue-one__btn">Ver mapas</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
     </div>
 </section>
 
