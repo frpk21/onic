@@ -364,6 +364,16 @@ def MapasDetalleView(request, slug):
 
     return render(request, template_name, context)
 
+def VerMapaView(request, slug):
+    template_name = 'generales/vermapa.html'
+    hoy = date.today()
+    mapas1 = MapasDetalle.objects.filter(slug=slug).last()
+    mapas = Mapas.objects.all().order_by('tema')
+    categorias = Categoria.objects.all().order_by('id')
+    subcategorias = SubCategoria.objects.all().order_by('id')
+    context = {'hoy': hoy, 'mapas': mapas, 'mapas1': mapas1, 'categorias': categorias, 'subcategorias': subcategorias}
+    return render(request, template_name, context)
+
 def DetalleView(request, slug):
     template_name = 'generales/detalle.html'
     hoy = date.today()
