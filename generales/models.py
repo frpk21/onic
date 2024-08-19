@@ -174,7 +174,8 @@ class Mapas(ClaseModelo):
     tema = models.CharField(help_text='Título del tema de mapas', blank=False, null=False, max_length=200)
     fecha = models.DateField('Fecha de publicación', blank=True, null=True, default=datetime.now)
     descripcion = models.CharField(help_text='Descripión', blank=False, null=False, max_length=400)
-    imagen = models.FileField("Imagen tema mapa (450x370 px)", upload_to="imagenes/mapas",default="")
+    imagen = models.FileField("Imagen tema mapa Catalogo(450x370 px)", upload_to="imagenes/mapas",default="")
+    imagen2 = models.FileField("Imagen tema mapa Grande", upload_to="imagenes/mapas",default="")
     slug = models.SlugField(blank=True,null=True, max_length=250)
  
     def __str__(self):
