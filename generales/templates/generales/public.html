@@ -81,7 +81,7 @@
                             <div class="venue-one__content">
                                 <h3><a href="{% url 'generales:public' item.id %}">{{item.tema}}</a></h3>
                                 <p><span class="venue-one__time">{{item.fecha}}</span></p>
-                                <a href="{% url 'generales:ver_mapa item.slug %}" class="thm-btn venue-one__btn">Ver</a>
+                                <a href="{% url 'generales:ver_mapa' item.slug %}" class="thm-btn venue-one__btn">Ver</a>
                             </div>
                         </div>
                     </div>
