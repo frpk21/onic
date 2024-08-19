@@ -47,6 +47,8 @@ class SubCategoria(ClaseModelo):
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
     nombre = models.CharField(max_length=100, help_text='Descripción de la sub categoría')
     imagen = models.FileField("Imagen categoria (1920x1042 px)", upload_to="imagenes/categorias",default="")
+    url = models.CharField(max_length=100, help_text='Url ')
+    pestana_nueva = models.BooleanField(default=False)
 
     def __str__(self):
         return '{}: {}'.format(self.categoria.nombre,self.nombre)

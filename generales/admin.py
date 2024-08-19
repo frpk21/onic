@@ -42,7 +42,7 @@ class CategoriaAdmin(admin.ModelAdmin):
        return False
 
 class SubCategoriaAdmin(admin.ModelAdmin):
-    list_display = ('id', 'categoria', 'nombre', 'imagen',)
+    list_display = ('id', 'categoria', 'nombre', 'imagen', 'url', 'pestana_nueva')
     ordering = ('id', )
     list_filter = ('categoria',)
 
