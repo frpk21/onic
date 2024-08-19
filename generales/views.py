@@ -198,7 +198,7 @@ def PublicacionesView(request, pk):
     categorias = Categoria.objects.all().order_by('id')
     subcategorias = SubCategoria.objects.all().order_by('id')
     if pk == 23:
-        publicaciones = Noticias.objects.filter(subcategoria_id=pk).order_by('-id')[:1]
+        publicaciones = Noticias.objects.filter(subcategoria_id=pk).order_by('id')[:1]
     else:
         publicaciones = MapasDetalle.objects.filter(mapa_id=pk, activo=True).order_by('titulo')
     c_p = Categoria.objects.get(id=14)  # 14 = Publicaciones
