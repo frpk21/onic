@@ -46,7 +46,7 @@ def HomeView(request):
     nosotros = Nosotros.objects.all().last()
     novedades = Noticias.objects.filter(orden=2).order_by('-fecha')[:7]
     #boletines = Noticias.objects.filter(orden=3).order_by('-fecha')[:10]
-    mediateca = Noticias.objects.filter(orden=4).order_by('-fecha')[:3]
+    
     context = {
         'hoy': hoy,
         'carrusel': carrusel,
@@ -55,7 +55,7 @@ def HomeView(request):
         'nosotros': nosotros,
         'novedades': novedades,
         #'boletines': boletines,
-        'mediateca': mediateca,
+        #'mediateca': mediateca,
         'categorias' : Categoria.objects.all().order_by('id'),
         'subcategorias': SubCategoria.objects.all().order_by('id'),
         'categorias_mul': Categoria_multimedia.objects.all().order_by('id'),
@@ -125,9 +125,10 @@ def SeccionView(request, pk):
     categorias = Categoria.objects.all().order_by('id')
     subcategorias = SubCategoria.objects.all().order_by('id')
     seccion = Categoria.objects.get(id=pk)
+    mediateca = Noticias.objects.filter(orden=4).order_by('-fecha')[:3]
     sub = SubCategoria.objects.filter(categoria__id=pk)
     noticias = Noticias.objects.filter(subcategoria__categoria__id=pk).order_by('-fecha')[:20]
-    context = {'hoy': hoy, 'noticias': noticias, 'categorias_mul': Categoria_multimedia.objects.all().order_by('id'), 'categorias': categorias, 'subcategorias': subcategorias, 'seccion': seccion, 'sub': sub, 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
+    context = {'mediateca': mediateca, 'hoy': hoy, 'noticias': noticias, 'categorias_mul': Categoria_multimedia.objects.all().order_by('id'), 'categorias': categorias, 'subcategorias': subcategorias, 'seccion': seccion, 'sub': sub, 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
 
     if request.POST.get('buscar'):
         buscar = (request.POST.get('buscar').upper())
