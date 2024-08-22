@@ -9,13 +9,13 @@
         <h2>{{cat_p.nombre}}</h2>
     </div>
 </section>
-<section class="venue-one">
+<section class="venue-one padding_top_40">
     <div class="container">
         <div class="row">
             {% if publicaciones|length > 0 %}
                 {% for item in publicaciones %}
                     <div class="col-lg-4">
-                        <div class="venue-one__single">
+                        <div class="venue-one__single justify-content-row">
                             {% if pk != 23 %}
                                 <a href="{% url 'generales:ver_mapa' item.slug %}"><img src="{{item.imagen.url}}" alt=""></a>
                             {% else %}
