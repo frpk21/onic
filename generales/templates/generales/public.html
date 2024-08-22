@@ -20,7 +20,7 @@
                             <div class="venue-one__content">
                                 <h3><a href="{% url 'generales:ver_mapa' item.slug %}">{{item.tema}}</a></h3>
                                 <p><span class="venue-one__time">{{item.fecha}}</span></p>
-                                {% if pk == 23 %}
+                                {% if pk != 23 %}
                                     <a href="{% url 'generales:ver_mapa' item.slug %}" class="thm-btn venue-one__btn">Ver</a>
                                 {% endif %}
                             </div>
