@@ -202,7 +202,7 @@ def PublicacionesView(request, pk):
     else:
         publicaciones = MapasDetalle.objects.filter(mapa_id=pk, activo=True).order_by('titulo')
     c_p = Categoria.objects.get(id=14)  # 14 = Publicaciones
-    context = {'hoy': hoy, 'categorias_mul': Categoria_multimedia.objects.all(), 'subcategorias': subcategorias, 'cat_p': c_p, 'nosotros': Nosotros.objects.all().last(), 'publicaciones': publicaciones, 'categorias': categorias, 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
+    context = {'pk': pk, 'hoy': hoy, 'categorias_mul': Categoria_multimedia.objects.all(), 'subcategorias': subcategorias, 'cat_p': c_p, 'nosotros': Nosotros.objects.all().last(), 'publicaciones': publicaciones, 'categorias': categorias, 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
     return render(request, template_name, context)
 
 def ModulosView(request, pk):
@@ -270,9 +270,8 @@ def SubSeccionView(request, pk):
     hoy = date.today()
     categorias = Categoria.objects.all().order_by('id')
     subcategorias = SubCategoria.objects.all().order_by('id')
-    seccion = SubCategoria.objects.get(id=pk)
     noticias = Noticias.objects.filter(subcategoria__id=pk).order_by('-fecha')[:20]
-    context = {'hoy': hoy, 'noticias': noticias, 'categorias_mul': Categoria_multimedia.objects.all(), 'categorias': categorias, 'subcategorias': subcategorias, 'seccion': seccion, 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
+    context = {'hoy': hoy, 'noticias': noticias, 'categorias_mul': Categoria_multimedia.objects.all(), 'categorias': categorias, 'subcategorias': subcategorias, 'seccion': SubCategoria.objects.get(id=pk), 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
     if request.POST.get('buscar'):
         buscar = (request.POST.get('buscar').upper())
         template_name="generales/search.html"
