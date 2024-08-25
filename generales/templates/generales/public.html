@@ -19,7 +19,6 @@
                             {% if pk != 23 %}
                                 <a href="{% url 'generales:ver_mapa' item.slug %}"><img src="{{item.imagen.url}}" alt=""></a>
                             {% else %}
-                                <h3>{{item.titulo}}</h3>
                                 <img src="{{item.imagen.url}}" alt="">
                             {% endif %}
                             <div class="venue-one__content">
@@ -27,6 +26,7 @@
                                     <h3><a href="{% url 'generales:ver_mapa' item.slug %}">{{item.tema}}</a></h3>
                                     <p><span class="venue-one__time">{{item.fecha}}</span></p>
                                 {% else %}
+                                    <h3>{{item.titulo}}</h3>
                                     <p>{{item.subtitulo}}</p>
                                     <p><span class="venue-one__time">{{item.fecha}}</span></p>
                                 {% endif %}
