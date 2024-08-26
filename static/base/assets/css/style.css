@@ -5736,7 +5736,6 @@ a:focus {
 .venue-one__image {
 	overflow: hidden;
 	position: relative;
-	width: 50%;
 }
 
 .venue-one__image::after {
