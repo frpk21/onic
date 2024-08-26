@@ -5736,12 +5736,13 @@ a:focus {
 .venue-one__image {
 	overflow: hidden;
 	position: relative;
+	width: 50%;
 }
 
 .venue-one__image::after {
 	content: "";
-	width: 60%;
-	height: 60%;
+	width: 150%;
+	height: 200%;
 	position: absolute;
 	top: -100%;
 	left: -180%;
