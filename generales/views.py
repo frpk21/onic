@@ -601,8 +601,7 @@ class ContactView(generic.CreateView):
                 categorias_mul=Categoria_multimedia.objects.all(),
                 modulos=SubCategoria.objects.filter(categoria__id=20).order_by('id'),
                 nosotros=Nosotros.objects.all().last(),
-                hoy = date.today(),
-                categorias=categorias
+                hoy = date.today()
             )
         )
 
