@@ -596,6 +596,11 @@ class ContactView(generic.CreateView):
             self.get_context_data(
                 form=form,
                 titulares1=titulares1,
+                categorias=Categoria.objects.all().order_by('id'),
+                subcategorias=SubCategoria.objects.all().order_by('id'),
+                categorias_mul=Categoria_multimedia.objects.all(),
+                modulos=SubCategoria.objects.filter(categoria__id=20).order_by('id'),
+                nosotros=Nosotros.objects.all().last(),
                 hoy = date.today(),
                 categorias=categorias
             )
