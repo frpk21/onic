@@ -16,11 +16,13 @@
                 {% for item in publicaciones %}
                     <div class="col-lg-4">
                         <div class="event-three__single">
-                            {% if pk != 23 %}
-                                <a href="{% url 'generales:ver_mapa' item.slug %}"><img src="{{item.imagen.url}}" alt=""></a>
-                            {% else %}
-                                <img src="{{item.imagen.url}}" alt="" width="60%">
-                            {% endif %}
+                            <div class="event-three__image">
+                                {% if pk != 23 %}
+                                    <a href="{% url 'generales:ver_mapa' item.slug %}"><img src="{{item.imagen.url}}" alt=""></a>
+                                {% else %}
+                                    <img src="{{item.imagen.url}}" alt="">
+                                {% endif %}
+                            </div>
                             <div class="event-three__content">
                                 {% if pk != 23 %}
                                     <h3><a href="{% url 'generales:ver_mapa' item.slug %}">{{item.tema}}</a></h3>
