@@ -80,7 +80,6 @@
                                             <li class="dropdown">
                                                 <a href="#">{{categoria.nombre}}</a>
                                                 <ul>
-                                                    {# TODO: This implementation is horrible; it goes against all design patterns and has too many unnecessary 'if' statements.#}
                                                     {% for subcategoria in subcategorias %}
                                                         {% if subcategoria.categoria.id == categoria.id %}
                                                             {% if subcategoria.id == 19 %}
