@@ -33,6 +33,9 @@ class Categoria_multimedia(ClaseModelo):
 class Categoria(ClaseModelo):
     nombre = models.CharField(max_length=100, help_text='Categoría', unique=True)
     imagen = models.FileField("Imagen categoria", upload_to="imagenes/categorias",default="")
+    url = models.CharField(max_length=100, help_text='Url ')
+    pestana_nueva = models.BooleanField(default=False)
+    orden = models.IntegerField(default=0, blank=True, null=False)
 
     def __str__(self):
         return '{}'.format(self.nombre)

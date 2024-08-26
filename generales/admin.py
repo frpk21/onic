@@ -26,7 +26,7 @@ class NoticiasAdmin(admin.ModelAdmin):
 
 
 class CategoriaAdmin(admin.ModelAdmin):
-    list_display = ('id', 'nombre', 'imagen',)
+    list_display = ('id', 'nombre', 'imagen','url', 'pestana_nueva','orden',)
     ordering = ('id', )
 
     class Meta:
@@ -42,7 +42,7 @@ class CategoriaAdmin(admin.ModelAdmin):
        return False
 
 class SubCategoriaAdmin(admin.ModelAdmin):
-    list_display = ('id', 'categoria', 'nombre', 'imagen', 'url', 'pestana_nueva','orden')
+    list_display = ('id', 'categoria', 'nombre', 'imagen', 'url', 'pestana_nueva','orden',)
     ordering = ('id', )
     list_filter = ('categoria',)
 
