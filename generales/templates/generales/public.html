@@ -9,7 +9,7 @@
         <h2>{{cat_p.nombre}}</h2>
     </div>
 </section>
-<section class="event-three">
+<section class="event-three padding_top_40">
     <div class="container">
         <div class="row">
             {% if publicaciones|length > 0 %}
@@ -19,7 +19,7 @@
                             {% if pk != 23 %}
                                 <a href="{% url 'generales:ver_mapa' item.slug %}"><img src="{{item.imagen.url}}" alt=""></a>
                             {% else %}
-                                <img src="{{item.imagen.url}}" alt="">
+                                <img src="{{item.imagen.url}}" alt="" width="60%">
                             {% endif %}
                             <div class="event-three__content">
                                 {% if pk != 23 %}
