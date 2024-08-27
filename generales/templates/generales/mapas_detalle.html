@@ -5,7 +5,7 @@
 {% block contenido %}
 
 
-<section class="page-header" style="background-image: url('/static/base/assets/images/mapa.jpg');">
+<section class="page-header" style="background-image: url('{{img_bak.imagen.url}}');">
     <div class="container block-title">
         <h2 style="font-family: static/base/assets/fonts/WOFF/VAR/SourceCodeVariable-Roman.otf.woff;">Geo Espacial</h2>
     </div>
@@ -17,7 +17,11 @@
             <div class="col-lg-8">
                 <div class="blog-details__main">
                     <div class="blog-details__image">
-                        <img src="{{mapas1.imagen.url}}" class="img-fluid" alt="">
+                        {% if mapas1.imagen2 %}
+                            <img src="{{mapas1.imagen2.url}}" class="img-fluid" alt="">
+                        {% else %}
+                            <img src="{{mapas1.imagen.url}}" class="img-fluid" alt="">
+                        {% endif %}
                     </div>
                     <h3>{{mapas1.titulo}}</h3>
                     <i class="far fa-calendar-alt"></i>&nbsp;{{mapas1.fecha}}

@@ -310,7 +310,7 @@ def MapasDetalleView(request, slug):
     mapas = Mapas.objects.all().order_by('tema')
     categorias = Categoria.objects.all().order_by('id')
     subcategorias = SubCategoria.objects.all().order_by('id')
-    context = {'hoy': hoy, 'mapas': mapas, 'mapas1': mapas1, 'categorias': categorias, 'subcategorias': subcategorias}
+    context = {'img_bak': SubCategoria.objects.get(id=23), 'hoy': hoy, 'mapas': mapas, 'mapas1': mapas1, 'categorias': categorias, 'subcategorias': subcategorias}
     if request.POST.get('buscar'):
         buscar = (request.POST.get('buscar').upper())
         template_name="generales/search.html"
