@@ -72,8 +72,8 @@ class MapasAdmin(admin.ModelAdmin):
         super().save_model(request, obj, form, change)
 
 class MapasDetalleAdmin(admin.ModelAdmin):
-    list_display = ('titulo', 'subtitulo', 'fecha', 'imagen', 'modificado', 'mapa', 'activo', )
-    fields = ['mapa', 'titulo', 'subtitulo', 'fecha', 'imagen', 'fuente', 'html', 'pdf', 'activo']
+    list_display = ('titulo', 'subtitulo', 'fecha', 'imagen', 'imagen2','modificado', 'mapa', 'activo', )
+    fields = ['mapa', 'titulo', 'subtitulo', 'fecha', 'imagen', 'imagen2','fuente', 'html', 'pdf', 'activo']
     exclude = ('slug','autor', 'modificado', )
     ordering = ('titulo', 'fecha',)
     search_fields = ('titulo','subtitulo','fecha', )
