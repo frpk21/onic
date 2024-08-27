@@ -21,3 +21,8 @@
 .color_texto1 {
     color: rgb(236, 243, 243);
 }
+.gallery_img {
+    width: auto;
+    height: 700px;
+    border: 2px solid #80808029;
+}
