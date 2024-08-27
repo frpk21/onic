@@ -5173,9 +5173,9 @@ a:focus {
 	transition: all 500ms ease;
 }
 
-.team-one__single:hover .team-one__image>img {
+/*.team-one__single:hover .team-one__image>img {
 	opacity: 0.7;
-}
+}*/
 
 .team-one__social {
 	position: absolute;
