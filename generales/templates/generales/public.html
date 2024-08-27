@@ -17,7 +17,7 @@
                 {% for item in publicaciones %}
                     <div class="col-lg-6">
                         <div class="event-three__single gallery_img">
-                            <div class="event-three__image" style="background-color: white; width: auto; height: 700px; border: 2px solid #80808029; align-items: center;>
+                            <div class="event-three__image" style="background-color: white; width: auto; height: 700px; border: 2px solid #80808029; align-items: center;">
                                 {% if pk != 23 %}
                                     <a href="{% url 'generales:ver_mapa' item.slug %}"><img src="{{item.imagen.url}}" alt=""></a>
                                 {% else %}
