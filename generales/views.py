@@ -204,7 +204,7 @@ def PublicacionesView(request, pk):
         publicaciones = MapasDetalle.objects.filter(mapa_id=pk, activo=True).order_by('titulo')
         img_bak = SubCategoria.objects.get(id=25)
     c_p = Categoria.objects.get(id=14)  # 14 = Publicaciones
-    context = {'pk': pk, 'hoy': hoy, 'categorias_mul': Categoria_multimedia.objects.all(), 'subcategorias': subcategorias, 'cat_p': c_p, 'nosotros': Nosotros.objects.all().last(), 'publicaciones': publicaciones, 'categorias': categorias, 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
+    context = {'img_bak': img_bak, 'pk': pk, 'hoy': hoy, 'categorias_mul': Categoria_multimedia.objects.all(), 'subcategorias': subcategorias, 'cat_p': c_p, 'nosotros': Nosotros.objects.all().last(), 'publicaciones': publicaciones, 'categorias': categorias, 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
     return render(request, template_name, context)
 
 def ModulosView(request, pk):
