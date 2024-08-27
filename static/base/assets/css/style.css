@@ -5113,8 +5113,8 @@ a:focus {
 	left: 0;
 	bottom: 0;
 	right: 0;
-	background-color: #004947;
-	opacity: 35%;
+	/*background-color: #fdffff;
+	opacity: 50%;*/
 }
 
 .page-header .container {
