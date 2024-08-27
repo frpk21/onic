@@ -244,9 +244,9 @@ def Multimedia2View(request, pk):
     cat_multimedia = Categoria_multimedia.objects.get(id=pk)
     subcategorias = SubCategoria.objects.all().order_by('id')
     multimedia = Noticias.objects.filter(subcategoria__id=pk).order_by('-fecha')
-    podcast = Podcast.objects.filter(categoria_multimedia__id=pk).order_by('-fecha')[:12]
-    videos = Videos.objects.filter(categoria_multimedia__id=pk).order_by('-fecha')[:12]
-    imagenes = Imagenes.objects.filter(categoria_multimedia__id=pk).order_by('-fecha')[:12]
+    podcast = Podcast.objects.filter(categoria_multimedia__id=pk).order_by('-fecha')
+    videos = Videos.objects.filter(categoria_multimedia__id=pk).order_by('-fecha')
+    imagenes = Imagenes.objects.filter(categoria_multimedia__id=pk).order_by('-fecha')
     mediateca = Noticias.objects.filter(orden=4).order_by('-fecha')[:3]
     """
     try:
