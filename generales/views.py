@@ -181,7 +181,7 @@ def BoletinesView(request):
     hoy = date.today()
     categorias = Categoria.objects.all().order_by('id')
     subcategorias = SubCategoria.objects.all().order_by('id')
-    boletines = Noticias.objects.filter(orden=3).order_by('-fecha')[:11]
+    boletines = Noticias.objects.filter(orden=3).order_by('-fecha')
     noticias = Noticias.objects.all().order_by('-fecha')[:8]
     context = {'noticias': noticias, 'hoy': hoy, 'categorias_mul': Categoria_multimedia.objects.all(), 'boletines': boletines, 'nosotros': Nosotros.objects.all().last(), 'categorias': categorias, 'subcategorias': subcategorias, 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
     return render(request, template_name, context)
