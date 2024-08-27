@@ -18,7 +18,7 @@
                         <div class="col-md-6">
                             <div class="blog-one__single">
                                 <div class="blog-one__image">
-                                    <img src="{{item.imagen.url}}" alt="">
+                                    <a href="{% url 'generales:detalle' item.slug %}" class="blog-one__link"><img src="{{item.imagen.url}}" alt=""></a>
                                     <div class="blog-one__date">
                                         <i class="far fa-calendar-alt"></i>
                                         {{item.fecha}}
