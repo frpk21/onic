@@ -189,7 +189,7 @@ def BoletinesView(request):
 def Mapas0View(request):
     template_name = 'generales/mapas0.html'
     mapas = Mapas.objects.filter(activo=True).order_by('tema')
-    context = {'mapas': mapas, 'hoy': date.today(), 'categorias_mul': Categoria_multimedia.objects.all(), 'subcategorias': SubCategoria.objects.all().order_by('id'), 'nosotros': Nosotros.objects.all().last(), 'categorias': Categoria.objects.all().order_by('id'), 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
+    context = {'img_bak': SubCategoria.objects.get(id=25), 'mapas': mapas, 'hoy': date.today(), 'categorias_mul': Categoria_multimedia.objects.all(), 'subcategorias': SubCategoria.objects.all().order_by('id'), 'nosotros': Nosotros.objects.all().last(), 'categorias': Categoria.objects.all().order_by('id'), 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
     return render(request, template_name, context)
 
 def PublicacionesView(request, pk):
@@ -199,8 +199,10 @@ def PublicacionesView(request, pk):
     subcategorias = SubCategoria.objects.all().order_by('id')
     if pk == 23:
         publicaciones = Noticias.objects.filter(subcategoria_id=pk).order_by('id')
+        img_bak = SubCategoria.objects.get(id=23)
     else:
         publicaciones = MapasDetalle.objects.filter(mapa_id=pk, activo=True).order_by('titulo')
+        img_bak = SubCategoria.objects.get(id=25)
     c_p = Categoria.objects.get(id=14)  # 14 = Publicaciones
     context = {'pk': pk, 'hoy': hoy, 'categorias_mul': Categoria_multimedia.objects.all(), 'subcategorias': subcategorias, 'cat_p': c_p, 'nosotros': Nosotros.objects.all().last(), 'publicaciones': publicaciones, 'categorias': categorias, 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
     return render(request, template_name, context)
