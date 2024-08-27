@@ -200,11 +200,13 @@ def PublicacionesView(request, pk):
     if pk == 23:
         publicaciones = Noticias.objects.filter(subcategoria_id=pk).order_by('id')
         img_bak = SubCategoria.objects.get(id=23)
+        tit = ''
     else:
         publicaciones = MapasDetalle.objects.filter(mapa_id=pk, activo=True).order_by('titulo')
         img_bak = SubCategoria.objects.get(id=25)
+        tit = MapasDetalle.objects.filter(mapa_id=pk, activo=True).last()
     c_p = Categoria.objects.get(id=14)  # 14 = Publicaciones
-    context = {'img_bak': img_bak, 'pk': pk, 'hoy': hoy, 'categorias_mul': Categoria_multimedia.objects.all(), 'subcategorias': subcategorias, 'cat_p': c_p, 'nosotros': Nosotros.objects.all().last(), 'publicaciones': publicaciones, 'categorias': categorias, 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
+    context = {'tit': tit, 'img_bak': img_bak, 'pk': pk, 'hoy': hoy, 'categorias_mul': Categoria_multimedia.objects.all(), 'subcategorias': subcategorias, 'cat_p': c_p, 'nosotros': Nosotros.objects.all().last(), 'publicaciones': publicaciones, 'categorias': categorias, 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
     return render(request, template_name, context)
 
 def ModulosView(request, pk):
