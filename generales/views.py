@@ -162,7 +162,7 @@ def NosotrosView(request):
     categorias = Categoria.objects.all().order_by('id')
     subcategorias = SubCategoria.objects.all().order_by('id')
     nosotros = Nosotros.objects.all().last()
-    context = {'hoy': hoy, 'nosotros': nosotros, 'categorias_mul': Categoria_multimedia.objects.all(), 'categorias': categorias, 'subcategorias': subcategorias, 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
+    context = {'img_bak': SubCategoria.objects.get(id=14), 'hoy': hoy, 'nosotros': nosotros, 'categorias_mul': Categoria_multimedia.objects.all(), 'categorias': categorias, 'subcategorias': subcategorias, 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
 
     return render(request, template_name, context)
 
@@ -173,7 +173,7 @@ def EquipoView(request):
     subcategorias = SubCategoria.objects.all().order_by('id')
     equipo = Equipo.objects.filter(activo=True).exclude(orden=0).order_by('orden')
     concejero = Equipo.objects.filter(orden=0).last()
-    context = {'hoy': hoy, 'categorias_mul': Categoria_multimedia.objects.all(), 'concejero': concejero, 'nosotros': Nosotros.objects.all().last(), 'equipo': equipo, 'categorias': categorias, 'subcategorias': subcategorias, 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
+    context = {'img_bak': SubCategoria.objects.get(id=15), 'hoy': hoy, 'categorias_mul': Categoria_multimedia.objects.all(), 'concejero': concejero, 'nosotros': Nosotros.objects.all().last(), 'equipo': equipo, 'categorias': categorias, 'subcategorias': subcategorias, 'modulos': SubCategoria.objects.filter(categoria__id=20).order_by('id')}
     return render(request, template_name, context)
 
 def BoletinesView(request):
