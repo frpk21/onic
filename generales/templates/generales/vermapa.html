@@ -4,9 +4,9 @@
 
 {% block contenido %}
 
-<section class="page-header" style="background-image: url({{nosotros.imagen.url}});">
+<section class="page-header" style="background-image: url({{img_bak.imagen.url}});">
     <div class="container">
-        <h2>{{mapas1.titulo}}</h2>
+        <h3 style="color: rgb(212, 211, 211);">{{mapas1.titulo}}</h3>
     </div>
 </section>
 
@@ -16,7 +16,11 @@
             <div class="col-md-12">
                 <div class="team-one__single">
                     <div class="team-one__image">
-                        <img src="{{mapas1.imagen.url}}"  alt="">
+                        {% if mapas1.imagen2 %}
+                            <img src="{{mapas1.imagen2.url}}" class="img-fluid" alt="">
+                        {% else %}
+                            <img src="{{mapas1.imagen.url}}" class="img-fluid" alt="">
+                        {% endif %}
                     </div>
                     <a href="{{mapas1.imagen.url}}"  download class="thm-btn venue-one__btn">Descargar</a>
                 </div>
