@@ -29,11 +29,11 @@
                         <div class="event-three__content padding_bottom_0">
                             {% if pk != 23 %}
                                 <h3><a href="{% url 'generales:ver_mapa' item.slug %}">{{item.tema}}</a></h3>
-                                <p><span class="event-three__date">{{item.fecha}}</span></p>
+                                <p>{{item.fecha}}</p>
                             {% else %}
                                 <h3>{{item.titulo}}</h3>
                                 <p>{{item.subtitulo}}</p>
-                                <p><span class="event-three__date">{{item.fecha}}</span></p>
+                                <p>{{item.fecha}}</p>
                             {% endif %}
                         </div>
                     </div>
