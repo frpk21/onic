@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from generales.models import Noticias, Suscribir, VideoSMT, Contacto, Nosotros, Categoria, SubCategoria, Mapas, MapasDetalle, Equipo, Imagenes, Videos, Podcast, Categoria_multimedia
+from generales.models import Noticias, Suscribir, VideoSMT, Contacto, Nosotros, Categoria, Mapas, MapasDetalle, Equipo, Imagenes, Videos, Podcast, Categoria_multimedia
 
 from django.contrib.admin.widgets import AutocompleteSelect
 
@@ -9,14 +9,14 @@ import random
 
 class NoticiasAdmin(admin.ModelAdmin):
 
-    list_display = ('titulo', 'subtitulo', 'orden', 'categoria', 'subcategoria', 'activo',  'fecha',  'modificado')
-    fields = ['subcategoria', 'categoria', 'titulo', 'subtitulo', 'fecha', ('orden', 'imagen'), 'descripcion', 'archivo_audio', 'fuente', 'html', 'pdf', 'activo']
+    list_display = ('titulo', 'subtitulo', 'orden', 'categoria', 'activo',  'fecha',  'modificado')
+    fields = ['categoria', 'titulo', 'subtitulo', 'fecha', ('orden', 'imagen'), 'descripcion', 'archivo_audio', 'fuente', 'html', 'pdf', 'activo']
     exclude = ('slug','autor', 'modificado', 'vistas',)
     ordering = ('orden', 'titulo', 'fecha',)
     search_fields = ('titulo','subtitulo','fecha', )
-    list_filter = ('categoria','subcategoria', 'modificado', 'orden', 'fecha',)
-    raw_id_fields = ('categoria', 'subcategoria')
-    list_editable = ('categoria', 'subcategoria')
+    list_filter = ('categoria', 'modificado', 'orden', 'fecha',)
+    raw_id_fields = ('categoria',)
+    list_editable = ('categoria',)
 
     class Meta:
         model = Noticias
@@ -47,22 +47,22 @@ class CategoriaAdmin(admin.ModelAdmin):
     #    return False
 
 
-class SubCategoriaAdmin(admin.ModelAdmin):
-    list_display = ('id', 'categoria', 'nombre', 'imagen', 'url', 'pestana_nueva','orden',)
-    ordering = ('id', )
-    list_filter = ('categoria',)
-
-    class Meta:
-        model = SubCategoria
-
-    def save_model(self, request, obj, form, change):
-        super().save_model(request, obj, form, change)
-    
-    def has_add_permission(self, request):
-        return False
-    
-    def has_delete_permission(self, request, obj=None):
-       return False
+# class SubCategoriaAdmin(admin.ModelAdmin):
+#     list_display = ('id', 'categoria', 'nombre', 'imagen', 'url', 'pestana_nueva','orden',)
+#     ordering = ('id', )
+#     list_filter = ('categoria',)
+#
+#     class Meta:
+#         model = SubCategoria
+#
+#     def save_model(self, request, obj, form, change):
+#         super().save_model(request, obj, form, change)
+#
+#     def has_add_permission(self, request):
+#         return False
+#
+#     def has_delete_permission(self, request, obj=None):
+#        return False
 
 class MapasAdmin(admin.ModelAdmin):
     list_display = ('tema', 'fecha', 'descripcion', 'imagen', 'activo')
@@ -165,7 +165,7 @@ class PodcastAdmin(admin.ModelAdmin):
         super().save_model(request, obj, form, change)
 
 admin.site.register(Categoria, CategoriaAdmin)
-admin.site.register(SubCategoria, SubCategoriaAdmin)
+# admin.site.register(SubCategoria, SubCategoriaAdmin)
 admin.site.register(Mapas, MapasAdmin)
 admin.site.register(MapasDetalle, MapasDetalleAdmin)
 admin.site.register(Noticias, NoticiasAdmin)

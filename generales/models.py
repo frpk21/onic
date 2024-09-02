@@ -48,6 +48,9 @@ class Categoria(ClaseModelo):
 
 
 class SubCategoria(ClaseModelo):
+    """
+    TODO: Este modelo ya no es necesario, puede ser eliminado
+    """
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
     nombre = models.CharField(max_length=100, help_text='Descripción de la sub categoría')
     imagen = models.FileField("Imagen categoria (1920x1042 px)", upload_to="imagenes/categorias",default="")
@@ -148,7 +151,9 @@ class Contacto(ClaseModelo):
 
 
 class Noticias(ClaseModelo):
-    # TODO: remove this field when the refactoring is completed
+    """
+    TODO: el campo "subcategoria" ya no es necesario, puede ser eliminado
+    """
     subcategoria = models.ForeignKey(SubCategoria, on_delete=models.CASCADE, null=True, blank=True)
     categoria = models.ForeignKey('generales.Categoria', on_delete=models.CASCADE, null=True, blank=True)
     fecha = models.DateField('Fecha de publicación', blank=True, null=True, default=datetime.now)
