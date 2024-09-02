@@ -183,40 +183,7 @@
                     </tbody>
                 </table>
             </div>
-        </div><!--
-        <ul class="post-pagination">
-            <li>
-                {% if imagenes.has_previous %}
-                    <a href="?search={{ search }}&page={{ imagenes.previous_page_number }}">
-                        Ant.
-                    </a>
-                {% else %}
-                    <span>Ant.</span>
-                {% endif %}
-            </li>					  
-                {% for page_number in paginator2.page_range %}
-                    {% if page_number ==  imagenes.number%}
-                        <li class="post-pagination active">
-                            <span >{{ page_number }}</span>
-                        </li>
-                    {% else %}
-                        <li>
-                            <a href="?search={{ search }}&page={{ page_number }}" class="flex-c-c pagi-item hov-btn1 trans-03 m-all-7">
-                                {{ page_number }}
-                            </a>
-                        </li>
-                    {% endif %}
-                {% endfor %}
-            <li>
-                {% if imagenes.has_next %}
-                    <a href="?search={{ search }}&page={{ imagenes.next_page_number }}">
-                    Sig.
-                    </a>
-                {% else %}
-                    <span>Sig.</span>
-                {% endif %}
-            </li>
-        </ul>-->
+        </div>
     </div>
 </section>
 

@@ -1,0 +1,37 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+{% block contenido %}
+
+    <section class="page-header" style="background-image: url({{ img_bak.imagen.url }});">
+        <div class="container">
+            <h4 style="color: rgb(206, 204, 204);">{{ img_bak.nombre }}</h4>
+            <h3 style="color: white;">{{ tit }}</h3>
+        </div>
+    </section>
+    <section class="">
+        <div class="container mt-4">
+            <div class="row">
+                {% for item in publicaciones %}
+                    <div class="col-lg-4 col-md-6 col-sm-6 mb-4 d-flex align-items-stretch">
+                        <div class="card w-100">
+                            <a href="{% url 'generales:ver_mapa' item.slug %}?category={{ request.GET.category }}">
+                                <img src="{{ item.imagen.url }}" class="card-img-top img-fluid"
+                                     alt="{{ item.titulo }}">
+                            </a>
+                            <div class="card-body">
+                                <h5 class="card-title text-center mt-2">
+                                    <a href="{% url 'generales:ver_mapa' item.slug %}?category={{ request.GET.category }}"
+                                       class="text-dark stretched-link">{{ item.titulo }}</a>
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+
+{% endblock contenido %}

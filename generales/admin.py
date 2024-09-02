@@ -9,12 +9,14 @@ import random
 
 class NoticiasAdmin(admin.ModelAdmin):
 
-    list_display = ('titulo', 'subtitulo', 'fecha', 'orden', 'imagen', 'modificado', 'subcategoria_id', 'activo', )
-    fields = ['subcategoria', 'titulo', 'subtitulo', 'fecha', ('orden', 'imagen'), 'descripcion', 'archivo_audio', 'fuente', 'html', 'pdf', 'activo']
+    list_display = ('titulo', 'subtitulo', 'orden', 'categoria', 'subcategoria', 'activo',  'fecha',  'modificado')
+    fields = ['subcategoria', 'categoria', 'titulo', 'subtitulo', 'fecha', ('orden', 'imagen'), 'descripcion', 'archivo_audio', 'fuente', 'html', 'pdf', 'activo']
     exclude = ('slug','autor', 'modificado', 'vistas',)
     ordering = ('orden', 'titulo', 'fecha',)
     search_fields = ('titulo','subtitulo','fecha', )
-    list_filter = ('subcategoria__categoria','subcategoria', 'modificado', 'orden', 'fecha',)
+    list_filter = ('categoria','subcategoria', 'modificado', 'orden', 'fecha',)
+    raw_id_fields = ('categoria', 'subcategoria')
+    list_editable = ('categoria', 'subcategoria')
 
     class Meta:
         model = Noticias
@@ -24,22 +26,26 @@ class NoticiasAdmin(admin.ModelAdmin):
         obj.save()
 
 
-
 class CategoriaAdmin(admin.ModelAdmin):
-    list_display = ('id', 'nombre', 'imagen','url', 'pestana_nueva','orden',)
-    ordering = ('id', )
+    list_display = ('id', 'parent', 'nombre', 'url',  'orden', 'link_type', 'activo')
+    ordering = ('orden', 'id', 'nombre', '-parent')
+    search_fields = ('nombre', 'parent__nombre', 'url')
+    list_filter = ('link_type', 'parent')
+    list_editable = ('nombre', 'url', 'orden', 'link_type', 'activo')
+    raw_id_fields = ('parent', )
 
     class Meta:
         model = Categoria
 
     def save_model(self, request, obj, form, change):
         super().save_model(request, obj, form, change)
-    
-    def has_add_permission(self, request):
-        return False
-    
-    def has_delete_permission(self, request, obj=None):
-       return False
+
+    # def has_add_permission(self, request):
+    #     return False
+
+    # def has_delete_permission(self, request, obj=None):
+    #    return False
+
 
 class SubCategoriaAdmin(admin.ModelAdmin):
     list_display = ('id', 'categoria', 'nombre', 'imagen', 'url', 'pestana_nueva','orden',)

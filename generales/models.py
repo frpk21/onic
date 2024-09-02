@@ -3,9 +3,8 @@ from django.template.defaultfilters import slugify
 from ckeditor.fields import RichTextField
 from datetime import datetime
 from django.contrib.auth.models import User
-from django.conf import settings
-from django.urls import reverse
-from multiselectfield import MultiSelectField
+from django.utils.translation import gettext_lazy as _
+from generales.choices import OrderNews, LinkType
 
 
 # Create your models here.
@@ -30,21 +29,23 @@ class Categoria_multimedia(ClaseModelo):
     class Meta:
         verbose_name_plural = "Categorías Multimedia"
 
+
 class Categoria(ClaseModelo):
-    nombre = models.CharField(max_length=100, help_text='Categoría', unique=True)
-    imagen = models.FileField("Imagen categoria", upload_to="imagenes/categorias",default="")
-    url = models.CharField(max_length=100, help_text='Url ')
-    pestana_nueva = models.BooleanField(default=False)
-    orden = models.IntegerField(default=0, blank=True, null=False)
+    parent = models.ForeignKey('generales.Categoria', verbose_name=_('Categoria'), on_delete=models.CASCADE, null=True, blank=True)
+    nombre = models.CharField(max_length=100, help_text='Categoría')
+    imagen = models.FileField("Imagen categoria", upload_to="imagenes/categorias", null=True, blank=True)
+    url = models.CharField(max_length=500, help_text='URL', null=True, blank=True)
+    orden = models.IntegerField(default=0)
+    link_type = models.CharField(max_length=7, choices=LinkType.choices, null=True, default=LinkType.NONE)
 
     def __str__(self):
-        return '{}'.format(self.nombre)
-
-    def save(self):
-        super(Categoria, self).save()
+        return f'{self.parent} | {self.nombre}' if self.parent else f'{self.nombre}'
 
     class Meta:
         verbose_name_plural = "Categorías"
+        unique_together = ('parent', 'nombre')
+        ordering = ('orden',)
+
 
 class SubCategoria(ClaseModelo):
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
@@ -55,14 +56,11 @@ class SubCategoria(ClaseModelo):
     orden = models.IntegerField(default=0, blank=True, null=False)
 
     def __str__(self):
-        return '{}: {}'.format(self.categoria.nombre,self.nombre)
-
-    def save(self):
-        super(SubCategoria, self).save()
+        return '{} | {}'.format(self.categoria.nombre,self.nombre)
 
     class Meta:
         verbose_name_plural = "Sub Categorías"
-        unique_together = ('categoria','nombre')
+        unique_together = ('categoria', 'nombre')
 
 class Suscribir(ClaseModelo):
     email = models.CharField(max_length=200, help_text='eMail', unique=True)
@@ -148,21 +146,23 @@ class Contacto(ClaseModelo):
     class Meta:
         verbose_name_plural = "Contactos"
 
+
 class Noticias(ClaseModelo):
-    subcategoria=models.ForeignKey(SubCategoria, on_delete=models.CASCADE, default=0, null=False, blank=False)
+    # TODO: remove this field when the refactoring is completed
+    subcategoria = models.ForeignKey(SubCategoria, on_delete=models.CASCADE, null=True, blank=True)
+    categoria = models.ForeignKey('generales.Categoria', on_delete=models.CASCADE, null=True, blank=True)
     fecha = models.DateField('Fecha de publicación', blank=True, null=True, default=datetime.now)
     titulo = models.CharField(help_text='Título de la noticia', blank=False, null=False, max_length=200)
     subtitulo = models.CharField(help_text='Sub título de la noticia', blank=False, null=False, max_length=500)
     descripcion = RichTextField(max_length=15000, blank=True, null=True)
     archivo_audio = models.FileField("Archivo Audio", upload_to="audio/", blank=True, null=True, default='')
-    CHOICES = ((0,'Carrusel'),(1,'Noticia 1'),(2,'Novedades 2'),(3,'Boletines 3'),(4,'Mediateca 4'), (5,'General'))
-    orden = models.IntegerField(choices=CHOICES, default=0, blank=False, null=False)
+    orden = models.IntegerField(choices=OrderNews.choices, default=OrderNews.CAROUSEL, blank=False, null=False)
     imagen = models.FileField("Imagen Destacado", upload_to="imagenes/", blank=False, null=False)
-    autor = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True,default='')
+    autor = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, default='')
     fuente = models.CharField(help_text='Fuente noticia', blank=True, null=True, max_length=50, default="SMT")
     html = models.TextField(max_length=10000, default="", blank=True, null=True)
     pdf = models.FileField("Archivo PDF", upload_to="pdf/", blank=True, null=True, default='')
-    slug = models.SlugField(blank=True,null=True, max_length=250)
+    slug = models.SlugField(blank=True, null=True, max_length=250)
     
     def __str__(self):
         return '{}'.format(self.titulo)
@@ -228,7 +228,7 @@ class Comentario(ClaseModelo):
         verbose_name_plural = "Comentarios"
 
 class Imagenes(ClaseModelo):
-    categoria_multimedia=models.ForeignKey(Categoria_multimedia, on_delete=models.CASCADE, default=0, null=False, blank=False)
+    categoria_multimedia = models.ForeignKey(Categoria_multimedia, on_delete=models.CASCADE, default=0, null=False,blank=False)
     fecha = models.DateField('Fecha de publicación', blank=True, null=True, default=datetime.now)
     titulo = models.CharField(help_text='Título de la noticia', blank=False, null=False, max_length=200)
     descripcion = RichTextField(max_length=15000, blank=True, null=True)

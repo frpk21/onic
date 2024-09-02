@@ -4,102 +4,36 @@
 
 {% block contenido %}
 
-<section class="page-header" style="background-image: url({{img_bak.imagen.url}});">
-    <div class="container">
-        <h4 style="color: rgb(206, 204, 204);">{{img_bak.nombre}}<h4>
-        <h3 style="color: white;">{{tit}}</h3>
-    </div>
-</section>
-<section class="event-three padding_top_40">
-    <div class="container">
-        <div class="row">
-            {% if publicaciones|length > 0 %}
-                {% for item in publicaciones %}
-                    <div class="col-lg-6">
-                        <div class="event-three__single gallery_img">
-                            <div class="event-three__image text-center" style="background-color: white; width: auto; height: 700px; border: 2px solid #80808029;">
-                                {% if pk != 23 %}
-                                    <a href="{% url 'generales:ver_mapa' item.slug %}"><img src="{{item.imagen.url}}" alt=""></a>
-                                {% else %}
-                                    <img src="{{item.imagen.url}}" alt="">
-                                {% endif %}
-                            </div>
-                            
-                        </div>
-                        <div class="event-three__content padding_bottom_0">
-                            {% if pk != 23 %}
-                                <h3><a href="{% url 'generales:ver_mapa' item.slug %}">{{item.tema}}</a></h3>
-                            {% else %}
-                                <h3>{{item.titulo}}</h3>
-                                <p>{{item.subtitulo}}</p>
-                                <p>{{item.fecha}}</p>
-                            {% endif %}
-                        </div>
-                    </div>
-                {% endfor %}
-            {% endif %}
+    <section class="page-header" style="background-image: url({{ img_bak.imagen.url }});">
+        <div class="container">
+            <h4 style="color: rgb(206, 204, 204);">{{ img_bak.nombre }}</h4>
+            <h3 style="color: white;">{{ tit }}</h3>
         </div>
-    </div>
-</section>
-<!--
-<section class="event-two event-two__event-1-page">
-    <div class="container">
-        {% for item in publicaciones %}
-            {% if forloop.counter|divisibleby:2 %}
-                <div class="event-two__single">
-                    <div class="row">
-                        <div class="col-lg-5 wow fadeInLeft" data-wow-duration="1500ms">
-                            <div class="event-two__image">
-                                <div class="event-two__image-inner">
-                                    <img src="{{item.imagen.url}}" alt="">
+    </section>
+    <section class="event-three padding_top_40">
+        <div class="container">
+            <div class="row">
+                {% if publicaciones|length > 0 %}
+                    {% for item in publicaciones %}
+                        <div class="col-lg-6">
+                            <div class="event-three__single gallery_img">
+                                <div class="event-three__image text-center"
+                                     style="background-color: white; width: auto; height: 700px; border: 2px solid #80808029;">
+                                    <img src="{{ item.imagen.url }}" alt="">
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-7 d-flex">
-                            <div class="my-auto">
-                                <div class="event-two__content">
-                                    <div class="block-title event-two__title">
-                                        <p>{{item.fecha}}</p>
-                                        <h3>{{item.titulo}}</h3>
-                                    </div>
-                                    <p>{{item.descripcion}}
-                                    </p>
-                                    <a href="{% url 'generales:mapas1' item.slug %}" class="thm-btn event-two__btn">Ver M&aacute;s</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            {% else %}
-                <div class="event-two__single">
-                    <div class="row">
-                        <div class="col-lg-5 wow fadeInLeft" data-wow-duration="1500ms">
-                            <div class="event-two__image">
-                                <div class="event-two__image-inner">
-                                    <img src="{{item.imagen.url}}" alt="">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-7 d-flex">
-                            <div class="my-auto">
-                                <div class="event-two__content">
-                                    <div class="block-title event-two__title">
-                                        <p>{{item.fecha}}</p>
-                                        <h3>{{item.titulo}}</h3>
-                                    </div>
-                                    <p>{{item.descripcion}}
-                                    </p>
-                                    <a href="{% url 'generales:mapas1' item.slug %}" class="thm-btn event-two__btn">Ver M&aacute;s</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            {% endif %}
-        {% endfor %}
-    </div>
-</section>-->
 
+                            </div>
+                            <div class="event-three__content padding_bottom_0">
+                                <h3>{{ item.titulo }}</h3>
+                                <p>{{ item.subtitulo }}</p>
+                                <p>{{ item.fecha }}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </section>
 
 
 {% endblock contenido %}
