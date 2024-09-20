@@ -131,7 +131,7 @@ def PublicacionesView(request, pk):
     context = {
         'tit': '',
         'img_bak': categoria,
-        'publicaciones': categoria.noticias_set.all().order_by('id'),
+        'publicaciones': categoria.noticias_set.all().order_by('-fecha'),
     }
     return render(request, template_name, context)
 
@@ -306,39 +306,21 @@ def DetalleView(request, slug):
         'seccion': noticia.categoria.parent,
         'detalle': noticia,
     }
-
     if request.POST.get('buscar'):
         buscar = (request.POST.get('buscar').upper())
         template_name="generales/search.html"
         try:
             resultado = Noticias.objects.filter(titulo__icontains=buscar).order_by('-id')
-            #paginator5 = Paginator(resultado, 10)
         except:
             resultado = Noticias.objects.filter(titulo__icontains=buscar).order_by('-id')
-            #paginator5 = Paginator(resultado, 10)
-        try:
-            page = int(request.GET.get('page', '1'))
-        except ValueError:
-            page = 1
-        #try:
-        #    resultado = paginator5.page(page)
-        #except (EmptyPage, InvalidPage):
-        #    resultado = paginator5.page(paginator5.num_pages)
 
-        #context['paginator5'] = paginator5
         context['resultado'] = resultado
-    else:
-        buscar = ''
-        resultado={}
 
-    #if request.method == "POST":
     if request.POST.get('comentario'):
         form_comentario = ComentarioForm(request.POST)
         if form_comentario.is_valid():
             post = form_comentario.save(commit=False)
-            post.noticia = detalle
             post.save()
-
             return JsonResponse(
                 {
                     'content': {
