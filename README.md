@@ -7,7 +7,7 @@
 | Test user         | frpk21 / ZgZyWJbaKv       |
 | Requirements path | requirements.txt          |
 | Settings path     | smt/settings.py           |
-| Python version    | 3.7.7                     |
+| Python version    | 3.12                      |
 
 ## DB
 

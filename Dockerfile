@@ -1,5 +1,5 @@
 # Use the official Python image with version 3.7.7
-FROM python:3.7.7
+FROM python:3.12
 
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1

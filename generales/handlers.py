@@ -1,4 +1,3 @@
-from typing_extensions import List
 
 from generales.choices import LinkType
 from generales.models import Categoria
@@ -7,7 +6,7 @@ from generales.models import Categoria
 class MenuHandler:
 
     @classmethod
-    def make_tree(cls) -> List[dict]:
+    def make_tree(cls) -> list[dict]:
         values = ['id', 'parent_id', 'url', 'nombre', 'link_type']
         categories = list(Categoria.objects.filter(activo=True).order_by('orden').values(*values))
 
@@ -22,7 +21,7 @@ class MenuHandler:
         return cls.render_menu_html(menu_items)
 
     @classmethod
-    def render_menu_html(cls, menu_data: List[dict]) -> str:
+    def render_menu_html(cls, menu_data: list[dict]) -> str:
         """Recursively renders the HTML for the menu."""
         html = '<div class="main-nav__main-navigation"><ul class="main-nav__navigation-box">'
         for item in menu_data:

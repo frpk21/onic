@@ -37,7 +37,6 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'generales',
     'ckeditor',
-    'visor'
 ]
 
 # Ckeditor
