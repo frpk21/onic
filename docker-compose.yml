@@ -18,7 +18,7 @@ services:
     restart: always
 
   postgres:
-    image: postgres:latest
+    image: postgres:16
     container_name: onic-postgres
     hostname: ${POSTGRES_HOST}
     environment:
