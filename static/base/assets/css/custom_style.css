@@ -24,3 +24,15 @@
     height: 700px;
     border: 2px solid #80808029;
 }
+
+.img-fixed {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 750 / 520;
+    object-fit: cover;
+    object-position: center;
+}
+
+.logo-box a {
+    padding-right: 10px;
+}

@@ -1,6 +1,7 @@
 from django.contrib import admin
 
-from generales.models import Noticias, Suscribir, VideoSMT, Contacto, Nosotros, Categoria, Mapas, MapasDetalle, Equipo, Imagenes, Videos, Podcast, Categoria_multimedia
+from generales.models import Noticias, VideoSMT, Contacto, Nosotros, Categoria, Mapas, MapasDetalle, Equipo, Imagenes, \
+    Videos, Podcast, Categoria_multimedia, Project
 
 from django.contrib.admin.widgets import AutocompleteSelect
 
@@ -163,6 +164,17 @@ class PodcastAdmin(admin.ModelAdmin):
 
     def save_model(self, request, obj, form, change):
         super().save_model(request, obj, form, change)
+
+
+@admin.register(Project)
+class ProjectAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name', 'order', 'slug', 'payment_gateway_url')
+    list_editable = ('order',)
+    exclude = ('slug',)
+
+    class Meta:
+        model = Project
+
 
 admin.site.register(Categoria, CategoriaAdmin)
 # admin.site.register(SubCategoria, SubCategoriaAdmin)

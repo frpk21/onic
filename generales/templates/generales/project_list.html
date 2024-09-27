@@ -1,0 +1,47 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+{% block contenido %}
+
+    <section class="page-header" style="background-image: url({{ category.imagen.url }});">
+        <div class="container">
+            <h4 style="color: rgb(206, 204, 204);">{{ category.nombre }}</h4>
+            <h3 style="color: white;">{{ tit }}</h3>
+        </div>
+    </section>
+    <section>
+        <div class="container mt-4">
+            <div class="row">
+                {% for item in project_list %}
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        <div class="card mb-4">
+                            <a href="{% url 'generales:project_detail' item.slug %}?category={{ request.GET.category }}">
+                                <img src="{{ item.thumbnail_image.url }}" class="card-img-top img-fluid img-fixed" alt="{{ item.name }}">
+                            </a>
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <a href="{% url 'generales:project_detail' item.slug %}?category={{ request.GET.category }}" class="text-dark text-decoration-none">
+                                        {{ item.name }}
+                                    </a>
+                                </h5>
+                                <div class="iframe-container"
+                                     style="height: 103px; overflow: hidden; position: relative;">
+                                    <iframe
+                                            id="{{ item.id }}"
+                                            title="{{ item.name }}"
+                                            src="{{ item.iframe_url }}"
+                                            style="position: absolute; top: -240px; width: 100%; height: 500px; border: none;"
+                                    >
+                                    </iframe>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+        </div>
+    </section>
+
+{% endblock contenido %}

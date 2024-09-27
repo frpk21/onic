@@ -17,30 +17,33 @@
     <!-- Fonts URL  https://fonts.googleapis.com/css?family=Karla:400,700%7CPlayfair+Display:400,500,600,700,800,900%7CWork+Sans:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
 -->
     <link href="https://fonts.googleapis.com/css?family=Karla:400,700%7CPlayfair+Display:400,500,600,700,800,900%7CWork+Sans:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
-    
-    <!-- Plugins CSS -->
-    <link rel="stylesheet" href="/static/base/assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/static/base/assets/css/bootstrap-datepicker.min.css">
-    <link rel="stylesheet" href="/static/base/assets/css/bootstrap-select.min.css">
-    <link rel="stylesheet" href="/static/base/assets/css/fontawesome-all.min.css">
-    <link rel="stylesheet" href="/static/base/assets/css/jquery.mCustomScrollbar.min.css">
-    <link rel="stylesheet" href="/static/base/assets/css/magnific-popup.css">
-    <link rel="stylesheet" href="/static/base/assets/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="/static/base/assets/css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="/static/base/assets/css/animate.css">
-    <link rel="stylesheet" href="/static/base/assets/css/hover-min.css">
-    <link rel="stylesheet" href="/static/base/assets/css/muzex-icons.css">
 
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="/static/base/assets/fonts/source-code-variable.css" rel="stylesheet">
-    <link href="/static/base/assets/fonts/source-code-pro.css" rel="stylesheet">
-    <link rel="stylesheet" href="/static/base/assets/css/style.css">
-    <link rel="stylesheet" href="/static/base/assets/css/responsive.css">
 
-    
-    
-    <link rel="stylesheet" href="/static/base/assets/css/custom_style.css">
+    {% block css %}
+        <!-- Plugins CSS -->
+        <link rel="stylesheet" href="/static/base/assets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/static/base/assets/css/bootstrap-datepicker.min.css">
+        <link rel="stylesheet" href="/static/base/assets/css/bootstrap-select.min.css">
+        <link rel="stylesheet" href="/static/base/assets/css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="/static/base/assets/css/jquery.mCustomScrollbar.min.css">
+        <link rel="stylesheet" href="/static/base/assets/css/magnific-popup.css">
+        <link rel="stylesheet" href="/static/base/assets/css/owl.carousel.min.css">
+        <link rel="stylesheet" href="/static/base/assets/css/owl.theme.default.min.css">
+        <link rel="stylesheet" href="/static/base/assets/css/animate.css">
+        <link rel="stylesheet" href="/static/base/assets/css/hover-min.css">
+        <link rel="stylesheet" href="/static/base/assets/css/muzex-icons.css">
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link href="/static/base/assets/fonts/source-code-variable.css" rel="stylesheet">
+        <link href="/static/base/assets/fonts/source-code-pro.css" rel="stylesheet">
+        <link rel="stylesheet" href="/static/base/assets/css/style.css">
+        <link rel="stylesheet" href="/static/base/assets/css/responsive.css">
+        <link rel="stylesheet" href="/static/base/assets/css/custom_style.css">
+    {% endblock css %}
+     {% block extra_css %}
+
+     {% endblock extra_css %}
+
 </head>
 
 <body>
@@ -207,26 +210,30 @@
     <a href="#" data-target="html" class="scroll-to-target scroll-to-top"><i class="fa fa-angle-up"></i></a>
 
     <!-- Template JS -->
-    <script src="/static/base/assets/js/jquery.min.js"></script>
-    <script src="/static/base/assets/js/bootstrap.bundle.min.js"></script>
-    <script src="/static/base/assets/js/bootstrap-datepicker.min.js"></script>
-    <script src="/static/base/assets/js/bootstrap-select.min.js"></script>
-    <script src="/static/base/assets/js/isotope.js"></script>
-    <script src="/static/base/assets/js/jquery.ajaxchimp.min.js"></script>
-    <script src="/static/base/assets/js/jquery.counterup.min.js"></script>
-    <script src="/static/base/assets/js/jquery.magnific-popup.min.js"></script>
-    <script src="/static/base/assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
-    <script src="/static/base/assets/js/jquery.validate.min.js"></script>
-    <script src="/static/base/assets/js/owl.carousel.min.js"></script>
-    <script src="/static/base/assets/js/TweenMax.min.js"></script>
-    <script src="/static/base/assets/js/waypoints.min.js"></script>
-    <script src="/static/base/assets/js/wow.min.js"></script>
-    <script src="/static/base/assets/js/jquery.lettering.min.js"></script>
-    <script src="/static/base/assets/js/jquery.circleType.js"></script>
-   
+    {% block js %}
+        <script src="/static/base/assets/js/jquery.min.js"></script>
+        <script src="/static/base/assets/js/bootstrap.bundle.min.js"></script>
+        <script src="/static/base/assets/js/bootstrap-datepicker.min.js"></script>
+        <script src="/static/base/assets/js/bootstrap-select.min.js"></script>
+        <script src="/static/base/assets/js/isotope.js"></script>
+        <script src="/static/base/assets/js/jquery.ajaxchimp.min.js"></script>
+        <script src="/static/base/assets/js/jquery.counterup.min.js"></script>
+        <script src="/static/base/assets/js/jquery.magnific-popup.min.js"></script>
+        <script src="/static/base/assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
+        <script src="/static/base/assets/js/jquery.validate.min.js"></script>
+        <script src="/static/base/assets/js/owl.carousel.min.js"></script>
+        <script src="/static/base/assets/js/TweenMax.min.js"></script>
+        <script src="/static/base/assets/js/waypoints.min.js"></script>
+        <script src="/static/base/assets/js/wow.min.js"></script>
+        <script src="/static/base/assets/js/jquery.lettering.min.js"></script>
+        <script src="/static/base/assets/js/jquery.circleType.js"></script>
+        <!-- Custom Scripts -->
+        <script src="/static/base/assets/js/theme.js"></script>
+    {% endblock js %}
 
-    <!-- Custom Scripts -->
-    <script src="/static/base/assets/js/theme.js"></script>
+    {% block extra_js %}
+    {% endblock extra_js %}
+
     
 </body>
 

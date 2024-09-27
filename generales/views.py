@@ -8,7 +8,7 @@ from django.views import generic
 from generales.choices import OrderNews
 from generales.forms import SuscribirseForm, ComentarioForm, ContactoForm
 from generales.models import Noticias, Contacto, VideoSMT, Nosotros, Categoria, Mapas, MapasDetalle, Equipo, Podcast, \
-    Videos, Imagenes, Categoria_multimedia
+    Videos, Imagenes, Categoria_multimedia, Project
 
 
 def HomeView(request):
@@ -468,3 +468,22 @@ class ContactView(generic.CreateView):
         return self.render_to_response(
             self.get_context_data(form=form)
         )
+
+
+class ProjectDetailView(generic.DetailView):
+    model = Project
+
+    def get_context_data(self, **kwargs):
+        kwargs['category'] = Categoria.objects.get(id=self.request.GET['category'])
+        context_data = super().get_context_data(**kwargs)
+        context_data['projects'] = Project.objects.exclude(id=self.object.id)
+        return context_data
+
+
+class ProjectListView(generic.ListView):
+    model = Project
+    paginate_by = 20
+
+    def get_context_data(self, *args, object_list=None, **kwargs):
+        kwargs['category'] = Categoria.objects.get(id=self.request.GET['category'])
+        return super().get_context_data(*args, object_list=object_list, **kwargs)

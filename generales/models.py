@@ -65,6 +65,7 @@ class SubCategoria(ClaseModelo):
         verbose_name_plural = "Sub Categorías"
         unique_together = ('categoria', 'nombre')
 
+
 class Suscribir(ClaseModelo):
     email = models.CharField(max_length=200, help_text='eMail', unique=True)
 
@@ -186,14 +187,14 @@ class Mapas(ClaseModelo):
     imagen = models.FileField("Imagen tema mapa Catalogo(450x370 px)", upload_to="imagenes/mapas",default="")
     imagen2 = models.FileField("Imagen tema mapa Grande", upload_to="imagenes/mapas",default="")
     slug = models.SlugField(blank=True,null=True, max_length=250)
- 
+
     def __str__(self):
         return '{}'.format(self.tema)
-    
+
     def save(self):
         self.slug = slugify(self.tema)
         super(Mapas, self).save()
-    
+
     class Meta:
         verbose_name_plural = "Mapas (Temas)"
 
@@ -209,7 +210,7 @@ class MapasDetalle(ClaseModelo):
     html = models.TextField(max_length=10000, default="", blank=True, null=True)
     pdf = models.FileField("Archivo PDF", upload_to="pdf/", blank=True, null=True, default='')
     slug = models.SlugField(blank=True,null=True, max_length=250)
-    
+
     def __str__(self):
         return '{}'.format(self.titulo)
 
@@ -238,7 +239,7 @@ class Imagenes(ClaseModelo):
     titulo = models.CharField(help_text='Título de la noticia', blank=False, null=False, max_length=200)
     descripcion = RichTextField(max_length=15000, blank=True, null=True)
     imagen = models.FileField("Imagen Destacado", upload_to="imagenes/", blank=False, null=False)
-    
+
     def __str__(self):
         return '{}'.format(self.titulo)
 
@@ -251,7 +252,7 @@ class Videos(ClaseModelo):
     titulo = models.CharField(help_text='Título de la noticia', blank=False, null=False, max_length=200)
     descripcion = RichTextField(max_length=15000, blank=True, null=True)
     html = models.TextField(max_length=10000, default="", blank=True, null=True)
-    
+
     def __str__(self):
         return '{}'.format(self.titulo)
 
@@ -265,9 +266,32 @@ class Podcast(ClaseModelo):
     titulo = models.CharField(help_text='Título de la noticia', blank=False, null=False, max_length=200)
     descripcion = RichTextField(max_length=15000, blank=True, null=True)
     archivo_audio = models.FileField("Archivo Audio", upload_to="audio/podcast/", blank=True, null=True, default='')
-    
+
     def __str__(self):
         return '{}'.format(self.titulo)
 
     class Meta:
         verbose_name_plural = "Podcast Multimedia"
+
+
+class Project(ClaseModelo):
+    name = models.CharField(_("Name"), max_length=255)
+    description = RichTextField(_("Description"))
+    url_video = models.URLField(_("Video URL"))
+    thumbnail_image = models.ImageField(_('thumbnail image (750 x 520)'), upload_to="projects/")
+    iframe_url = models.URLField(_("Iframe URL"))
+    payment_gateway_url = models.URLField(_("Payment Gateway URL"))
+    order = models.IntegerField(_('order'), default=0)
+    slug = models.SlugField(_('slug'), unique=True, max_length=200, null=True, blank=True)
+
+    class Meta:
+        verbose_name_plural = _('Projects')
+        verbose_name = _('Project')
+        ordering = ['order']
+
+    def __str__(self):
+        return self.name
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(Project, self).save(*args, **kwargs)

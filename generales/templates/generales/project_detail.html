@@ -1,0 +1,125 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+{% block extra_css %}
+    <style>
+        .tpcard__thumb.donation-details img {
+            border-radius: 10px;
+            min-width: 100%;
+        }
+
+        .tpcard__wrapper.donation-details {
+            border: none;
+            background: none;
+            box-shadow: none;
+            border-radius: 0;
+        }
+
+        .tpcard__wrapper {
+            position: relative;
+            z-index: 2;
+            border: 1px solid #F1F1F1;
+            box-shadow: 0px 10px 15px rgba(221, 221, 221, 0.15);
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .donation-btn .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .donation-btn .btn:hover {
+            background-color: #218838;
+        }
+
+    </style>
+{% endblock %}
+
+{% block contenido %}
+
+
+    <section class="page-header" style="background-image: url({{ category.imagen.url }});">
+        <div class="container">
+            <h4 style="color: rgb(206, 204, 204);">{{ category.nombre }}</h4>
+            <h3 style="color: white;">{{ project.name }}</h3>
+        </div>
+    </section>
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card-item">
+                    <div class="tpcard__wrapper donation-details">
+                        <div class="tpcard__thumb donation-details"
+                             style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+                            <iframe
+                                    src="{{ project.url_video }}"
+                                    title="YouTube video player" frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen
+                                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+                            ></iframe>
+
+                        </div>
+                        <div class="iframe-container"
+                             style="height: 103px; overflow: hidden; position: relative;">
+                            <iframe
+                                    id="{{ project.id }}"
+                                    title="{{ project.name }}"
+                                    src="{{ project.iframe_url }}"
+                                    style="position: absolute; top: -238px; width: 100%; height: 500px; border: none;"
+                            >
+                            </iframe>
+                        </div>
+                        <br/>
+                        <div class="donation-btn">
+                            <a href="{{ project.payment_gateway_url }}" class="btn">Donar</a>
+                        </div>
+                        <div class="tpcard__content donation-details">
+                            <br/>
+                            <h3>{{ project.name }}</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="blog-details__main">
+                    <i class="far fa-calendar-alt"></i>&nbsp;{{ project.create }}
+                    <br>
+                    <div>{{ project.description|safe }}</div>
+                    <br>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="sidebar">
+                    <div class="sidebar__single">
+                        <h3 class="sidebar__title">Proyectos</h3>
+                        <div class="sidebar__post">
+                            {% for item in projects %}
+                                <div class="sidebar__post-single">
+                                    <div class="sidebar__post-image">
+                                        <img src="{{ item.thumbnail_image.url }}" alt="">
+                                    </div>
+                                    <div class="sidebar__post-content">
+                                        <h3>
+                                            <a href="{% url 'generales:project_detail' item.slug %}?category={{ request.GET.category }}">{{ item.name }}</a>
+                                        </h3>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock contenido %}
+

@@ -25,6 +25,9 @@ urlpatterns = [
     path('news/maps1/<slug>', views.MapasDetalleView, name="mapas1"),
     path('news/maps/', views.Mapas0View, name="mapas0"),
     path('news/maps/<int:pk>', views.MapsGalleryGroupView, name="maps_gallery_group"),
+    # project urls
+    path('donation/projects/', views.ProjectListView.as_view(), name="project_list"),
+    path('donation/project/<slug:slug>/', views.ProjectDetailView.as_view(), name="project_detail"),
 ]
 
 if settings.DEBUG:
