@@ -1,3 +1,5 @@
+from urllib.parse import urlparse, parse_qs
+
 from django.db import models
 from django.template.defaultfilters import slugify
 from ckeditor.fields import RichTextField
@@ -291,6 +293,18 @@ class Project(ClaseModelo):
 
     def __str__(self):
         return self.name
+
+    def get_embed_url_video(self):
+        if 'embed' in self.url_video:
+            return self.url_video
+        url = urlparse(self.url_video)
+        if url.hostname in ['www.youtube.com', 'youtube.com']:
+            video_id = parse_qs(url.query).get('v')
+            if video_id:
+                return f'https://www.youtube.com/embed/{video_id[0]}'
+        if url.hostname == 'youtu.be':
+            video_id = url.path[1:]
+            return f'https://www.youtube.com/embed/{video_id}'
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
