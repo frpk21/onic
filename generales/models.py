@@ -279,7 +279,7 @@ class Podcast(ClaseModelo):
 class Project(ClaseModelo):
     name = models.CharField(_("Name"), max_length=255)
     description = RichTextField(_("Description"))
-    url_video = models.URLField(_("Video URL"))
+    url_video = models.URLField(_("Video URL"), null=True, blank=True)
     thumbnail_image = models.ImageField(_('thumbnail image (750 x 520)'), upload_to="projects/")
     iframe_url = models.URLField(_("Iframe URL"))
     payment_gateway_url = models.URLField(_("Payment Gateway URL"))
@@ -295,6 +295,8 @@ class Project(ClaseModelo):
         return self.name
 
     def get_embed_url_video(self):
+        if not self.url_video:
+            return
         if 'embed' in self.url_video:
             return self.url_video
         url = urlparse(self.url_video)
