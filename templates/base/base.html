@@ -227,11 +227,18 @@
         <script src="/static/base/assets/js/wow.min.js"></script>
         <script src="/static/base/assets/js/jquery.lettering.min.js"></script>
         <script src="/static/base/assets/js/jquery.circleType.js"></script>
-        <!-- Custom Scripts -->
         <script src="/static/base/assets/js/theme.js"></script>
     {% endblock js %}
 
     {% block extra_js %}
+        <script>
+            $(document).ready(function () {
+                $('.dropdown-btn').on('click', function () {
+                    $(this).siblings('ul').slideToggle();
+                    $(this).find('i').toggleClass('fa-angle-right fa-angle-down');
+                });
+            });
+        </script>
     {% endblock extra_js %}
 
     

@@ -23,10 +23,10 @@ class MenuHandler:
     @classmethod
     def render_menu_html(cls, menu_data: list[dict]) -> str:
         """Recursively renders the HTML for the menu."""
-        html = '<div class="main-nav__main-navigation"><ul class="main-nav__navigation-box">'
+        html = '<ul class="main-nav__navigation-box">'
         for item in menu_data:
             html += cls.render_item_html(item)
-        html += '</ul></div>'
+        html += '</ul>'
         return html
 
     @classmethod
