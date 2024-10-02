@@ -2,12 +2,24 @@
 
 {% load static %}
 
+{% block extra_css %}
+    <style>
+        .vaki-iframe {
+            position: absolute;
+            top: -240px;
+            width: 100%;
+            height: 500px;
+            border: none;
+        }
+    </style>
+{% endblock %}
+
 {% block contenido %}
 
     <section class="page-header" style="background-image: url({{ category.imagen.url }});">
         <div class="container">
-            <h4 style="color: rgb(206, 204, 204);">{{ category.nombre }}</h4>
-            <h3 style="color: white;">{{ tit }}</h3>
+            <h3 style="color: white; font-weight: bold">{{ category.nombre }}</h3>
+            <h4 style="color: white;">{{ project.name }}</h4>
         </div>
     </section>
     <section>
@@ -31,7 +43,8 @@
                                             id="{{ item.id }}"
                                             title="{{ item.name }}"
                                             src="{{ item.iframe_url }}"
-                                            style="position: absolute; top: -240px; width: 100%; height: 500px; border: none;"
+                                            scrolling="no"
+                                            class="vaki-iframe"
                                     >
                                     </iframe>
                                 </div>
