@@ -43,7 +43,7 @@
         }
 
         .vaki-container-detail {
-            height: 103px;
+            height: 132px;
             overflow: hidden;
             position: relative;
         }
@@ -97,13 +97,13 @@
                                     title="{{ project.name }}"
                                     src="{{ project.iframe_url }}"
                                     class="vaki-iframe"
+                                    scrolling="no"
                             >
                             </iframe>
                         </div>
                         <br/>
                         <div class="d-flex justify-content-center mt-3">
-                            <a target="_blank" href="{{ item.payment_gateway_url }}"
-                               class="btn btn-success w-50 donate-bnt">
+                            <a target="_blank" href="{{ project.payment_gateway_url }}" class="btn btn-success w-50 donate-bnt">
                                 DONAR
                             </a>
                         </div>
