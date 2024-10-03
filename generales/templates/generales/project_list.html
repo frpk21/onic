@@ -11,6 +11,9 @@
             height: 500px;
             border: none;
         }
+        h5.card-title {
+            min-height: 72px;
+        }
     </style>
 {% endblock %}
 
@@ -48,8 +51,8 @@
                                     </iframe>
                                 </div>
                                 <div class="d-flex justify-content-center mt-3">
-                                    <a target="_blank" href="{{ item.payment_gateway_url }}" class="btn btn-success w-100">
-                                        Donar
+                                    <a target="_blank" href="{{ item.payment_gateway_url }}" class="btn btn-success w-100 donate-bnt">
+                                        DONAR
                                     </a>
                                 </div>
                             </div>

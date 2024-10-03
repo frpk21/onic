@@ -25,21 +25,6 @@
             overflow: hidden;
         }
 
-        .donation-btn .btn {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #28a745;
-            color: white;
-            text-align: center;
-            text-decoration: none;
-            border-radius: 5px;
-            font-size: 16px;
-            transition: background-color 0.3s ease;
-        }
-
-        .donation-btn .btn:hover {
-            background-color: #218838;
-        }
 
         .youtube-ifrmae {
             position: absolute;
@@ -116,8 +101,11 @@
                             </iframe>
                         </div>
                         <br/>
-                        <div class="donation-btn">
-                            <a target="_blank" href="{{ project.payment_gateway_url }}" class="btn">Donar</a>
+                        <div class="d-flex justify-content-center mt-3">
+                            <a target="_blank" href="{{ item.payment_gateway_url }}"
+                               class="btn btn-success w-50 donate-bnt">
+                                DONAR
+                            </a>
                         </div>
                         <div class="tpcard__content donation-details">
                             <br/>
