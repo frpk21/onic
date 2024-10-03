@@ -484,6 +484,9 @@ class ProjectListView(generic.ListView):
     model = Project
     paginate_by = 20
 
+    def get_queryset(self):
+        return super().get_queryset().filter(activo=True)
+
     def get_context_data(self, *args, object_list=None, **kwargs):
         kwargs['category'] = Categoria.objects.get(id=self.request.GET['category'])
         return super().get_context_data(*args, object_list=object_list, **kwargs)
