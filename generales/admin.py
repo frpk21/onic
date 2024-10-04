@@ -168,8 +168,8 @@ class PodcastAdmin(admin.ModelAdmin):
 
 @admin.register(Project)
 class ProjectAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'order', 'thumbnail_image', 'payment_gateway_url', 'iframe_url', 'activo')
-    list_editable = ('order','name', 'thumbnail_image', 'payment_gateway_url', 'iframe_url', 'activo')
+    list_display = ('id', 'name', 'order', 'thumbnail_image', 'payment_gateway_url', 'iframe_url', 'iframe_css_top','activo')
+    list_editable = ('order','name', 'thumbnail_image', 'payment_gateway_url', 'iframe_url', 'iframe_css_top', 'activo')
     exclude = ('slug',)
 
     class Meta:

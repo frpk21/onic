@@ -282,6 +282,7 @@ class Project(ClaseModelo):
     url_video = models.URLField(_("Video URL"), null=True, blank=True)
     thumbnail_image = models.ImageField(_('thumbnail image (750 x 520)'), upload_to="projects/")
     iframe_url = models.URLField(_("Iframe URL"))
+    iframe_css_top = models.IntegerField(_("iframe css top"), blank=True, null=True)
     payment_gateway_url = models.URLField(_("Payment Gateway URL"))
     order = models.IntegerField(_('order'), default=0)
     slug = models.SlugField(_('slug'), unique=True, max_length=200, null=True, blank=True)
