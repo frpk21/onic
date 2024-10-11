@@ -41,35 +41,12 @@ class CategoriaAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         super().save_model(request, obj, form, change)
 
-    # def has_add_permission(self, request):
-    #     return False
-
-    # def has_delete_permission(self, request, obj=None):
-    #    return False
-
-
-# class SubCategoriaAdmin(admin.ModelAdmin):
-#     list_display = ('id', 'categoria', 'nombre', 'imagen', 'url', 'pestana_nueva','orden',)
-#     ordering = ('id', )
-#     list_filter = ('categoria',)
-#
-#     class Meta:
-#         model = SubCategoria
-#
-#     def save_model(self, request, obj, form, change):
-#         super().save_model(request, obj, form, change)
-#
-#     def has_add_permission(self, request):
-#         return False
-#
-#     def has_delete_permission(self, request, obj=None):
-#        return False
 
 class MapasAdmin(admin.ModelAdmin):
     list_display = ('tema', 'fecha', 'descripcion', 'imagen', 'activo')
-    ordering = ('tema', )
-    exclude = ('slug', )
-    search_fields = ('tema','fecha', )
+    ordering = ('tema',)
+    exclude = ('slug',)
+    search_fields = ('tema', 'fecha',)
     list_filter = ('tema', 'fecha',)
 
     class Meta:
@@ -77,6 +54,7 @@ class MapasAdmin(admin.ModelAdmin):
 
     def save_model(self, request, obj, form, change):
         super().save_model(request, obj, form, change)
+
 
 class MapasDetalleAdmin(admin.ModelAdmin):
     list_display = ('titulo', 'subtitulo', 'fecha', 'imagen', 'imagen2','modificado', 'mapa', 'activo', )
@@ -92,6 +70,7 @@ class MapasDetalleAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         obj.save()
 
+
 class VideoSMTAdmin(admin.ModelAdmin):
     list_display = ('titulo', 'url_video',)
     ordering = ('titulo', )
@@ -102,6 +81,7 @@ class VideoSMTAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         super().save_model(request, obj, form, change)
 
+
 class NosotrosAdmin(admin.ModelAdmin):
     list_display = ('descripcion','vision', 'justificacion', 'objetivos', 'usuarios','imagen', 'imagen_vision', 'imagen_jus', 'imagen_obj', 'imagen_users')
 
@@ -111,6 +91,7 @@ class NosotrosAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         super().save_model(request, obj, form, change)
 
+
 class EquipoAdmin(admin.ModelAdmin):
     list_display = ('nombre', 'perfil', 'cargo', 'orden', 'fb', 'tw', 'ln', 'imagen')
 
@@ -119,6 +100,7 @@ class EquipoAdmin(admin.ModelAdmin):
 
     def save_model(self, request, obj, form, change):
         super().save_model(request, obj, form, change)
+
 
 class ContactoAdmin(admin.ModelAdmin):
     list_display = ('nombre', 'email', 'telefono', 'ciudad', 'pais', 'modificado','textoMensage', )
@@ -132,6 +114,7 @@ class ContactoAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         super().save_model(request, obj, form, change)
 
+
 class ImagenesAdmin(admin.ModelAdmin):
     list_display = ('titulo', 'categoria_multimedia', 'fecha', 'imagen',)
     ordering = ('titulo', )
@@ -143,6 +126,7 @@ class ImagenesAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         super().save_model(request, obj, form, change)
 
+
 class VideosAdmin(admin.ModelAdmin):
     list_display = ('titulo', 'categoria_multimedia', 'fecha', 'html',)
     ordering = ('titulo', )
@@ -153,6 +137,7 @@ class VideosAdmin(admin.ModelAdmin):
 
     def save_model(self, request, obj, form, change):
         super().save_model(request, obj, form, change)
+
 
 class PodcastAdmin(admin.ModelAdmin):
     list_display = ('titulo', 'categoria_multimedia', 'fecha', 'archivo_audio','imagen')

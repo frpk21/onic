@@ -19,6 +19,7 @@ class ClaseModelo(models.Model):
     class Meta:
         abstract=True
 
+
 class Categoria_multimedia(ClaseModelo):
     nombre = models.CharField(max_length=100, help_text='Categoría multimedia', unique=True)
 
@@ -39,6 +40,8 @@ class Categoria(ClaseModelo):
     url = models.CharField(max_length=500, help_text='URL', null=True, blank=True)
     orden = models.IntegerField(default=0)
     link_type = models.CharField(max_length=7, choices=LinkType.choices, null=True, default=LinkType.NONE)
+    intro_content = RichTextField(_("Intro Content"), null=True, blank=True)
+
 
     def __str__(self):
         return f'{self.parent} | {self.nombre}' if self.parent else f'{self.nombre}'
@@ -99,6 +102,7 @@ class Nosotros(ClaseModelo):
     class Meta:
         verbose_name_plural = "Nosotros"
 
+
 class Equipo(ClaseModelo):
     nombre = models.CharField(max_length=150, help_text='Nombre colaborador')
     cargo = models.CharField(max_length=70, help_text='Cargo')
@@ -118,6 +122,7 @@ class Equipo(ClaseModelo):
     class Meta:
         verbose_name_plural = "Equipo"
 
+
 class VideoSMT(ClaseModelo):
     titulo = models.CharField(blank=False, null=False, max_length=200)
     url_video = models.TextField("ingrese la URL del vídeo.",max_length=250, blank=False, null=False)
@@ -131,6 +136,7 @@ class VideoSMT(ClaseModelo):
 
     class Meta:
         verbose_name_plural = "Video SMT"
+
 
 class Contacto(ClaseModelo):
     nombre = models.CharField(help_text='Nombre y Apellidos', blank=False, null=False, max_length=200)
@@ -171,7 +177,7 @@ class Noticias(ClaseModelo):
     html = models.TextField(max_length=10000, default="", blank=True, null=True)
     pdf = models.FileField("Archivo PDF", upload_to="pdf/", blank=True, null=True, default='')
     slug = models.SlugField(blank=True, null=True, max_length=250)
-    
+
     def __str__(self):
         return '{}'.format(self.titulo)
 
@@ -181,6 +187,7 @@ class Noticias(ClaseModelo):
 
     class Meta:
         verbose_name_plural = "Noticias"
+
 
 class Mapas(ClaseModelo):
     tema = models.CharField(help_text='Título del tema de mapas', blank=False, null=False, max_length=200)
@@ -199,6 +206,7 @@ class Mapas(ClaseModelo):
 
     class Meta:
         verbose_name_plural = "Mapas (Temas)"
+
 
 class MapasDetalle(ClaseModelo):
     mapa=models.ForeignKey(Mapas, on_delete=models.CASCADE, default=0, null=False, blank=False)
@@ -223,6 +231,7 @@ class MapasDetalle(ClaseModelo):
     class Meta:
         verbose_name_plural = "Mapas Detalle"
 
+
 class Comentario(ClaseModelo):
     noticia = models.ForeignKey(Noticias, on_delete=models.CASCADE, default=0, null=False, blank=False)
     comentario = models.TextField(max_length=10000, blank=True, null=True)
@@ -234,6 +243,7 @@ class Comentario(ClaseModelo):
 
     class Meta:
         verbose_name_plural = "Comentarios"
+
 
 class Imagenes(ClaseModelo):
     categoria_multimedia = models.ForeignKey(Categoria_multimedia, on_delete=models.CASCADE, default=0, null=False,blank=False)
@@ -248,6 +258,7 @@ class Imagenes(ClaseModelo):
     class Meta:
         verbose_name_plural = "Imagenes Multimedia"
 
+
 class Videos(ClaseModelo):
     categoria_multimedia=models.ForeignKey(Categoria_multimedia, on_delete=models.CASCADE, default=0, null=False, blank=False)
     fecha = models.DateField('Fecha de publicación', blank=True, null=True, default=datetime.now)
@@ -260,6 +271,7 @@ class Videos(ClaseModelo):
 
     class Meta:
         verbose_name_plural = "Videos Multimedia"
+
 
 class Podcast(ClaseModelo):
     categoria_multimedia=models.ForeignKey(Categoria_multimedia, on_delete=models.CASCADE, default=0, null=False, blank=False)
