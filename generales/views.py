@@ -1,6 +1,6 @@
 from datetime import date
 
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
@@ -9,6 +9,7 @@ from generales.choices import OrderNews
 from generales.forms import SuscribirseForm, ComentarioForm, ContactoForm
 from generales.models import Noticias, Contacto, VideoSMT, Nosotros, Categoria, Mapas, MapasDetalle, Equipo, Podcast, \
     Videos, Imagenes, Categoria_multimedia, Project
+from django.core.cache import cache
 
 
 def HomeView(request):
@@ -483,6 +484,16 @@ class ProjectDetailView(generic.DetailView):
 class ProjectListView(generic.ListView):
     model = Project
     paginate_by = 20
+
+    def dispatch(self, *args, **kwargs):
+        cache_key = 'project_list'
+        cached_response = cache.get(cache_key)
+        if cached_response is None:
+            response = super().dispatch(*args, **kwargs)
+            cache.set(cache_key, response.rendered_content, 60 * 60 * 24)
+            return response
+        else:
+            return HttpResponse(cached_response)
 
     def get_queryset(self):
         return super().get_queryset().filter(activo=True)
