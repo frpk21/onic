@@ -8,6 +8,11 @@ from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
 from generales.choices import OrderNews, LinkType
 
+from PIL import Image
+import os
+from django.core.files import File
+from io import BytesIO
+
 
 # Create your models here.
 
@@ -293,6 +298,7 @@ class Project(ClaseModelo):
     description = RichTextField(_("Description"))
     url_video = models.URLField(_("Video URL"), null=True, blank=True)
     thumbnail_image = models.ImageField(_('thumbnail image (750 x 520)'), upload_to="projects/")
+    thumbnail_image_small = models.ImageField(_('Small image'), upload_to="projects/small/", null=True, blank=True)
     iframe_url = models.URLField(_("Iframe URL"))
     iframe_css_top = models.IntegerField(_("iframe css top"), blank=True, null=True)
     payment_gateway_url = models.URLField(_("Payment Gateway URL"))
@@ -321,6 +327,33 @@ class Project(ClaseModelo):
             video_id = url.path[1:]
             return f'https://www.youtube.com/embed/{video_id}'
 
+    def images_changes(self) -> bool:
+        if not self.pk:
+            return True
+        project = Project.objects.get(pk=self.pk)
+        if project.thumbnail_image != self.thumbnail_image:
+            return True
+
+    def resize_image(self, image_changed: bool):
+        if not image_changed or not self.thumbnail_image:
+            return
+
+        big_image = Image.open(self.thumbnail_image.path)
+        if big_image.mode in ('RGBA', 'LA'):
+            big_image = big_image.convert('RGB')
+
+        size = (200, 138)
+        big_image.thumbnail(size, Image.Resampling.LANCZOS)
+
+        thumb_io = BytesIO()
+        big_image.save(thumb_io, format='JPEG')
+        small_image_file = File(thumb_io, name=f'small_{os.path.basename(self.thumbnail_image.name)}')
+
+        self.thumbnail_image_small.save(small_image_file.name, small_image_file, save=False)
+        self.save()
+
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
-        super(Project, self).save(*args, **kwargs)
+        image_changed = self.images_changes()
+        super().save(*args, **kwargs)
+        self.resize_image(image_changed)

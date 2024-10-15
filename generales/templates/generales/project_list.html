@@ -46,7 +46,11 @@
                     <div id="project-{{ project.slug }}" class="col-lg-4 col-md-6 col-sm-12">
                         <div class="card mb-4">
                             <a href="{% url 'generales:project_detail' item.slug %}?category={{ request.GET.category }}">
-                                <img src="{{ item.thumbnail_image.url }}" class="card-img-top img-fluid img-fixed" alt="{{ item.name }}">
+                                {% if  item.thumbnail_image_small %}
+                                    <img src="{{ item.thumbnail_image_small.url }}" class="card-img-top img-fluid img-fixed" alt="{{ item.id }}">
+                                {% else %}
+                                    <img src="{{ item.thumbnail_image.url }}" class="card-img-top img-fluid img-fixed" alt="{{ item.id }}">
+                                {% endif %}
                             </a>
                             <div class="card-body">
                                 <h5 class="card-title">
@@ -57,7 +61,7 @@
                                 <div class="iframe-container d-flex justify-content-center align-items-center">
                                     <iframe
                                             id="{{ item.id }}"
-                                            title="{{ item.name }}"
+                                            title="{{ item.id }}"
                                             src="{{ item.iframe_url }}"
                                             scrolling="no"
                                             class="vaki-iframe"
