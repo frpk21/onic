@@ -483,7 +483,7 @@ class ProjectDetailView(generic.DetailView):
 
 class ProjectListView(generic.ListView):
     model = Project
-    paginate_by = 20
+    paginate_by = 30
 
     def dispatch(self, *args, **kwargs):
         cache_key = 'project_list'
