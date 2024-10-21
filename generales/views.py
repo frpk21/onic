@@ -485,15 +485,15 @@ class ProjectListView(generic.ListView):
     model = Project
     paginate_by = 30
 
-    def dispatch(self, *args, **kwargs):
-        cache_key = 'project_list'
-        cached_response = cache.get(cache_key)
-        if cached_response is None:
-            response = super().dispatch(*args, **kwargs)
-            cache.set(cache_key, response.rendered_content, 60 * 60 * 24)
-            return response
-        else:
-            return HttpResponse(cached_response)
+    # def dispatch(self, *args, **kwargs):
+    #     cache_key = 'project_list'
+    #     cached_response = cache.get(cache_key)
+    #     if cached_response is None:
+    #         response = super().dispatch(*args, **kwargs)
+    #         cache.set(cache_key, response.rendered_content, 60 * 60 * 24)
+    #         return response
+    #     else:
+    #         return HttpResponse(cached_response)
 
     def get_queryset(self):
         return super().get_queryset().filter(activo=True)
