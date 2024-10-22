@@ -30,6 +30,11 @@
             position: relative;
         }
 
+        iframe {
+            overflow: hidden !important;
+            -webkit-overflow-scrolling: touch !important;
+        }
+
 
     </style>
 {% endblock %}
@@ -69,7 +74,6 @@
                                         {{ item.name }}
                                     </a>
                                 </h5>
-
                                 <div class="iframe-container d-flex justify-content-center align-items-center">
 {#                                    <iframe#}
 {#                                            id="{{ item.id }}"#}
