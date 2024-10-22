@@ -92,7 +92,6 @@
                             {% else %}
                                 <img src="{{ project.thumbnail_image.url }}" alt="{{ project.name }}" class="img-project-detail" />
                             {% endif %}
-
                         </div>
                         <div class="iframe-container vaki-container-detail">
                             <iframe
@@ -116,6 +115,9 @@
                         </div>
                     </div>
                 </div>
+                {% if project.pdf %}
+                    <embed height="700px" width="100%" name="plugin" src="{{ project.pdf.url }}" type="application/pdf">
+                {% endif %}
                 <div class="blog-details__main">
 {#                    <i class="far fa-calendar-alt"></i>&nbsp;{{ project.create }}#}
                     <br>

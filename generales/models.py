@@ -304,6 +304,7 @@ class Project(ClaseModelo):
     payment_gateway_url = models.URLField(_("Payment Gateway URL"))
     order = models.IntegerField(_('order'), default=0)
     slug = models.SlugField(_('slug'), unique=True, max_length=200, null=True, blank=True)
+    pdf = models.FileField(_("PDF"), upload_to="projects/pdf/", blank=True, null=True, default='')
 
     class Meta:
         verbose_name_plural = _('Projects')
