@@ -499,5 +499,6 @@ class ProjectListView(generic.ListView):
         return super().get_queryset().filter(activo=True)
 
     def get_context_data(self, *args, object_list=None, **kwargs):
+        kwargs['is_iphone'] = 'iphone' in str(self.request.META.get('HTTP_USER_AGENT')).lower()
         kwargs['category'] = Categoria.objects.get(id=self.request.GET['category'])
         return super().get_context_data(*args, object_list=object_list, **kwargs)

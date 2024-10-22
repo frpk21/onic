@@ -74,27 +74,30 @@
                                         {{ item.name }}
                                     </a>
                                 </h5>
-                                <div class="iframe-container d-flex justify-content-center align-items-center">
-{#                                    <iframe#}
-{#                                            id="{{ item.id }}"#}
-{#                                            title="{{ item.id }}"#}
-{#                                            src="{{ item.iframe_url }}"#}
-{#                                            scrolling="no"#}
-{#                                            class="vaki-iframe"#}
-{#                                            {% if item.iframe_css_top %} style="top: {{ item.iframe_css_top }}px;" {% endif %}#}
-{#                                    >#}
-{#                                    </iframe>#}
-                                    <iframe
-                                            id="{{ item.id }}"
-                                            title="{{ item.id }}"
-                                            src="{{ item.iframe_url }}"
-                                            scrolling="no"
-                                            class="vaki-iframe-2"
-                                            {% if item.iframe_css_top %}
-                                            style="top: {{ item.iframe_css_top }}px;" {% endif %}
-                                    >
-                                    </iframe>
-                                </div>
+                                {% if not is_iphone %}
+                                    <div class="iframe-container d-flex justify-content-center align-items-center">
+{#                                        <iframe#}
+{#                                                id="{{ item.id }}"#}
+{#                                                title="{{ item.id }}"#}
+{#                                                src="{{ item.iframe_url }}"#}
+{#                                                scrolling="no"#}
+{#                                                class="vaki-iframe"#}
+{#                                                {% if item.iframe_css_top %}#}
+{#                                                style="top: {{ item.iframe_css_top }}px;" {% endif %}#}
+{#                                        >#}
+{#                                        </iframe>#}
+                                        <iframe
+                                                id="{{ item.id }}"
+                                                title="{{ item.id }}"
+                                                src="{{ item.iframe_url }}"
+                                                scrolling="no"
+                                                class="vaki-iframe-2"
+                                                {% if item.iframe_css_top %}
+                                                style="top: {{ item.iframe_css_top }}px;" {% endif %}
+                                        >
+                                        </iframe>
+                                    </div>
+                                {% endif %}
                                 <div class="d-flex justify-content-center mt-3">
                                     <a target="_blank" href="{{ item.payment_gateway_url }}" class="btn btn-success w-100 donate-bnt">
                                         DONAR
