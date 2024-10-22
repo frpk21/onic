@@ -496,7 +496,7 @@ class ProjectListView(generic.ListView):
     #         return HttpResponse(cached_response)
 
     def get_queryset(self):
-        return super().get_queryset().filter(activo=True)
+        return super().get_queryset().filter(activo=True).order_by('?')
 
     def get_context_data(self, *args, object_list=None, **kwargs):
         kwargs['is_iphone'] = 'iphone' in str(self.request.META.get('HTTP_USER_AGENT')).lower()
