@@ -60,6 +60,9 @@
     </style>
 {% endblock %}
 
+{% block preloader %}
+{% endblock preloader %}
+
 {% block contenido %}
 
 
@@ -130,7 +133,7 @@
                             {% for item in projects %}
                                 <div class="sidebar__post-single">
                                     <div class="sidebar__post-image">
-                                        <img src="{{ item.thumbnail_image.url }}" alt="">
+                                        <img src="{{ item.thumbnail_image_small.url }}" alt="">
                                     </div>
                                     <div class="sidebar__post-content">
                                         <h3>
