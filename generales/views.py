@@ -502,3 +502,8 @@ class ProjectListView(generic.ListView):
         kwargs['is_iphone'] = 'iphone' in str(self.request.META.get('HTTP_USER_AGENT')).lower()
         kwargs['category'] = Categoria.objects.get(id=self.request.GET['category'])
         return super().get_context_data(*args, object_list=object_list, **kwargs)
+
+
+class PolicyView(generic.TemplateView):
+    template_name = 'generales/policy.html'
+    success_url = reverse_lazy("generales:home")
