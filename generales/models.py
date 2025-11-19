@@ -1,5 +1,4 @@
 from urllib.parse import urlparse, parse_qs
-
 from django.db import models
 from django.template.defaultfilters import slugify
 from ckeditor.fields import RichTextField
@@ -7,12 +6,13 @@ from datetime import datetime
 from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
 from generales.choices import OrderNews, LinkType
-
 from PIL import Image
 import os
 from django.core.files import File
 from io import BytesIO
-
+import uuid
+import random
+from django.db import models
 
 # Create your models here.
 
@@ -58,9 +58,6 @@ class Categoria(ClaseModelo):
 
 
 class SubCategoria(ClaseModelo):
-    """
-    TODO: Este modelo ya no es necesario, puede ser eliminado
-    """
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
     nombre = models.CharField(max_length=100, help_text='Descripción de la sub categoría')
     imagen = models.FileField("Imagen categoria (1920x1042 px)", upload_to="imagenes/categorias",default="")
@@ -165,10 +162,6 @@ class Contacto(ClaseModelo):
 
 
 class Noticias(ClaseModelo):
-    """
-    TODO: el campo "subcategoria" ya no es necesario, puede ser eliminado
-    """
-    subcategoria = models.ForeignKey(SubCategoria, on_delete=models.CASCADE, null=True, blank=True)
     categoria = models.ForeignKey('generales.Categoria', on_delete=models.CASCADE, null=True, blank=True)
     fecha = models.DateField('Fecha de publicación', blank=True, null=True, default=datetime.now)
     titulo = models.CharField(help_text='Título de la noticia', blank=False, null=False, max_length=200)
@@ -301,6 +294,8 @@ class Project(ClaseModelo):
     thumbnail_image_small = models.ImageField(_('Small image'), upload_to="projects/small/", null=True, blank=True)
     iframe_url = models.URLField(_("Iframe URL"))
     iframe_css_top = models.IntegerField(_("iframe css top"), blank=True, null=True)
+    meta = models.DecimalField(max_digits=12, decimal_places=2, default=0)  # → META TOTAL
+    donado = models.DecimalField(max_digits=12, decimal_places=2, default=0) 
     payment_gateway_url = models.URLField(_("Payment Gateway URL"))
     order = models.IntegerField(_('order'), default=0)
     slug = models.SlugField(_('slug'), unique=True, max_length=200, null=True, blank=True)
@@ -358,3 +353,22 @@ class Project(ClaseModelo):
         image_changed = self.images_changes()
         super().save(*args, **kwargs)
         self.resize_image(image_changed)
+
+class PendingUser(models.Model):
+    email = models.EmailField(unique=True)
+    nombre = models.CharField(max_length=100)
+    password = models.CharField(max_length=128)  # encriptado temporal
+    codigo = models.CharField(max_length=6)
+    creado = models.DateTimeField(auto_now_add=True)
+
+    def generar_codigo(self):
+        self.codigo = str(random.randint(100000, 999999))
+        self.save()
+
+class ActivationCode(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    code = models.CharField(max_length=6)
+    created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.user.username} - {self.code}"

@@ -1,114 +1,179 @@
 {% extends 'base/base.html' %}
-
 {% load static %}
-
-{% block extra_css %}
-    <style>
-        .vaki-iframe {
-            position: absolute;
-            top: -268px;
-            width: 335px;
-            height: 639px;
-            border: none;
-        }
-
-        .vaki-iframe-2 {
-            position: relative;
-            top: -268px;
-            width: 335px;
-            height: 639px;
-            border: none;
-        }
-
-        h5.card-title {
-            min-height: 72px;
-        }
-
-        .iframe-container {
-            height: 103px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        iframe {
-            overflow: hidden !important;
-            -webkit-overflow-scrolling: touch !important;
-        }
-
-
-    </style>
-{% endblock %}
-
-{% block preloader %}
-{% endblock preloader %}
 
 {% block contenido %}
 
-    <section class="page-header" style="background-image: url({{ category.imagen.url }});">
+<!-- HERO -->
+<div class="hero-area">
+    <div class="page-banner parallax" style="background-image:url(https://via.placeholder.com/1280x800?text=IMAGE+PLACEHOLDER);">
         <div class="container">
-            <h3 style="color: white; font-weight: bold">Iniciativas indígenas de conservación y restauración de la biodiversidad que puedes apoyar</h3>
+            <div class="page-banner-text">
+                <h1 class="block-title">Nuestras causas</h1>
+            </div>
         </div>
-    </section>
-    <section>
+    </div>
+</div>
 
-        {% if category.intro_content %}
-            <div class="container mt-4">
-                {{ category.intro_content|safe }}
-            </div>
-        {% endif %}
-        <div class="container mt-4">
+<!-- MAIN CONTAINER -->
+<div id="main-container">
+    <div class="content">
+        <div class="container">
             <div class="row">
-                {% for item in project_list %}
-                    <div id="project-{{ project.slug }}" class="col-lg-4 col-md-6 col-sm-12">
-                        <div class="card mb-4">
-                            <a href="{% url 'generales:project_detail' item.slug %}?category={{ request.GET.category }}">
-                                {% if  item.thumbnail_image_small %}
-                                    <img src="{{ item.thumbnail_image_small.url }}" class="card-img-top img-fluid img-fixed" alt="{{ item.id }}">
-                                {% else %}
-                                    <img src="{{ item.thumbnail_image.url }}" class="card-img-top img-fluid img-fixed" alt="{{ item.id }}">
-                                {% endif %}
-                            </a>
-                            <div class="card-body">
-                                <h5 class="card-title">
-                                    <a href="{% url 'generales:project_detail' item.slug %}?category={{ request.GET.category }}" class="text-dark text-decoration-none">
-                                        {{ item.name }}
-                                    </a>
-                                </h5>
-                                {% if not is_iphone %}
-                                    <div class="iframe-container d-flex justify-content-center align-items-center">
-{#                                        <iframe#}
-{#                                                id="{{ item.id }}"#}
-{#                                                title="{{ item.id }}"#}
-{#                                                src="{{ item.iframe_url }}"#}
-{#                                                scrolling="no"#}
-{#                                                class="vaki-iframe"#}
-{#                                                {% if item.iframe_css_top %}#}
-{#                                                style="top: {{ item.iframe_css_top }}px;" {% endif %}#}
-{#                                        >#}
-{#                                        </iframe>#}
-                                        <iframe
-                                                id="{{ item.id }}"
-                                                title="{{ item.id }}"
-                                                src="{{ item.iframe_url }}"
-                                                scrolling="no"
-                                                class="vaki-iframe-2"
-                                                {% if item.iframe_css_top %}
-                                                style="top: {{ item.iframe_css_top }}px;" {% endif %}
-                                        >
-                                        </iframe>
+
+                <!-- LISTA DE CAUSAS -->
+                <div class="col-md-8 content-block">
+                    <ul class="causes-list cause-page-listing">
+
+                        {% for item in project_list %}
+                            <li class="causes-list-item cause-item">
+                                <div class="row">
+
+                                    <div class="col-md-4 col-sm-4 list-thumb">
+                                        <a href="{% url 'generales:project_detail' item.slug %}{% if request.GET.category %}?category={{ request.GET.category }}{% endif %}">
+                                            <img src="{{ item.thumbnail_image.url }}" alt="">
+                                        </a>
+
+                                        <div class="cause-progress">
+                                            <a class="cProgress"
+                                               data-complete="{{ item.porcentaje }}"
+                                               data-color="8CC152">
+                                                <strong>{{ item.porcentaje|floatformat:0 }}%</strong>
+                                            </a>
+                                        </div>
                                     </div>
-                                {% endif %}
-                                <div class="d-flex justify-content-center mt-3">
-                                    <a target="_blank" href="{{ item.payment_gateway_url }}" class="btn btn-success w-100 donate-bnt">
-                                        DONAR
-                                    </a>
+
+                                    <div class="col-md-8 col-sm-8">
+                                        <div class="cause-list-item-cont">
+                                            <h3 class="post-title">
+                                                <a href="{% url 'generales:project_detail' item.slug %}{% if request.GET.category %}?category={{ request.GET.category }}{% endif %}">
+                                                    {{ item.name }}
+                                                </a>
+                                            </h3>
+
+                                            <p>{{ item.description|striptags|truncatewords:40|safe }}</p>
+
+                                            <div class="meta-data">
+                                                Donado ${{ item.donado|floatformat:0 }} /
+                                                <span class="cause-target">${{ item.meta|floatformat:0 }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 </div>
-                            </div>
+                            </li>
+                        {% empty %}
+                            <p>No hay causas disponibles.</p>
+                        {% endfor %}
+
+                    </ul>
+
+                    <!-- PAGINACIÓN -->
+                    {% if is_paginated %}
+                    <nav>
+                        <ul class="pagination pagination-lg">
+
+                            {% if page_obj.has_previous %}
+                                <li>
+                                    <a href="?page={{ page_obj.previous_page_number }}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}">
+                                        &laquo;
+                                    </a>
+                                </li>
+                            {% endif %}
+
+                            {% for page in paginator.page_range %}
+                                <li class="{% if page == page_obj.number %}active{% endif %}">
+                                    <a href="?page={{ page }}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}">
+                                        {{ page }}
+                                    </a>
+                                </li>
+                            {% endfor %}
+
+                            {% if page_obj.has_next %}
+                                <li>
+                                    <a href="?page={{ page_obj.next_page_number }}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}">
+                                        &raquo;
+                                    </a>
+                                </li>
+                            {% endif %}
+
+                        </ul>
+                    </nav>
+                    {% endif %}
+                </div>
+
+                <!-- SIDEBAR -->
+                <div class="col-md-4 sidebar-block">
+
+                    <div class="widget events-calendar-widget">
+                          	<h3 class="widgettitle">Pr&oacute;ximos eventos</h3>
+                            <div class="events-calendar-widget-body">
+                                <ul class="events-compact-list">
+                                	<li class="event-list-item">	
+                                    	<span class="event-date">
+                                        	<span class="date">14</span>
+                                            <span class="month">Jan</span>
+                                            <span class="year">2016</span>
+                                        </span>
+                                        <div class="event-list-cont">
+                                            <span class="meta-data">Thursday, 11:20 AM</span>
+                                        	<h4 class="post-title"><a href="#">Summer Camp: Students Get Together</a></h4>
+                                        </div>
+                                    </li>
+                                	<li class="event-list-item">
+                                    	<span class="event-date">
+                                        	<span class="date">18</span>
+                                            <span class="month">Jan</span>
+                                            <span class="year">2016</span>
+                                        </span>
+                                        <div class="event-list-cont">
+                                            <span class="meta-data">Monday, 07:00 PM</span>
+                                        	<h4 class="post-title"><a href="#">Fundraising for meals</a></h4>
+                                        </div>
+                                    </li>
+                                	<li class="event-list-item">
+                                    	<span class="event-date">
+                                        	<span class="date">26</span>
+                                            <span class="month">Feb</span>
+                                            <span class="year">2016</span>
+                                        </span>
+                                        <div class="event-list-cont">
+                                            <span class="meta-data">Friday, 01:00 PM</span>
+                                        	<h4 class="post-title"><a href="#">Green Environment</a></h4>
+                                        </div>
+                                    </li>
+                                </ul>
+                           	</div>
                         </div>
+
+                    <!-- ÚLTIMAS NOTICIAS -->
+                    <div class="widget recent_posts">
+                        <h3 class="widgettitle">Últimas noticias</h3>
+                        <ul>
+                            {% for n in latest_news %}
+                                <li>
+                                    <a href="{% url 'generales:detalle' n.slug %}" class="media-box">
+                                        <img src="{{ n.imagen.url }}" alt="{{ n.titulo }}">
+                                    </a>
+
+                                    <h5>
+                                        <a href="{% url 'generales:detalle' n.slug %}">
+                                            {{ n.titulo }}
+                                        </a>
+                                    </h5>
+
+                                    <span class="meta-data grid-item-meta">
+                                        Publicado el {{ n.fecha|date:"d M, Y" }}
+                                    </span>
+                                </li>
+                            {% endfor %}
+                        </ul>
                     </div>
-                {% endfor %}
+
+                </div>
+
             </div>
         </div>
-    </section>
+    </div>
+</div>
 
 {% endblock contenido %}

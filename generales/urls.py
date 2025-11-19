@@ -28,7 +28,10 @@ urlpatterns = [
     path('policy/', views.PolicyView.as_view(), name="policy"),
     # project urls
     path('donation/projects/', views.ProjectListView.as_view(), name="project_list"),
-    path('donation/project/<slug:slug>/', views.ProjectDetailView.as_view(), name="project_detail"),
+    path('donation/project/<slug:slug>', views.ProjectDetailView.as_view(), name="project_detail"),
+    path("registro/", views.RegisterView.as_view(), name="register"),
+    path("activar-cuenta/", views.activate_account, name="activate"),
+    path("verificar-codigo/", views.verificar_codigo, name="verificar_codigo"),
 ]
 
 if settings.DEBUG:

@@ -1,262 +1,152 @@
+{% load static %}
 {% load menu_tags %}
+
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="es" dir="ltr" class="no-js">
+    <head>
+        <!-- Google tag -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-DN07JMSY98"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-DN07JMSY98');
+        </script>
 
-<head>
+        <meta charset="utf-8">
+        <title>SMT</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{% static 'base/born/css/bootstrap.css' %}">
+        <link rel="stylesheet" href="{% static 'base/born/css/bootstrap-theme.css' %}">
+        <link rel="stylesheet" href="{% static 'base/born/css/style.css' %}">
+        <link rel="stylesheet" href="{% static 'base/born/vendor/magnific/magnific-popup.css' %}">
+        <link rel="stylesheet" href="{% static 'base/born/vendor/owl-carousel/css/owl.carousel.css' %}">
+        <link rel="stylesheet" href="{% static 'base/born/vendor/owl-carousel/css/owl.theme.css' %}">
+        <link rel="stylesheet" href="{% static 'base/born/css/custom.css' %}">
+        <link rel="stylesheet" href="{% static 'base/born/colors/color1.css' %}">
+        <script src="{% static 'base/born/js/modernizr.js' %}"></script>
+        <link rel="icon" type="image/png" href="{% static 'base/born/images/favicon.png' %}?v=4">
+    </head>
+    <body class="home">
+        <div class="body">
+             
+            <header class="site-header {% block header_class %}{% endblock %}">
 
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DN07JMSY98"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-        gtag('js', new Date());
-        gtag('config', 'G-DN07JMSY98');
-    </script>
+                <div class="container">
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>SMT</title>
-
-    <!-- favicons -->
-    <link rel="apple-touch-icon" sizes="180x180" href="/static/base/assets/images/favicon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/static/base/assets/images/favicon.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/static/base/assets/images/favicon.png">
-    
-
-    <!-- Fonts URL  https://fonts.googleapis.com/css?family=Karla:400,700%7CPlayfair+Display:400,500,600,700,800,900%7CWork+Sans:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
--->
-    <link href="https://fonts.googleapis.com/css?family=Karla:400,700%7CPlayfair+Display:400,500,600,700,800,900%7CWork+Sans:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@900&display=swap" rel="stylesheet">
-
-    {% block css %}
-        <!-- Plugins CSS -->
-        <link rel="stylesheet" href="/static/base/assets/css/bootstrap.min.css">
-        <link rel="stylesheet" href="/static/base/assets/css/bootstrap-datepicker.min.css">
-        <link rel="stylesheet" href="/static/base/assets/css/bootstrap-select.min.css">
-        <link rel="stylesheet" href="/static/base/assets/css/fontawesome-all.min.css">
-        <link rel="stylesheet" href="/static/base/assets/css/jquery.mCustomScrollbar.min.css">
-        <link rel="stylesheet" href="/static/base/assets/css/magnific-popup.css">
-        <link rel="stylesheet" href="/static/base/assets/css/owl.carousel.min.css">
-        <link rel="stylesheet" href="/static/base/assets/css/owl.theme.default.min.css">
-        <link rel="stylesheet" href="/static/base/assets/css/animate.css">
-        <link rel="stylesheet" href="/static/base/assets/css/hover-min.css">
-        <link rel="stylesheet" href="/static/base/assets/css/muzex-icons.css">
-        <!-- Custom CSS -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link href="/static/base/assets/fonts/source-code-variable.css" rel="stylesheet">
-        <link href="/static/base/assets/fonts/source-code-pro.css" rel="stylesheet">
-        <link rel="stylesheet" href="/static/base/assets/css/style.css">
-        <link rel="stylesheet" href="/static/base/assets/css/responsive.css">
-        <link rel="stylesheet" href="/static/base/assets/css/custom_style.css">
-
-    {% endblock css %}
-     {% block extra_css %}
-
-     {% endblock extra_css %}
-
-</head>
-
-<body>
-{% block preloader %}
-    <div class="preloader">
-        <div class="lds-ripple">
-            <div></div>
-            <div></div>
-        </div>
-    </div>
-{% endblock preloader %}
-    <div class="page-wrapper">
-        <nav class="main-nav-one stricky main-nav-one__home-two">
-            <div class="container">
-                <div class="inner-container">
-                    <div class="logo-box">
-                        <a href="{% url 'generales:home' %}">
-                            <img src="/static/base/assets/images/LOGOS-04.png" alt="" width="153">
-                        </a>
-                        <a href="#" class="side-menu__toggler"><i class="muzex-icon-menu"></i></a>
+                    <div class="header-top">
+                        <ul class="top-links pull-right">
+                            <li><a href="/nosotros">Nosotros</a></li>
+                            <li><a href="/contacto">Denuncie</a></li>
+                            <li><a href="/anunciar">Anunciar</a></li>
+                            <li><a href="/contacto">Contáctenos</a></li>
+                            <li><i class="fa fa-phone"></i> (+57) 1 284 2168</li>
+                        </ul>
                     </div>
 
-                    <div class="main-nav__main-navigation">
-                        {% render_menu %}
+                    <div class="header-main clearfix">
+                
+                        <div class="site-logo">
+                            <a href="{% url 'generales:home' %}" class="default-logo"><img src="/static/base/born/images/logo.png" alt="Logo"></a>
+                            <a href="{% url 'generales:home' %}" class="default-retina-logo"><img src="/static/base/born/images/logo@2x.png" alt="Logo" width="199" height="30"></a>
+                            <a href="{% url 'generales:home' %}" class="sticky-logo"><img src="/static/base/born/images/sticky-logo.png" alt="Logo"></a>
+                            <a href="{% url 'generales:home' %}" class="sticky-retina-logo"><img src="/static/base/born/images/sticky-logo@2x.png" alt="Logo" width="199" height="30"></a>
+                        </div>
+                        <a href="#" class="visible-sm visible-xs" id="menu-toggle"><i class="fa fa-bars"></i></a>
+                        <nav class="main-navigation pull-right">
+                            <div id="main-menu-wrapper">
+                                <ul class="sf-menu dd-menu pull-right" role="menu">
+                                    {% for cat in MENU_TREE %}
+                                        <li class="{% if cat.children %}menu-item-has-children{% endif %}">
+                                            <a href="{{ cat.url|default:'#' }}">{{ cat.nombre }}</a>
+
+                                            {% if cat.children %}
+                                                <ul class="sub-menu">
+                                                    {% for sub in cat.children %}
+                                                        <li class="{% if sub.children %}menu-item-has-children{% endif %}">
+                                                            <a href="{{ sub.url|default:'#' }}">{{ sub.nombre }}</a>
+
+                                                            {% if sub.children %}
+                                                                <ul class="sub-menu">
+                                                                    {% for sub2 in sub.children %}
+                                                                        <li>
+                                                                            <a href="{{ sub2.url|default:'#' }}">{{ sub2.nombre }}</a>
+                                                                        </li>
+                                                                    {% endfor %}
+                                                                </ul>
+                                                            {% endif %}
+                                                        </li>
+                                                    {% endfor %}
+                                                </ul>
+                                            {% endif %}
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </nav>
+
                     </div>
                 </div>
-            </div>
-        </nav>
+            </header>
 
-        {% block contenido %}Blank{% endblock contenido %}
+            
+            {% block contenido %}
+            {% endblock contenido %}
 
-        <footer class="site-footer" style="background-color: rgb(23, 65, 51);">
-            <div class="row justify-content-center" style="padding-top: 15px;">
-                <div class="col-1 text-center"><span><a class="fab fa-facebook-f" style="color: #f7ab05;" href="https://www.facebook.com/SMTONIC/"></a></span></div>
-                <div class="col-1 text-center"><span><a href="https://twitter.com/SMT_ONIC"><img src="/static/base/assets/images/twitter-x.png" height="14px;"/></a></span></div>
-                <div class="col-1 text-center"><span><a class="fab fa-instagram" style="color: #f7ab05;" href="https://www.instagram.com/smt_onic/"></a></span></div>
-            </div>
-            <div class="site-footer__upper padding_top_40 padding_bottom_0">
+            <div class="site-footer parallax parallax3">
                 <div class="container">
                     <div class="row">
-                        <div class="col-sm">
-                            <div>
-                                <h4 class="" style="color: #f7ab05;">Direcci&oacute;n</h4>
-                                <p style="color: rgb(222, 221, 221);">Calle 12B # 4 - 38</p>
-                                <p style="color: rgb(222, 221, 221);">Barrio La Candelaria</p>
-                                <p style="color: rgb(222, 221, 221);">Bogot&aacute;, D. C., Colombia</p>
+
+                        <!-- Col 1 -->
+                        <div class="col-md-4 col-sm-4">
+                            <div class="widget footer_widget">
+                                <h4 class="widgettitle">Sobre nosotros</h4>
+                                <img src="{% static 'base/born/images/logo.png' %}" alt="">
+                                <p>Sistema de Monitoreo Territorial.</p>
                             </div>
                         </div>
-                        <div class="col-sm">
-                            <div>
-                                <h4 class="" style="color: #f7ab05;">Tel&eacute;fonos</h4>
-                                <p style="color: rgb(222, 221, 221);">(+57) 1 284 2168</p>
-                                <p style="color: rgb(222, 221, 221);">(+57) 1 805 0774</p>
-                                <p style="color: rgb(222, 221, 221);">(+57) 1 805 0772</p>
+
+                        <!-- Col 2 -->
+                        <div class="col-md-4 col-sm-4">
+                            <div class="widget footer_widget">
+                                <h4 class="widgettitle">Enlaces</h4>
+                                <ul>
+                                    <li><a href="{% url 'generales:nosotros' %}">Nosotros</a></li>
+                                    <li><a href="{% url 'generales:contact' %}">Contacto</a></li>
+                                    <li><a href="{% url 'generales:multimedia' %}">Multimedia</a></li>
+                                </ul>
                             </div>
                         </div>
-                        <div class="col-sm">
-                            <div>
-                                <h4 class="" style="color: #f7ab05;">Fax</h4>
-                                <p style="color: rgb(222, 221, 221);">(+57) 1 284 3465</p>
-                            </div>
-                            <div>
-                                <h4 class="" style="color: #f7ab05;">E-Mail</h4>
-                                <p style="color: rgb(222, 221, 221);">poblacion@onic.org.co</p>
+
+                        <!-- Col 3 -->
+                        <div class="col-md-4 col-sm-4">
+                            <div class="widget footer_widget">
+                                <h4 class="widgettitle">Twitter</h4>
+                                <div class="twitter-widget" data-tweets-count="2"></div>
                             </div>
                         </div>
-                        <div class="col-sm">
-                            <div class="text-center">
-                                <img src="/static/base/assets/images/LOGOS-01.png" alt="" class="logo-blanco" width="100%;">
-                            </div>
-                        </div>
+
                     </div>
                 </div>
             </div>
-            
-            <div class="site-footer__bottom padding_top_0">
+
+            <div class="site-footer-bottom">
                 <div class="container">
-                    <div class="inner-container" style="color: rgb(222, 221, 221);">
-                        <p><span>&copy;&nbsp;<script>
-                            document.write(new Date().getFullYear())
-                            </script> ONIC</span>
-                        </p>
-                        <div class="site-footer__bottom-links">
-                            <a href="{% url 'generales:policy' %}">T&eacute;rminos & condiciones</a>
-                            <a href="{% url 'generales:policy' %}">Pol&iacute;tica de privacidad & T&eacute;rminos de uso</a>
-                        </div>
-                    </div>
+                    <p>&copy; SMT - Sistema de Monitoreo Territorial</p>
                 </div>
             </div>
-        </footer>
-    </div>
-    <div class="side-content__block" >
-        <div class="side-content__block-overlay custom-cursor__overlay">
-            <div class="cursor"></div>
-            <div class="cursor-follower"></div>
+
         </div>
-        <div class="side-content__block-inner " style="background-color: rgb(23, 65, 51);">
-            <div class="text-center"><a href="{% url 'generales:home' %}">
-                <!--<img src="/static/base/assets/images/smt1.gif" alt="" width="100%">-->
-                <img src="/static/base/assets/images/logo-smt_1.png" alt="" width="100%">
-            </a></div>
-            <div class="side-content__block-about">
-                <div class="row justify-content-center" style="padding-top: 15px;">
-                    <div class="col-1 text-center"><span><a class="fab fa-facebook-f" style="color: #f7ab05;" href="https://www.facebook.com/SMTONIC/"></a></span></div>
-                    <div class="col-1 text-center"><span><a href="https://twitter.com/SMT_ONIC"><img src="/static/base/assets/images/twitter-x.png" height="14px;"/></a></span></div>
-                    <div class="col-1 text-center"><span><a class="fab fa-instagram" style="color: #f7ab05;" href="https://www.instagram.com/smt_onic/"></a></span></div>
-                </div>
-                <h3 class="side-content__block__title">Qui&eacute;nes somos:</h3>
-                <p class="side-content__block-about__text">Es un espacio que busca organizar toda la información territorial de los pueblos Indígenas en un solo sistema.</p>
-                <a href="{% url 'generales:nosotros' %}" class="thm-btn side-content__block-about__btn">Ver M&aacute;s</a>
-            </div>
-            <hr class="side-content__block-line" />
-            <div class="side-content__block-contact">
-                <h3 class="side-content__block__title">Cont&aacute;ctenos</h3>
-                <ul class="side-content__block-contact__list">
-                    <li class="side-content__block-contact__list-item">
-                        <i class="fa fa-map-marker"></i>
-                        Calle 12B # 4 - 38<br>
-                        Barrio La Candelaria<br>
-                        Bogot&aacute;, D. C., Colombia
-                    </li>
-                    <li class="side-content__block-contact__list-item">
-                        <i class="fa fa-phone"></i>
-                        <a href="tel:526-236-895-4732">(+57) 1 284 2168<br>
-                            (+57) 1 805 0774<br>
-                            (+57) 1 805 0772
-                    </li>
-                    <li class="side-content__block-contact__list-item">
-                        <i class="fa fa-envelope"></i>
-                        <a href="mailto:example@mail.com">poblacion@onic.org.co</a>
-                    </li>
-                    <li class="side-content__block-contact__list-item">
-                        <i class="fa fa-clock"></i>
-                        Horario de Atenci&oacute;n: <small>09.00 a 17.00 Lunes - Viernes</small>
-                    </li>
-                </ul>
-            </div>
-            <div class="text-center"><img src="/static/base/assets/images/logo-onic-png.png" alt="" width="120">
-                <p class="side-content__block__text site-footer__copy-text"><a href="#">ONIC</a><br> <small>&copy;&nbsp; {{hoy.year}} Todos los derechos reservados.</small></p>
-            </div>
-        </div>
-    </div>
-    <div class="side-menu__block">
-        <a href="#" class="side-menu__toggler side-menu__close-btn"><i class="fa fa-times"></i>
-            <!-- /.fa fa-close --></a>
 
-        <div class="side-menu__block-overlay custom-cursor__overlay">
-            <div class="cursor"></div>
-            <div class="cursor-follower"></div>
-        </div><!-- /.side-menu__block-overlay -->
-        <div class="side-menu__block-inner ">
+        <script src="{% static 'base/born/js/jquery-2.1.3.min.js' %}"></script>
+        <script src="{% static 'base/born/vendor/magnific/jquery.magnific-popup.min.js' %}"></script>
+        <script src="{% static 'base/born/js/ui-plugins.js' %}"></script>
+        <script src="{% static 'base/born/js/helper-plugins.js' %}"></script>
+        <script src="{% static 'base/born/vendor/owl-carousel/js/owl.carousel.min.js' %}"></script>
+        <script src="{% static 'base/born/js/bootstrap.js' %}"></script>
+        <script src="{% static 'base/born/js/init.js' %}"></script>
+        <script src="{% static 'base/born/vendor/flexslider/js/jquery.flexslider.js' %}"></script>
+        <script src="{% static 'base/born/js/circle-progress.js' %}"></script>
 
-            <a href="{% url 'generales:home' %}" class="side-menu__logo"><img src="/static/base/assets/images/LOGOS-01.png" alt="" width="143"></a>
-            <nav class="mobile-nav__container">
-                <!-- content is loading via js -->
-            </nav>
-            <p class="side-menu__block__copy"><a href="#">ONIC</a><br> <small>&copy;&nbsp; {{hoy.year}} Todos los derechos reservados.</small></p>
-            <div class="side-menu__social">
-                <a href="https://www.facebook.com/SMTONIC/" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                <a href="https://twitter.com/SMT_ONIC"><img src="/static/base/assets/images/twitter-x-white.png" height="14px;"/></a>
-                <a href="https://www.instagram.com/smt_onic/" target="_blank"><i class="fab fa-instagram"></i></a>
-            </div>
-        </div><!-- /.side-menu__block-inner -->
-    </div>
-
-    <a href="#" data-target="html" class="scroll-to-target scroll-to-top"><i class="fa fa-angle-up"></i></a>
-
-    <!-- Template JS -->
-    {% block js %}
-        <script src="/static/base/assets/js/jquery.min.js"></script>
-        <script src="/static/base/assets/js/bootstrap.bundle.min.js"></script>
-        <script src="/static/base/assets/js/bootstrap-datepicker.min.js"></script>
-        <script src="/static/base/assets/js/bootstrap-select.min.js"></script>
-        <script src="/static/base/assets/js/isotope.js"></script>
-        <script src="/static/base/assets/js/jquery.ajaxchimp.min.js"></script>
-        <script src="/static/base/assets/js/jquery.counterup.min.js"></script>
-        <script src="/static/base/assets/js/jquery.magnific-popup.min.js"></script>
-        <script src="/static/base/assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
-        <script src="/static/base/assets/js/jquery.validate.min.js"></script>
-        <script src="/static/base/assets/js/owl.carousel.min.js"></script>
-        <script src="/static/base/assets/js/TweenMax.min.js"></script>
-        <script src="/static/base/assets/js/waypoints.min.js"></script>
-        <script src="/static/base/assets/js/wow.min.js"></script>
-        <script src="/static/base/assets/js/jquery.lettering.min.js"></script>
-        <script src="/static/base/assets/js/jquery.circleType.js"></script>
-        <script src="/static/base/assets/js/theme.js"></script>
-    {% endblock js %}
-
-    {% block extra_js %}
-        <script>
-            $(document).ready(function () {
-                $('.dropdown-btn').on('click', function () {
-                    $(this).siblings('ul').slideToggle();
-                    $(this).find('i').toggleClass('fa-angle-right fa-angle-down');
-                });
-            });
-        </script>
-    {% endblock extra_js %}
-
-    
-</body>
-
+    </body>
 </html>

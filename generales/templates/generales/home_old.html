@@ -1,0 +1,211 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+{% block contenido %}
+
+<div class="modal" id="ventana_modal_video">
+	<div class="modal-dialog responsive">
+		<div class="modal-content ventana_modal_video" style="width: 100%;  margin-top:150px; background-color: rgba(0, 0, 0, 0.736);">
+			<!-- Modal Header -->
+			<div class="modal-header" style="align-content: right;">
+				<button style="color:white;" type="button" class="close" data-dismiss="modal">&times;</button>
+			</div><hr color="black"/>
+			<!-- Modal body -->
+			<div class="modal-body">
+				<div class="container">
+                    <div class="row">
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/71GC77_fmsk?si=P0IWYdJooW9I00R3" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+					</div>
+                </div>
+            </div>
+		</div>
+	</div>
+</div>
+<section class="banner-section banner-section__home-two">
+    <div class="banner-carousel thm__owl-carousel owl-theme owl-carousel" data-options='{"loop": true, "items": 1, "margin": 0, "dots": false, "nav": true, "animateOut": "fadeOut", "animateIn": "fadeIn", "active": true, "smartSpeed": 1000, "autoplay": true, "autoplayTimeout": 8000, "autoplayHoverPause": false}'>
+        {% for item in carrusel %}
+            <div class="slide-item">
+                <div class="image-layer lazy-image" style="background-image: url('{{item.imagen.url}}');"></div>
+                <div class="container">
+                    <div class="content-box text-center"style="font-family: Arial, Helvetica Neue,Helvetica, sans-serif;">
+                        <h3>{{item.titulo}}</h3>
+                        <h2>{{item.subtitulo}}</h2>
+                        <div class="btn-box">
+                            <a href="javascript: play_video()" class="thm-btn btn-style-one">Ver Video</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</section>
+<section class="about-two lazy-image" style="background-image: url(/static/base/assets/images/backgrounds/fondo.png);">
+    <img src="/static/base/assets/images/post-mov.png" alt="" class="about-two__sclupture lazy-image">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="about-two__content">
+                    <div class="block-title">
+                        <p>Actualidad SMT</p>
+                    </div>
+                    <h3 >{{noticias.titulo}}</h3>
+                    <span><i class="far fa-calendar-alt"></i>&nbsp;{{noticias.fecha}}</span>
+                    <p class="about-two__highlight">
+                        {{noticias.subtitulo}}
+                    </p>
+                    <p>
+                        {{noticias.descripcion|safe}}
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-5">
+                <div class="about-two__image">
+                    <img src="{{noticias.imagen.url}}" alt="" />
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--
+<section class="exhibition-two">
+    <div class="container">
+        <div class="block-title-two text-center">
+            <span class="block-title-two__line"></span>
+            <p class="block-title">Novedades</p>
+            <h3>Actualidad SMT</h3>
+        </div>
+        <div class="shadowed__carousel owl-carousel owl-theme thm__owl-carousel exhibition-two__carousel" data-options='{
+    "items": 3, "margin": 40, "dots": false, "nav": true, "smartSpeed": 700, "loop": true, "autoplay": true, "autoplayTimeout": 5000, "autoplayHoverPause": true, "responsive": {
+        "1199": { "items": 3, "margin": 40},
+        "991": { "items": 2, "margin": 40},
+        "767": { "items": 2, "margin": 30},
+        "575": { "items": 1, "margin": 0},
+        "0": { "items": 1, "margin": 0}
+    }
+}'>
+            {% for item in novedades %}
+                <div class="item">
+                    <div class="exhibition-two__single">
+                        <div class="exhibition-two__image">
+                            <img src="{{item.imagen.url}}" alt="">
+                        </div>
+                        <div class="exhibition-two__content">
+                            <p><h3><a href="event-details.html">{{item.titulo}}</a></h3></p>
+                            <span><i class="far fa-calendar-alt"></i>&nbsp;{{item.fecha}}</span>
+                            <p>{{item.subtitulo}}</p>
+                            <a href="{% url 'generales:detalle' item.slug %}" class="exhibition-two__link">Ver M&aacute;s</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="cta-three">
+    <div class="container">
+        <div class="inner-container wow fadeInUp lazy-image" data-wow-duration="1500ms" style="background-image: url(/static/base/assets/images/shapes/cta-bg-2-1.jpg);">
+            <div class="cta-three__title">
+                <h3><span>App</span> <br></h3><br><br>
+                <video class="lazy" width="100%"  controls class="about-img line-img" preload="none" >
+                    <source src="/static/base/assets/videos/onic.mp4" type="video/mp4" />
+                    Su navegador no soporta contenido multimedia.
+                </video>
+            </div>
+            <div class="cta-three__content">
+                <p>SMT-M&Oacute;VIL</p>
+                <div class="cta-three__list-wrap">
+                    <ul class="list-unstyled cta-three__list">
+                        <li>Recolecci&oacute;n de informaci&oacute;n de campo</li>
+                        <li>Catastro</li>
+                        <li>Formularios personalizables</li>
+                    </ul>
+                    <ul class="list-unstyled cta-three__list">
+                        <li>Mapeo en tiempo real / remoto</li>
+                        <li>Mapeo online/off line</li>
+                        <li>Geolocalizaci&oacute;n GPS</li>
+                    </ul>
+                    <ul class="list-unstyled cta-three__list">
+                        <li>Estad&iacute;stica</li>
+                        <li>Resultados en tiempo real</li>
+                        <li>Tecnolog&iacute;a ONIC</li>
+                    </ul>
+                </div><br>
+                <a href="{% url 'generales:nosotros' %}" class="thm-btn side-content__block-about__btn text-right">Ver M&aacute;s</a>
+            </div>
+        </div>
+    </div>
+</section><br><br><br><br><br>--><br><br><br><br><br>
+<!--
+<section class="blog-one">
+    <div class="container">
+        <div class="blog-one__top">
+            <div class="block-title">
+                <p>Mediateca</p>
+                <h3>SMT en los territorios</h3>
+            </div>
+            <div class="more-post__block">
+                <a class="more-post__link" href="{% url 'generales:seccion' 15 %}">
+                    Ver Todo
+                    <span class="curved-circle">ver m&aacute;s &nbsp;&emsp;ver m&aacute;s &nbsp;&emsp;ver m&aacute;s ver m&aacute;s</span>
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            {% for item in mediateca %}
+                <div class="col-lg-4">
+                    <div class="blog-one__single">
+                        <div class="blog-one__image">
+                            <img src="{{item.imagen.url}}" alt="">
+                            <div class="blog-one__date">
+                                <i class="far fa-calendar-alt"></i>
+                                {{item.fecha|date:'d/m/Y'}}
+                            </div>
+                        </div>
+                        <div class="blog-one__content">
+                            <ul class="blog-one__meta list-unstyled">
+                                <li><a href="{% url 'generales:detalle' item.slug %}">Por {{item.autor}}</a></li>
+                            </ul>
+                            <h3><a href="{% url 'generales:detalle' item.slug %}">{{item.titulo}}</a></h3>
+                            <p>{{item.subtitulo}}</p>
+                            <a href="{% url 'generales:detalle' item.slug %}" class="blog-one__link">Ver M&aacute;s</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+-->
+<section class="brand-one">
+    <div class="container">
+        <div class="brand-one__carousel thm__owl-carousel owl-carousel owl-theme" data-options='{
+    "items": 5, "margin": 150, "smartSpeed": 700, "loop": true, "autoplay": true, "autoplayTimeout": 5000, "autoplayHoverPause": false, "nav": false, "dots": false, "responsive": {"0": {"margin": 20, "items": 2 }, "575": {"margin": 30, "items": 3 }, "767": {"margin": 40, "items": 4 }, "991": {"margin": 70, "items": 4 }, "1199": {"margin": 150, "items": 5 } } }'>
+            <div class="item">
+                <img src="/static/base/assets/images/BOTONES-02.svg" alt="" />
+            </div>
+            <div class="item">
+                <img src="/static/base/assets/images/BOTONES-06.svg" alt="" />
+            </div>
+            <div class="item">
+                <img src="/static/base/assets/images/BOTONES-05.svg" alt="" />
+            </div>
+            <div class="item">
+                <img src="/static/base/assets/images/BOTONES-04.svg" alt="" />
+            </div>
+            <div class="item">
+                <img src="/static/base/assets/images/BOTONES-03.svg" alt="" />
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script>
+    function play_video(){
+        $('#ventana_modal_video').modal('show');
+    };
+</script>
+
+{% endblock contenido %}

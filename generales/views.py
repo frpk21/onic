@@ -1,73 +1,115 @@
 from datetime import date
-
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
-
 from generales.choices import OrderNews
-from generales.forms import SuscribirseForm, ComentarioForm, ContactoForm
+from generales.forms import SuscribirseForm, ComentarioForm, ContactoForm, CodeVerificationForm
 from generales.models import Noticias, Contacto, VideoSMT, Nosotros, Categoria, Mapas, MapasDetalle, Equipo, Podcast, \
     Videos, Imagenes, Categoria_multimedia, Project
 from django.core.cache import cache
+from generales.models import Categoria
+from datetime import date
+from django.http import JsonResponse
+from django.db.models import Prefetch
+from generales.models import Noticias, VideoSMT, Nosotros, OrderNews
+from generales.forms import SuscribirseForm
+from datetime import date
+from django.http import JsonResponse
+from django.db.models import Prefetch
+from .models import Noticias, VideoSMT, Nosotros
+from .forms import SuscribirseForm
+from .choices import OrderNews
+from django.core.mail import send_mail
+from django.shortcuts import redirect, render
+from django.views.generic import FormView, View
+from django.urls import reverse
+from .forms import RegisterForm
+from .models import PendingUser
+from django.contrib.auth.models import User
+from django.contrib.auth.hashers import check_password
+import random
+from django.core.mail import send_mail
+from django.http import JsonResponse
+from django.contrib.auth.models import User
+from django.shortcuts import get_object_or_404
+from django.views.decorators.http import require_POST
+from django.views.decorators.csrf import csrf_exempt
+from .models import ActivationCode
 
+def categorias_context(request):
+    return {
+        'MENU_CATEGORIES': Categoria.objects.prefetch_related('subs').all()
+    }
 
 def HomeView(request):
+
     hoy = date.today()
-    carrusel = Noticias.objects.filter(orden=OrderNews.CAROUSEL).order_by('-fecha')[:3]
-    noticias = Noticias.objects.filter(orden=OrderNews.NEWS).last()
-    video_smt = VideoSMT.objects.all().last()
-    nosotros = Nosotros.objects.all().last()
-    novedades = Noticias.objects.filter(orden=OrderNews.UPDATES).order_by('-fecha')[:7]
+    noticias_qs = Noticias.objects.select_related(
+        "autor", "categoria"
+    ).only(
+        "id", "titulo", "subtitulo", "fecha", "orden",
+        "imagen", "slug",
+        "categoria__id", "categoria__nombre",
+        "autor__id", "autor__username",
+    )
+
+    # Titulares
+    titulares = noticias_qs.filter(
+        orden=OrderNews.NEWS
+    ).order_by("-fecha")[:6]
+    print(">>>>>>>> TITULARES:", titulares.count()) 
+    """
+    # Carrusel
+    carrusel = noticias_qs.filter(
+        orden=OrderNews.CAROUSEL
+    ).order_by("-fecha")[:3]
+    """
+    
+    # Ultima noticia destacada
+    noticia_destacada = noticias_qs.filter(
+        orden=OrderNews.NEWS
+    ).order_by("-fecha").first()
+
+    # Último video SMT
+    video_smt = VideoSMT.objects.only("titulo", "url_video").last()
+
+    # Contenido de Nosotros
+    nosotros = Nosotros.objects.only(
+        "descripcion", "vision", "justificacion", "objetivos", "usuarios",
+        "imagen", "imagen_vision", "imagen_jus", "imagen_obj", "imagen_users"
+    ).last()
+
+    # Novedades (updates)
+    novedades = noticias_qs.filter(
+        orden=OrderNews.UPDATES
+    ).order_by("-fecha")[:7]
+
+    if request.POST.get("buscar"):
+        buscar = request.POST.get("buscar").strip()
+
+        resultados = noticias_qs.filter(
+            titulo__icontains=buscar
+        ).order_by("-id")
+
+        return render(request, "generales/search.html", {
+            "resultado": resultados,
+            "buscar": buscar,
+            "hoy": hoy,
+        })
 
     context = {
-        'hoy': hoy,
-        'carrusel': carrusel,
-        'noticias': noticias,
-        'video_smt': video_smt,
-        'nosotros': nosotros,
-        'novedades': novedades,
+        "hoy": hoy,
+        "titulares": titulares,
+        "noticias": noticia_destacada,
+        "video_smt": video_smt,
+        "nosotros": nosotros,
+        "novedades": novedades,
+        "resultado": {},
     }
-    if request.POST.get('email'):
-        form_home = SuscribirseForm(request.POST)
-        if form_home.is_valid():
-            post = form_home.save(commit=False)
-            post.save()
-            return JsonResponse(
-                {
-                    'content': {
-                        'message': 'Gracias por suscribirse.',
-                    }
-                }
-            )
-        else:
-            return JsonResponse(
-                {
-                    'content': {
-                        'message': 'Ya ha sido registrado. Gracias!',
-                    }
-                }
-            )
-    else:
-        form_home = SuscribirseForm()
 
-    if request.POST.get('buscar'):
-        buscar = (request.POST.get('buscar').upper())
-        template_name = "generales/search.html"
-        try:
-            resultado = Noticias.objects.filter(titulo__icontains=buscar).order_by('-id')
-        except:
-            resultado = Noticias.objects.filter(titulo__icontains=buscar).order_by('-id')
+    return render(request, "generales/home.html", context)
 
-        context['form_search'] = resultado
-    else:
-        resultado = {}
-        template_name = "generales/home.html"
-
-    context['form_home'] = form_home
-    context['resultado'] = resultado
-
-    return render(request, template_name, context)
 
 
 def SeccionView(request, pk):
@@ -475,35 +517,144 @@ class ProjectDetailView(generic.DetailView):
     model = Project
 
     def get_context_data(self, **kwargs):
-        kwargs['category'] = Categoria.objects.get(id=self.request.GET['category'])
-        context_data = super().get_context_data(**kwargs)
-        context_data['projects'] = Project.objects.exclude(id=self.object.id)
-        return context_data
+        context = super().get_context_data(**kwargs)
+        context['projects'] = Project.objects.exclude(id=self.object.id).order_by('-modificado')[:4]
+        context['latest_news'] = Noticias.objects.order_by('-fecha')[:5]
 
+        return context
 
 class ProjectListView(generic.ListView):
     model = Project
-    paginate_by = 30
-
-    # def dispatch(self, *args, **kwargs):
-    #     cache_key = 'project_list'
-    #     cached_response = cache.get(cache_key)
-    #     if cached_response is None:
-    #         response = super().dispatch(*args, **kwargs)
-    #         cache.set(cache_key, response.rendered_content, 60 * 60 * 24)
-    #         return response
-    #     else:
-    #         return HttpResponse(cached_response)
-
+    paginate_by = 5
+    
     def get_queryset(self):
-        return super().get_queryset().filter(activo=True).order_by('?')
+        qs = Project.objects.filter(activo=True).order_by('-modificado')
+        for p in qs:
+            if p.meta and p.meta > 0:
+                p.porcentaje = round((p.donado / p.meta) * 100, 2)
+            else:
+                p.porcentaje = 0
+        category_id = self.request.GET.get('category')
+        if category_id:
+            qs = qs.filter(category_id=category_id)
 
-    def get_context_data(self, *args, object_list=None, **kwargs):
-        kwargs['is_iphone'] = 'iphone' in str(self.request.META.get('HTTP_USER_AGENT')).lower()
-        kwargs['category'] = Categoria.objects.get(id=self.request.GET['category'])
-        return super().get_context_data(*args, object_list=object_list, **kwargs)
+        return qs
 
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        ctx['is_iphone'] = 'iphone' in str(
+            self.request.META.get('HTTP_USER_AGENT', '')
+        ).lower()
+        category_id = self.request.GET.get('category')
+        ctx['category'] = Categoria.objects.filter(id=category_id).first()
+        ctx['latest_news'] = Noticias.objects.order_by('-fecha')[:5]
+
+        return ctx
 
 class PolicyView(generic.TemplateView):
     template_name = 'generales/policy.html'
     success_url = reverse_lazy("generales:home")
+
+@require_POST
+def verificar_codigo(request):
+
+    user_id = request.POST.get("user_id")
+    code = request.POST.get("code", "").strip()
+
+    # Validar datos vacíos
+    if not user_id or not code:
+        return JsonResponse({
+            "status": "error",
+            "message": "Datos incompletos, por favor inténtalo nuevamente."
+        })
+
+    # Validar usuario
+    user = get_object_or_404(User, pk=user_id)
+
+    # Validar código de activación
+    try:
+        activation = ActivationCode.objects.get(user=user)
+    except ActivationCode.DoesNotExist:
+        return JsonResponse({
+            "status": "error",
+            "message": "No existe un código válido para tu cuenta."
+        })
+
+    # Comparar código
+    if activation.code == code:
+        user.is_active = True
+        user.save()
+        activation.delete()
+
+        return JsonResponse({
+            "status": "ok",
+            "message": "✔ Cuenta activada correctamente"
+        })
+
+    return JsonResponse({
+        "status": "error",
+        "message": "❌ Código incorrecto, intenta nuevamente."
+    })
+
+class RegisterView(FormView):
+    template_name = "generales/register.html"
+    form_class = RegisterForm
+    success_url = reverse_lazy("generales:register")
+
+    def form_valid(self, form):
+        # NO volver a validar form.is_valid() !!
+        user = form.save()
+        user.is_active = False
+        user.save()
+
+        # Generar código
+        code = str(random.randint(100000, 999999))
+        ActivationCode.objects.update_or_create(
+            user=user,
+            defaults={"code": code}
+        )
+
+        # Enviar correo
+        send_mail(
+            "Código de activación",
+            f"Tu código de activación es: {code}",
+            "administrador@sistemainrai.net",
+            [user.email],
+            fail_silently=True,
+        )
+
+        # Mostrar modal de verificación
+        return render(self.request, "generales/register.html", {
+            "form": RegisterForm(),
+            "user_id": user.id,
+            "show_modal": True,
+        })
+
+    def form_invalid(self, form):
+        # Renderizar la MISMA plantilla, mostrando errores
+        return render(self.request, "generales/register.html", {
+            "form": form,
+            "show_modal": False,  # NO se abre el modal si hay errores
+        })
+
+
+def activate_account(request):
+    if request.method == "POST":
+        code = request.POST.get("code")
+        user_id = request.POST.get("user_id")
+
+        try:
+            user = User.objects.get(id=user_id)
+            activation = ActivationCode.objects.get(user=user)
+
+            if activation.code == code:
+                user.is_active = True
+                user.save()
+                activation.delete()
+                return JsonResponse({"status": "ok"})
+            else:
+                return JsonResponse({"status": "error", "message": "Código incorrecto"})
+        except:
+            return JsonResponse({"status": "error", "message": "Usuario o código inválido"})
+
+    return JsonResponse({"status": "error"})

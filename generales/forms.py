@@ -4,6 +4,15 @@ from django.forms.models import inlineformset_factory
 
 from generales.models import Suscribir, Comentario, Contacto
 
+from django import forms
+
+from .models import PendingUser
+
+from django.contrib.auth.hashers import make_password
+
+from django.contrib.auth.models import User
+
+
 class SuscribirseForm(forms.ModelForm):
     
     class Meta:
@@ -59,10 +68,6 @@ class ComentarioForm(forms.ModelForm):
             raise forms.ValidationError("Email Requerido")
         return email
     
-    
-    
-    
-    
 class ContactoForm(forms.ModelForm):
     nombre = forms.TextInput()
 
@@ -97,3 +102,41 @@ class ContactoForm(forms.ModelForm):
         if not textoMensage:
             raise forms.ValidationError("Mensage Requerido")
         return textoMensage
+    
+class RegisterForm(forms.ModelForm):
+    password = forms.CharField(label="Contraseña", widget=forms.PasswordInput)
+    password2 = forms.CharField(label="Repetir contraseña", widget=forms.PasswordInput)
+
+    class Meta:
+        model = User
+        fields = ("first_name", "last_name", "email")
+
+    def clean_email(self):
+        email = self.cleaned_data.get("email")
+        if User.objects.filter(email=email).exists():
+            raise forms.ValidationError("Este correo ya está registrado")
+        return email
+
+    def clean(self):
+        cleaned = super().clean()
+        p1 = cleaned.get("password")
+        p2 = cleaned.get("password2")
+
+        if p1 and p2 and p1 != p2:
+            self.add_error("password2", "Las contraseñas no coinciden")
+
+        return cleaned
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.username = self.cleaned_data["email"]
+        user.set_password(self.cleaned_data["password"])
+
+        if commit:
+            user.save()
+
+        return user
+
+class CodeVerificationForm(forms.Form):
+    email = forms.EmailField(widget=forms.HiddenInput)
+    codigo = forms.CharField(max_length=6)

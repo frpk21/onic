@@ -162,7 +162,6 @@ class ProjectAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Categoria, CategoriaAdmin)
-# admin.site.register(SubCategoria, SubCategoriaAdmin)
 admin.site.register(Mapas, MapasAdmin)
 admin.site.register(MapasDetalle, MapasDetalleAdmin)
 admin.site.register(Noticias, NoticiasAdmin)
@@ -173,4 +172,4 @@ admin.site.register(Equipo, EquipoAdmin)
 admin.site.register(Imagenes, ImagenesAdmin)
 admin.site.register(Videos, VideosAdmin)
 admin.site.register(Podcast, PodcastAdmin)
-admin.site.register(Categoria_multimedia)
+#admin.site.register(Categoria_multimedia)

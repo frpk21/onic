@@ -1,0 +1,171 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block contenido %}
+
+<div class="hero-area">
+    <div class="page-banner parallax" style="background-image:url(https://via.placeholder.com/1280x400?text=REGISTRO);">
+        <div class="container">
+            <div class="page-banner-text">
+                <h1 class="block-title">Regístrate</h1>
+                <p>Camina con nosotros</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="main-container">
+    <div class="content">
+        <div class="container padding-tb75">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+
+                    <div class="well">
+                        <h3 class="text-center">Crear cuenta</h3>
+                        <hr>
+
+                        <form method="post" novalidate>
+                            {% csrf_token %}
+
+                            <div class="form-group">
+                                <label>Nombre:</label>
+                                {{ form.first_name }}
+                            </div>
+
+                            <div class="form-group">
+                                <label>Apellido:</label>
+                                {{ form.last_name }}
+                            </div>
+
+                            <div class="form-group">
+                                <label>Correo electrónico:</label>
+                                {{ form.email }}
+                            </div>
+
+                            <div class="form-group">
+                                <label>Contraseña:</label>
+                                {{ form.password }}
+                            </div>
+
+                            <div class="form-group">
+                                <label>Repetir contraseña:</label>
+                                {{ form.password2 }}
+                            </div>
+
+                            {% if form.errors %}
+                            <div class="alert alert-danger">
+                                {{ form.errors }}
+                            </div>
+                            {% endif %}
+
+                            <button type="submit" class="btn btn-primary btn-block btn-lg">
+                                Crear cuenta
+                            </button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para ingresar código -->
+<div class="modal fade" id="codigoModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+
+            <div class="modal-header bg-primary" style="color:white;">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span style="color:white;">&times;</span>
+                </button>
+                <h4 class="modal-title">Activar cuenta</h4>
+            </div>
+
+            <div class="modal-body">
+                <p>Ingresa el código enviado a tu correo electrónico.</p>
+
+                <input type="hidden" id="user_id" value="{{ user_id|default:'' }}">
+
+                <div class="form-group">
+                    <label>Código de activación:</label>
+                    <input type="text" id="codigoIngresado" maxlength="6"
+                           class="form-control input-lg" placeholder="Ej: 123456">
+                </div>
+
+                <div id="alertaCodigo"></div>
+            </div>
+
+            <div class="modal-footer">
+                <button id="btnVerificar" class="btn btn-success">
+                    Verificar código
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Modal de registro exitoso -->
+<div class="modal fade" id="modalRegistroExitoso" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+
+            <div class="modal-header" style="background:#1ABC9C; color:white;">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span style="color:white;">&times;</span>
+                </button>
+                <h4 class="modal-title">Registro exitoso</h4>
+            </div>
+
+            <div class="modal-body text-center">
+                <h4>✔ ¡Tu cuenta ha sido activada correctamente!</h4>
+                <p>Ya puedes iniciar sesión.</p>
+            </div>
+
+            <div class="modal-footer">
+                <a href="{% url 'generales:login' %}" class="btn btn-primary btn-lg">
+                    Iniciar sesión
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% if show_modal %}
+<script>
+    // Abrir automáticamente el modal de código después del registro
+    jQuery(function($){
+        $("#codigoModal").modal("show");
+    });
+</script>
+{% endif %}
+
+<script>
+jQuery(function($){
+    $("#btnVerificar").on("click", function(e){
+        e.preventDefault();
+
+        $.post("{% url 'generales:verificar_codigo' %}", {
+            user_id: $("#user_id").val(),
+            code: $("#codigoIngresado").val(),
+            csrfmiddlewaretoken: '{{ csrf_token }}'
+        }).done(function(data){
+            if (data.status === "ok") {
+                $("#alertaCodigo").html(
+                    '<div class="alert alert-success">'+data.message+'</div>'
+                );
+                $("#codigoModal").modal("hide");
+                $("#modalRegistroExitoso").modal("show");
+            } else {
+                $("#alertaCodigo").html(
+                    '<div class="alert alert-danger">'+data.message+'</div>'
+                );
+            }
+        });
+    });
+});
+</script>
+
+{% endblock %}

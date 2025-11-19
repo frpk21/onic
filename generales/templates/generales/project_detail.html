@@ -2,76 +2,168 @@
 
 {% load static %}
 
-{% block extra_css %}
-    <style>
-        .tpcard__thumb.donation-details img {
-            border-radius: 10px;
-            min-width: 100%;
-        }
-
-        .tpcard__wrapper.donation-details {
-            border: none;
-            background: none;
-            box-shadow: none;
-            border-radius: 0;
-        }
-
-        .tpcard__wrapper {
-            position: relative;
-            z-index: 2;
-            border: 1px solid #F1F1F1;
-            box-shadow: 0px 10px 15px rgba(221, 221, 221, 0.15);
-            border-radius: 15px;
-            overflow: hidden;
-        }
-
-
-        .youtube-ifrmae {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-
-        .vaki-iframe {
-            position: absolute;
-            top: -246px;
-            width: 100%;
-            height: 591px;
-            border: none;
-        }
-
-        .vaki-container-detail {
-            height: 132px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .img-project-detail {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-    </style>
-{% endblock %}
-
-{% block preloader %}
-{% endblock preloader %}
-
 {% block contenido %}
-
-
-    <section class="page-header" style="background-image: url({{ category.imagen.url }});">
-        <div class="container">
-            <h3 style="color: white; font-weight: bold">{{ category.nombre }}</h3>
-            <h4 style="color: white;">{{ project.name }}</h4>
+    
+    <div class="hero-area">
+    	<div class="page-banner parallax" style="background-image:url(https://via.placeholder.com/1280x400?text=IMAGE+PLACEHOLDER);">
+        	<div class="container">
+            	<div class="page-banner-text">
+        			<h1 class="block-title">Nuestras causas  {{ project.name }}</h1>
+                </div>
+            </div>
         </div>
-    </section>
+    </div>
+    <!-- Main Content -->
+    <div id="main-container">
+    	<div class="content">
+        	<div class="container">
+            	<div class="row">
+                	<div class="col-md-8 content-block">
+                    	<h3>Help rebuild Nepal</h3>
+                    	<div class="post-media">
+                        	<img src="https://via.placeholder.com/900x600?text=IMAGE+PLACEHOLDER" alt="">
+                        </div>
+                        <span class="label label-default">Cause progress</span>
+                        <div class="progress">
+                            <div style="width: 88%;" class="progress-bar progress-bar-primary" data-appear-progress-animation="88%" data-appear-animation-delay="100"> <span class="progress-bar-tooltip">88%</span> </div>
+                        </div>
+                       	<div class="pull-left">Raised <strong>$176000</strong></div>
+                       	<div class="pull-right">Goal <strong class="accent-color">$200000</strong></div>
+                        <div class="spacer-20"></div>
+                        <div class="row">
+                        	<div class="col-md-5 col-sm-5">
+                        		<p class="lead">Nepal has been seriously devastated by the recent earthquake. Over 8,000 people have died (with death toll rising), thousands more are injured, and countless more have been displaced. Many homes, temples, and public monuments have been destroyed throughout the affected areas.</p>
+                      		</div>
+                            {% if project.url_video %}
+                                <iframe
+                                        src="{{ project.get_embed_url_video }}"
+                                        title="YouTube video player" frameborder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen
+                                        class="youtube-ifrmae"
+                                >
+                                </iframe>
+                            {% else %}
+                                <img src="{{ project.thumbnail_image.url }}" alt="{{ project.name }}" class="img-project-detail" />
+                            {% endif %}
+                            <div class="col-md-7 col-sm-7">
+                                <ul class="list-group">
+                          			<li class="list-group-item">Total Donors<span class="badge">2000</span></li>
+                          			<li class="list-group-item">Days left to fundraising<span class="badge">10</span></li>
+                          			<li class="list-group-item">Countries helping<span class="badge">130</span></li>
+                          		</ul>
+                               	<a href="#" class="btn btn-primary btn-block" data-toggle="modal" data-target="#DonateModal">Donate Now</a>
+                            </div>
+                        </div>
+                        <div class="iframe-container vaki-container-detail">
+                            <iframe
+                                    id="{{ project.id }}"
+                                    title="{{ project.name }}"
+                                    src="{{ project.iframe_url }}"
+                                    class="vaki-iframe"
+                                    scrolling="no"
+                            >
+                            </iframe>
+                        </div>
+                        <br/>
+                        <div class="d-flex justify-content-center mt-3">
+                            <a target="_blank" href="{{ project.payment_gateway_url }}" class="btn btn-success w-50 donate-bnt">
+                                DONAR
+                            </a>
+                        </div>
+                        <div class="tpcard__content donation-details">
+                            <br/>
+                            <h3>{{ project.name }}</h3>
+                        </div>
+                    </div>
+                    <div class="col-md-4 sidebar-block">
+                    	<div class="widget events-calendar-widget">
+                          	<h3 class="widgettitle">Pr&oacute;ximos eventos</h3>
+                            <div class="events-calendar-widget-body">
+                                <ul class="events-compact-list">
+                                	<li class="event-list-item">	
+                                    	<span class="event-date">
+                                        	<span class="date">14</span>
+                                            <span class="month">Jan</span>
+                                            <span class="year">2016</span>
+                                        </span>
+                                        <div class="event-list-cont">
+                                            <span class="meta-data">Thursday, 11:20 AM</span>
+                                        	<h4 class="post-title"><a href="#">Summer Camp: Students Get Together</a></h4>
+                                        </div>
+                                    </li>
+                                	<li class="event-list-item">
+                                    	<span class="event-date">
+                                        	<span class="date">18</span>
+                                            <span class="month">Jan</span>
+                                            <span class="year">2016</span>
+                                        </span>
+                                        <div class="event-list-cont">
+                                            <span class="meta-data">Monday, 07:00 PM</span>
+                                        	<h4 class="post-title"><a href="#">Fundraising for meals</a></h4>
+                                        </div>
+                                    </li>
+                                	<li class="event-list-item">
+                                    	<span class="event-date">
+                                        	<span class="date">26</span>
+                                            <span class="month">Feb</span>
+                                            <span class="year">2016</span>
+                                        </span>
+                                        <div class="event-list-cont">
+                                            <span class="meta-data">Friday, 01:00 PM</span>
+                                        	<h4 class="post-title"><a href="#">Green Environment</a></h4>
+                                        </div>
+                                    </li>
+                                </ul>
+                           	</div>
+                        </div>
+                        <div class="widget recent_posts">
+                        	<h3 class="widgettitle">Otras causas</h3>
+                            <ul>
+                                 {% for item in projects %}
+                                    <li>
+                                        <a href="{% url 'generales:project_detail' item.slug %}" class="media-box">
+                                            <img src="{{ item.thumbnail_image_small.url }}" alt="{{ item.name }}">
+                                        </a>
+                                        <h5>
+                                            <a href="{% url 'generales:project_detail' item.slug %}">
+                                                {{ item.name }}
+                                            </a>
+                                        </h5>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <div class="widget recent_posts">
+                          	<h3 class="widgettitle">&Uacute;ltimas noticias</h3>
+                            <ul>
+                                 {% for n in latest_news %}
+                                    <li>
+                                        <a href="{% url 'generales:detalle' n.slug %}" class="media-box">
+                                            <img src="{{ n.imagen.url }}" alt="{{ n.titulo }}">
+                                        </a>
+
+                                        <h5>
+                                            <a href="{% url 'generales:detalle' n.slug %}">
+                                                {{ n.titulo }}
+                                            </a>
+                                        </h5>
+
+                                        <span class="meta-data grid-item-meta">
+                                            Publicado el {{ n.fecha|date:"d M, Y" }}
+                                        </span>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock contenido %}
+
 
     <div class="container mt-4">
         <div class="row">
@@ -150,6 +242,3 @@
             </div>
         </div>
     </div>
-
-{% endblock contenido %}
-
