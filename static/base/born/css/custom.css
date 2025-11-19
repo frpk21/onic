@@ -1,0 +1,142 @@
+/* Imagen incluida en la tarjeta */
+.gallery-img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Texto permanente */
+.gallery-text {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 12px;
+    background: rgba(0,0,0,0.45);
+    color: white;
+    text-align: left;
+}
+
+.gallery-text h4 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.gallery-text small {
+    font-size: 13px;
+    opacity: 0.9;
+}
+
+/* Overlay del theme solo al hover */
+.overlay-hover {
+    opacity: 0;
+    transition: 0.4s ease;
+}
+
+.media-box:hover .overlay-hover {
+    opacity: 1;
+    background: rgba(0,0,0,0.55);
+}
+
+/* Imagen */
+.map-img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Contenedor del enlace */
+.map-box {
+    display: block;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Texto centrado */
+.map-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #ffffff;
+    width: 90%;
+}
+
+.map-text h4 {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.map-text small {
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+/* Hover elegante */
+.map-box:hover .map-img {
+    transform: scale(1.04);
+    transition: 0.4s ease;
+}
+
+.map-box:hover .map-text {
+    opacity: 1;
+}
+/* Contenedor del ítem */
+.gallery-grid-item {
+    padding: 10px !important;      /* espacio interno simétrico */
+    box-sizing: border-box;
+}
+
+/* Imagen */
+.map-img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Enlace */
+.map-box {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    border-radius: 6px;
+}
+
+/* Texto centrado */
+.map-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #422902;
+    width: 90%;
+}
+
+.map-text h4 {
+    margin: 0 0 5px 0;
+    font-size: 20px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.map-text small {
+    font-size: 14px;
+}
+
+/* Separación vertical entre filas */
+.grid-item {
+    margin-bottom: 25px;
+}
+
+/* Hover elegante */
+.map-box:hover .map-img {
+    transform: scale(1.05);
+    transition: transform 0.4s ease;
+}
+

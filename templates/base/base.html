@@ -65,7 +65,6 @@
                                                     {% for sub in cat.children %}
                                                         <li class="{% if sub.children %}menu-item-has-children{% endif %}">
                                                             <a href="{{ sub.url|default:'#' }}">{{ sub.nombre }}</a>
-
                                                             {% if sub.children %}
                                                                 <ul class="sub-menu">
                                                                     {% for sub2 in sub.children %}

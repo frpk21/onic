@@ -1,40 +1,84 @@
 {% extends 'base/base.html' %}
-
 {% load static %}
 
 {% block contenido %}
 
 
-<section class="page-header" style="background-image: url({{img_bak.imagen.url}});">
-    <div class="container">
-        <h2>Mapas</h2>
-    </div>
-</section>
-
-<section class="venue-one padding_top_0">
-    <div class="container">
-        <div class="row high-gutter">
-            {% if mapas|length > 0 %}
-                {% for item in mapas %}
-                    <div class="col-lg-4">
-                        <div class="venue-one__single">
-                            <a href="{% url 'generales:maps_gallery_group' item.id %}?category={{ img_bak.id }}">
-                                <div class="venue-one__image">
-                                    <img src="{{item.imagen.url}}" alt="">
-                                </div>
-                            </a>
-                            <div class="venue-one__content">
-                                <h3><a href="{% url 'generales:maps_gallery_group' item.id %}?category={{ img_bak.id }}">{{item.tema}}</a></h3>
-                                <p><span class="venue-one__time">{{item.fecha}}</span></p>
-                                <a href="{% url 'generales:maps_gallery_group' item.id %}?category={{ img_bak.id }}" class="thm-btn venue-one__btn">Ver Mapas</a>
-                            </div>
-                        </div>
-                    </div>
-                {% endfor %}
-            {% endif %}
+    <div class="hero-area">
+    	<div class="page-banner parallax" style="background-image:url('/static/base/born/images/backing_1280x400.jpg');">
+        	<div class="container">
+            	<div class="page-banner-text">
+        			<h1 class="block-title">Territorios que hablan</h1>
+                </div>
+            </div>
         </div>
     </div>
-</section>
+    <div id="main-container">
+    	<div class="content">
+        	<div class="container">
+                <div class="row">
+                    <ul class="sort-destination isotope gallery-items" data-sort-id="gallery">
+                        {% if mapas|length > 0 %}
+                            {% for item in mapas %}
+                                <li class="col-md-3 col-sm-6 col-xs-6 grid-item gallery-grid-item images format-image">
 
+                                    <a href="{% url 'generales:maps_gallery_group' item.id %}" class="map-box">
 
-{% endblock contenido %}
+                                        <img src="/static/base/born/images/backing_600x400.png" alt="" class="map-img">
+
+                                        <!-- Texto centrado -->
+                                        <div class="map-text">
+                                            <h4>{{ item.tema }}</h4>
+                                            <small>{{ item.fecha|date:"d M Y" }}</small>
+                                        </div>
+
+                                    </a>
+
+                                </li>
+                            {% endfor %}
+                        {% endif %}
+                    </ul>
+                </div>
+                <nav>
+                    <ul class="pagination pagination-lg">
+
+                        {% if mapas.has_previous %}
+                            <li>
+                                <a href="?page={{ mapas.previous_page_number }}" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                        {% else %}
+                            <li class="disabled">
+                                <a href="#"><span>&laquo;</span></a>
+                            </li>
+                        {% endif %}
+
+                        {% for num in mapas.paginator.page_range %}
+                            {% if mapas.number == num %}
+                                <li class="active"><a href="#">{{ num }}</a></li>
+                            {% else %}
+                                <li><a href="?page={{ num }}">{{ num }}</a></li>
+                            {% endif %}
+                        {% endfor %}
+
+                        {% if mapas.has_next %}
+                            <li>
+                                <a href="?page={{ mapas.next_page_number }}" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        {% else %}
+                            <li class="disabled">
+                                <a href="#"><span>&raquo;</span></a>
+                            </li>
+                        {% endif %}
+
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+

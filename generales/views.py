@@ -36,6 +36,7 @@ from django.shortcuts import get_object_or_404
 from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_exempt
 from .models import ActivationCode
+from django.core.paginator import Paginator
 
 def categorias_context(request):
     return {
@@ -162,10 +163,20 @@ def BoletinesView(request):
 
 def Mapas0View(request):
     template_name = 'generales/mapas0.html'
+
+    mapas_list = Mapas.objects.filter(activo=True).order_by('tema')
+
+    paginator = Paginator(mapas_list, 8)
+
+    page_number = request.GET.get('page')
+    mapas_page = paginator.get_page(page_number)
+
     context = {
-        'img_bak': Categoria.objects.get(id=request.GET['category']),
-        'mapas': Mapas.objects.filter(activo=True).order_by('tema'),
+        'mapas': mapas_page,
+        'page_obj': mapas_page,
+        'paginator': paginator,
     }
+
     return render(request, template_name, context)
 
 def PublicacionesView(request, pk):
@@ -178,15 +189,12 @@ def PublicacionesView(request, pk):
     }
     return render(request, template_name, context)
 
-
 def MapsGalleryGroupView(request, pk):
     template_name = 'generales/publick_maps.html'
     publicaciones = MapasDetalle.objects.filter(mapa_id=pk, activo=True).order_by('titulo')
-    img_bak = Categoria.objects.get(id=request.GET['category'])
     tit = MapasDetalle.objects.filter(mapa_id=pk, activo=True).last()
     context = {
         'tit': tit,
-        'img_bak': img_bak,
         'pk': pk,
         'publicaciones': publicaciones,
     }
