@@ -140,3 +140,16 @@
     transition: transform 0.4s ease;
 }
 
+.flex-direction-nav a:before {
+    font-family: "FontAwesome";
+    font-size: 32px;
+    color: white;
+}
+
+.flex-direction-nav .flex-prev:before {
+    content: "\f104"; /* flecha izquierda */
+}
+
+.flex-direction-nav .flex-next:before {
+    content: "\f105"; /* flecha derecha */
+}
