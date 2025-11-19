@@ -153,3 +153,26 @@
 .flex-direction-nav .flex-next:before {
     content: "\f105"; /* flecha derecha */
 }
+
+/* Estilo base del menú superior */
+.header-top .top-links li a {
+    color: #fda604 !important;          /* Blanco suave */
+    font-weight: 200;
+    letter-spacing: 0.5px;
+    transition: color 0.3s ease;
+}
+
+/* Hover elegante con color ONIC */
+.header-top .top-links li a:hover {
+    color: #ebfc00 !important;          /* Azul ONIC */
+    background-color: rgba(2, 120, 255, 0.397) !important;
+}
+
+/* Color del teléfono también */
+.header-top .top-links li {
+    color: #f2f2f2 !important;
+}
+
+.header-top .top-links li i {
+    color: #00ACED !important;          /* Ícono color ONIC */
+}

@@ -1,73 +1,47 @@
 {% extends 'base/base.html' %}
-
 {% load static %}
 
 {% block contenido %}
 
-
-<section class="page-header" style="background-image: url('{{img_bak.imagen.url}}');">
-    <div class="container">
-        <h3 style="font-family: static/base/assets/fonts/WOFF/VAR/SourceCodeVariable-Roman.otf.woff; color: white;">Geo Espacial</h3>
-    </div>
-</section>
-
-<section class="blog-one blog-details-page">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8">
-                <div class="blog-details__main">
-                    <div class="blog-details__image">
-                        {% if mapas1.imagen2 %}
-                            <img src="{{mapas1.imagen2.url}}" class="img-fluid" alt="">
-                        {% else %}
-                            <img src="{{mapas1.imagen.url}}" class="img-fluid" alt="">
-                        {% endif %}
-                    </div>
-                    <h3>{{mapas1.titulo}}</h3>
-                    <i class="far fa-calendar-alt"></i>&nbsp;{{mapas1.fecha}}
-                    <br>
-                    <p>{{mapas1.subtitulo}}</p>
-                    <br>
-                    <p>{{mapas1.descripcion|safe}}</p>
-                    <p>{{mapas1.html|safe}}</p>
-                    {% if mapas1.pdf %}
-                        <h6 style="color:rgb(206, 5, 162);">ARCHIVO ORIGINAL</h6>
-                        <embed height="700px" width="100%"  name="plugin" src="{{mapas1.pdf.url}}" type="application/pdf">
-                    {% endif %}
-                    <p class="blog-details__tags">
-                        <span>Fuente: </span>{{mapas1.fuente}}
-                    </p>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="sidebar">
-                    {% if mapas|length > 0 %}
-                        <div class="sidebar__single">
-                            <h3 class="sidebar__title">M&aacute;s publicaciones</h3>
-                            <div class="sidebar__post">
-                                {% for item in mapas %}
-                                    <div class="sidebar__post-single">
-                                        <div class="sidebar__post-image">
-                                            <img src="{{item.imagen2.url}}" alt="">
-                                        </div>
-                                        <div class="sidebar__post-content">
-                                            <a class="sidebar__post-date" href="#">
-                                                {{item.titulo}}<br>
-                                                <i class="far fa-calendar-alt"></i>
-                                                {{item.fecha}}
-                                            </a>
-                                            <h3><a href="{% url 'generales:mapas1' item.slug %}">{{item.titulo}}</a></h3>
-                                        </div>
-                                    </div>
-                                {% endfor %}
-                            </div>
-                        </div>
-                    {% endif %}
-                </div>
+<div class="hero-area">
+    <div class="page-banner parallax" style="background-image:url('/static/base/born/images/backing_1280x400.jpg');">
+        <div class="container">
+            <div class="page-banner-text">
+                <h1 class="block-title">{{mapas1.titulo}}</h1>
             </div>
         </div>
     </div>
-</section>
+</div>
 
-{% endblock contenido %}
+<div id="main-container">
+    <div class="content">
+        <div class="container">
+            <ul class="grid-holder isotope gallery-items" data-sort-id="gallery">
+                <li class="col-md-3 col-sm-6 grid-item blog-grid-item format-standard">
+                    <div class="grid-item-inner">
+                        <a href="{% url 'generales:ver_mapa' item.slug %}" class="media-box">
+                            {% if mapas1.imagen2 %}
+                                <img src="{{mapas1.imagen2.url}}" class="img-fluid" alt="">
+                            {% else %}
+                                <img src="{{mapas1.imagen.url}}" class="img-fluid" alt="">
+                            {% endif %}
+                        </a>
+                        <div class="grid-item-content">
+                            <p>{{mapas1.descripcion|safe}}</p>
+                            <p>{{mapas1.html|safe}}</p>
+                            {% if mapas1.pdf %}
+                                <h6 style="color:rgb(206, 5, 162);">ARCHIVO ORIGINAL</h6>
+                                <embed height="700px" width="100%"  name="plugin" src="{{mapas1.pdf.url}}" type="application/pdf">
+                            {% endif %}
+                            <p class="blog-details__tags">
+                                <span>Fuente: </span>{{mapas1.fuente}}
+                            </p>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
 
+{% endblock %}

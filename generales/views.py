@@ -135,7 +135,6 @@ def SeccionView(request, pk):
 def NosotrosView(request):
     template_name = 'generales/nosotros.html'
     context = {
-        'img_bak': Categoria.objects.get(id=request.GET['category']),
         'nosotros': Nosotros.objects.all().last(),
     }
     return render(request, template_name, context)
@@ -191,12 +190,25 @@ def PublicacionesView(request, pk):
 
 def MapsGalleryGroupView(request, pk):
     template_name = 'generales/publick_maps.html'
-    publicaciones = MapasDetalle.objects.filter(mapa_id=pk, activo=True).order_by('titulo')
-    tit = MapasDetalle.objects.filter(mapa_id=pk, activo=True).last()
+    publicaciones_qs = MapasDetalle.objects.filter(
+        mapa_id=pk, 
+        activo=True
+    ).order_by('titulo')
+
+    tit_obj = MapasDetalle.objects.filter(
+        mapa_id=pk, 
+        activo=True
+    ).last()
+    titulo = tit_obj.titulo if tit_obj else "Publicaciones"
+    paginator = Paginator(publicaciones_qs, 8)
+    page_number = request.GET.get('page')
+    publicaciones = paginator.get_page(page_number)
+
     context = {
-        'tit': tit,
+        'tit': titulo,
         'pk': pk,
         'publicaciones': publicaciones,
+        'paginator': paginator
     }
     return render(request, template_name, context)
 
@@ -211,7 +223,6 @@ def ModulosView(request, pk):
         'modulo': categoria,
     }
     return render(request, template_name, context)
-
 
 
 def MultimediaView(request):
@@ -259,12 +270,6 @@ def SubSeccionView(request, pk):
             page = int(request.GET.get('page', '1'))
         except ValueError:
             page = 1
-        #try:
-        #    resultado = paginator5.page(page)
-        #except (EmptyPage, InvalidPage):
-        #    resultado = paginator5.page(paginator5.num_pages)
-
-        #context['paginator5'] = paginator5
     else:
         buscar = ''
         resultado={}
@@ -275,66 +280,27 @@ def SubSeccionView(request, pk):
 
 def MapasDetalleView(request, slug):
     template_name = 'generales/mapas_detalle.html'
-    mapas1 = MapasDetalle.objects.filter(slug=slug).last()
+
+    # Obtener el mapa por su slug
+    mapa_detalle = MapasDetalle.objects.filter(slug=slug, activo=True).last()
+
+    if not mapa_detalle:
+        return render(request, template_name, {'error': 'El mapa no existe'})
+
+    # Obtener todos los mapas (para menú, sidebar o filtros)
     mapas = Mapas.objects.all().order_by('tema')
+
+    # Publicaciones relacionadas del mismo mapa
+    publicaciones_relacionadas = MapasDetalle.objects.filter(
+        mapa_id=mapa_detalle.mapa_id,
+        activo=True
+    ).exclude(id=mapa_detalle.id).order_by('titulo')
+
     context = {
-        'img_bak': Categoria.objects.get(id=request.GET['category']),
         'mapas': mapas,
-        'mapas1': mapas1,
+        'mapa_detalle': mapa_detalle,
+        'publicaciones_relacionadas': publicaciones_relacionadas,
     }
-    if request.POST.get('buscar'):
-        buscar = (request.POST.get('buscar').upper())
-        template_name="generales/search.html"
-        try:
-            resultado = Noticias.objects.filter(titulo__icontains=buscar).order_by('-id')
-            #paginator5 = Paginator(resultado, 10)
-        except:
-            resultado = Noticias.objects.filter(titulo__icontains=buscar).order_by('-id')
-            #paginator5 = Paginator(resultado, 10)
-        try:
-            page = int(request.GET.get('page', '1'))
-        except ValueError:
-            page = 1
-        #try:
-        #    resultado = paginator5.page(page)
-        #except (EmptyPage, InvalidPage):
-        #    resultado = paginator5.page(paginator5.num_pages)
-
-        #context['paginator5'] = paginator5
-        context['resultado'] = resultado
-    else:
-        buscar = ''
-        resultado={}
-    form_comentario = ComentarioForm()
-
-    if request.POST.get('email'):
-        form_home = SuscribirseForm(request.POST)
-        if form_home.is_valid():
-            post = form_home.save(commit=False)
-            post.save()
-            success_url=reverse_lazy("/")
-
-            return JsonResponse(
-                {
-                    'content': {
-                        'message': 'Gracias por suscribirse.',
-                    }
-                }
-            )
-        else:
-            return JsonResponse(
-                {
-                    'content': {
-                        'message': 'Ya ha sido registrado. Gracias!',
-                    }
-                }
-            )
-    else:
-        form_home = SuscribirseForm()
-
-    context['form_home'] = form_home
-    context['form_comentario'] = form_comentario
-    context['regresivo'] = {'activo': False}
 
     return render(request, template_name, context)
 

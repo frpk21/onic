@@ -1,31 +1,44 @@
 {% extends 'base/base.html' %}
-
 {% load static %}
 
 {% block contenido %}
 
-<section class="page-header" style="background-image: url({{img_bak.imagen.url}});">
-    <div class="container">
-        <h3 style="color: rgb(212, 211, 211);">{{mapas1.titulo}}</h3>
-    </div>
-</section>
-
-<section class="team-one">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="team-one__single">
-                    <div class="team-one__image">
-                        {% if mapas1.imagen2 %}
-                            <img src="{{mapas1.imagen2.url}}" class="img-fluid" alt="">
-                        {% else %}
-                            <img src="{{mapas1.imagen.url}}" class="img-fluid" alt="">
-                        {% endif %}
-                    </div>
-                    <a href="{{mapas1.imagen.url}}"  download class="thm-btn venue-one__btn">Descargar</a>
-                </div>
+<div class="hero-area">
+    <div class="page-banner parallax" style="background-image:url('/static/base/born/images/backing_1280x400.jpg');">
+        <div class="container">
+            <div class="page-banner-text">
+                <h3 class="block-title">{{mapas1.titulo}}</h3>
             </div>
         </div>
     </div>
-</section>
-{% endblock contenido %}
+</div>
+
+<div id="main-container">
+    <div class="content">
+        <div class="container">
+                                   <div class="team-one__image">
+                            {% if mapas1.imagen2 %}
+                                <img src="{{mapas1.imagen2.url}}" class="img-fluid" alt="">
+                            {% else %}
+                                <img src="{{mapas1.imagen.url}}" class="img-fluid" alt="">
+                            {% endif %}
+                        </div>
+                        <a href="{{mapas1.imagen.url}}"  download class="thm-btn venue-one__btn">Descargar</a>
+                        <div class="grid-item-content">
+                            <p>{{mapas1.descripcion|safe}}</p>
+                            <p>{{mapas1.html|safe}}</p>
+                            {% if mapas1.pdf %}
+                                <h6 style="color:rgb(206, 5, 162);">ARCHIVO ORIGINAL</h6>
+                                <embed height="700px" width="100%"  name="plugin" src="{{mapas1.pdf.url}}" type="application/pdf">
+                            {% endif %}
+                            <p class="blog-details__tags">
+                                <span>Fuente: </span>{{mapas1.fuente}}
+                            </p>
+                        </div>
+
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}
