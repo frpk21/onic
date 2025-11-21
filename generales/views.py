@@ -59,13 +59,9 @@ def HomeView(request):
     titulares = noticias_qs.filter(
         orden=OrderNews.NEWS
     ).order_by("-fecha")[:6]
-    print(">>>>>>>> TITULARES:", titulares.count()) 
-    """
-    # Carrusel
-    carrusel = noticias_qs.filter(
-        orden=OrderNews.CAROUSEL
-    ).order_by("-fecha")[:3]
-    """
+
+    # Carrusel   OrderNews.CAROUSEL
+    carrusel = noticias_qs.order_by("-fecha")[:10]
     
     # Ultima noticia destacada
     noticia_destacada = noticias_qs.filter(
@@ -102,6 +98,7 @@ def HomeView(request):
     context = {
         "hoy": hoy,
         "titulares": titulares,
+        "carrusel": carrusel,
         "noticias": noticia_destacada,
         "video_smt": video_smt,
         "nosotros": nosotros,

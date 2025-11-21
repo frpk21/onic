@@ -596,3 +596,4 @@ function WWHGetter(){
 	$(".wwidth").css("width",wwidth);
 }
 });
+

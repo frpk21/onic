@@ -27,6 +27,7 @@
         <script src="{% static 'base/born/js/modernizr.js' %}"></script>
         <link rel="icon" type="image/png" href="{% static 'base/born/images/favicon.png' %}?v=4">
         <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'base/born/css/font-awesome.css' %}">
     </head>
     <body class="home">
         <div class="body">
@@ -147,6 +148,11 @@
         <script src="{% static 'base/born/js/init.js' %}"></script>
         <script src="{% static 'base/born/vendor/flexslider/js/jquery.flexslider.js' %}"></script>
         <script src="{% static 'base/born/js/circle-progress.js' %}"></script>
+<script>
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip();
+});
+</script>
 
     </body>
 </html>
