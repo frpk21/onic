@@ -312,69 +312,32 @@ def VerMapaView(request, slug):
 
 
 def DetalleView(request, slug):
-    template_name = 'generales/detalle.html'
-    noticia = Noticias.objects.filter(slug=slug).last()
-    noticias = noticia.categoria.noticias_set.exclude(id=noticia.id, slug='').order_by('-fecha')[:10]
+    noticias_qs = (
+        Noticias.objects
+        .select_related("autor", "categoria")
+        .only(
+            "id", "titulo", "subtitulo", "fecha", "orden",
+            "imagen", "slug",
+            "categoria__id", "categoria__nombre",
+            "autor__id", "autor__username",
+        )
+    )
+
+    noticias = (
+        noticias_qs
+        .filter(orden=OrderNews.NEWS)
+        .order_by("-fecha")[:12]
+    )
+
+    detalle = noticias_qs.filter(slug=slug).first()
+
     context = {
-        'noticias': noticias,
-        'seccion': noticia.categoria.parent,
-        'detalle': noticia,
+        "detalle": detalle,
+        "noticias": noticias,
     }
-    if request.POST.get('buscar'):
-        buscar = (request.POST.get('buscar').upper())
-        template_name="generales/search.html"
-        try:
-            resultado = Noticias.objects.filter(titulo__icontains=buscar).order_by('-id')
-        except:
-            resultado = Noticias.objects.filter(titulo__icontains=buscar).order_by('-id')
 
-        context['resultado'] = resultado
+    return render(request, "generales/detalle.html", context)
 
-    if request.POST.get('comentario'):
-        form_comentario = ComentarioForm(request.POST)
-        if form_comentario.is_valid():
-            post = form_comentario.save(commit=False)
-            post.save()
-            return JsonResponse(
-                {
-                    'content': {
-                        'message': 'Gracias por su comentario.',
-                    }
-                }
-            )
-    else:
-        form_comentario = ComentarioForm()
-
-    if request.POST.get('email'):
-        form_home = SuscribirseForm(request.POST)
-        if form_home.is_valid():
-            post = form_home.save(commit=False)
-            post.save()
-            success_url=reverse_lazy("/")
-
-            return JsonResponse(
-                {
-                    'content': {
-                        'message': 'Gracias por suscribirse.',
-                    }
-                }
-            )
-        else:
-            return JsonResponse(
-                {
-                    'content': {
-                        'message': 'Ya ha sido registrado. Gracias!',
-                    }
-                }
-            )
-    else:
-        form_home = SuscribirseForm()
-
-    context['form_home'] = form_home
-    context['form_comentario'] = form_comentario
-    context['regresivo'] = {'activo': False}
-
-    return render(request, template_name, context)
 
 def DetalleImgView(request, pk, tarea):
     template_name = 'generales/detalle_img.html'
