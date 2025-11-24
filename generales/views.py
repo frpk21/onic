@@ -55,29 +55,23 @@ def HomeView(request):
         "autor__id", "autor__username",
     )
 
-    # Titulares
     titulares = noticias_qs.filter(
         orden=OrderNews.NEWS
     ).order_by("-fecha")[:6]
 
-    # Carrusel   OrderNews.CAROUSEL
     carrusel = noticias_qs.order_by("-fecha")[:10]
     
-    # Ultima noticia destacada
     noticia_destacada = noticias_qs.filter(
         orden=OrderNews.NEWS
     ).order_by("-fecha").first()
 
-    # Último video SMT
     video_smt = VideoSMT.objects.only("titulo", "url_video").last()
 
-    # Contenido de Nosotros
     nosotros = Nosotros.objects.only(
         "descripcion", "vision", "justificacion", "objetivos", "usuarios",
         "imagen", "imagen_vision", "imagen_jus", "imagen_obj", "imagen_users"
     ).last()
 
-    # Novedades (updates)
     novedades = noticias_qs.filter(
         orden=OrderNews.UPDATES
     ).order_by("-fecha")[:7]

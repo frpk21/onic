@@ -233,3 +233,27 @@
     object-fit: cover;
 }
 
+.social-icons {
+    list-style: none;
+    display: flex;
+    gap: 18px;
+    margin: 10px 0;
+    padding: 0;
+    align-items: center;
+}
+
+.social-icons li {
+    display: inline-block;
+}
+
+.social-icons a {
+    font-size: 26px;
+    color: #00ACED; /* color SMT */
+    transition: .3s;
+    text-decoration: none;
+}
+
+.social-icons a:hover {
+    color: #f1b929; /* color dorado SMT */
+    transform: scale(1.25);
+}

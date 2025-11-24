@@ -28,6 +28,7 @@
         <link rel="icon" type="image/png" href="{% static 'base/born/images/favicon.png' %}?v=4">
         <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="{% static 'base/born/css/font-awesome.css' %}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     </head>
     <body class="home">
         <div class="body">
@@ -40,7 +41,7 @@
                         <ul class="top-links pull-right">
                             <li><a href="/nosotros">Nosotros</a></li>
                             <li><a href="/contacto">Denuncie</a></li>
-                            <li><a href="/anunciar">Anunciar</a></li>
+                            <li><a href="/contacto">Anunciar</a></li>
                             <li><a href="/contacto">Contáctenos</a></li>
                             <li><i class="fa fa-phone"></i> (+57) 1 284 2168</li>
                         </ul>
@@ -103,7 +104,6 @@
                             <div class="widget footer_widget">
                                 <h4 class="widgettitle">Sobre nosotros</h4>
                                 <img src="{% static 'base/born/images/logo.png' %}" alt="">
-                                <p>Sistema de Monitoreo Territorial.</p>
                             </div>
                         </div>
 
@@ -112,9 +112,11 @@
                             <div class="widget footer_widget">
                                 <h4 class="widgettitle">Enlaces</h4>
                                 <ul>
-                                    <li><a href="{% url 'generales:nosotros' %}">Nosotros</a></li>
-                                    <li><a href="{% url 'generales:contact' %}">Contacto</a></li>
-                                    <li><a href="{% url 'generales:multimedia' %}">Multimedia</a></li>
+                                    <li><a href="/nosotros">Nosotros</a></li>
+                                    <li><a href="/contacto">Denuncie</a></li>
+                                    <li><a href="/contacto">Anunciar</a></li>
+                                    <li><a href="/contacto">Contáctenos</a></li>
+                                    <li><i class="fa fa-phone"></i> (+57) 1 284 2168</li>
                                 </ul>
                             </div>
                         </div>
@@ -122,8 +124,24 @@
                         <!-- Col 3 -->
                         <div class="col-md-4 col-sm-4">
                             <div class="widget footer_widget">
-                                <h4 class="widgettitle">Twitter</h4>
-                                <div class="twitter-widget" data-tweets-count="2"></div>
+                                <h4 class="widgettitle">S&iacute;guenos</h4>
+                                <ul class="social-icons">
+                                    <li>
+                                        <a href="https://www.facebook.com/SMTONIC/" target="_blank">
+                                            <i class="fa-brands fa-facebook-f"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="https://twitter.com/SMT_ONIC" target="_blank">
+                                            <i class="fa-brands fa-x-twitter"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="https://www.instagram.com/smt_onic/" target="_blank">
+                                            <i class="fa-brands fa-instagram"></i>
+                                        </a>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
 
@@ -133,10 +151,10 @@
 
             <div class="site-footer-bottom">
                 <div class="container">
-                    <p>&copy; SMT - Sistema de Monitoreo Territorial</p>
+                    <p>&copy;&nbsp;{{hoy.year}}&nbsp;SMT - Sistema de Monitoreo Territorial</p>
                 </div>
             </div>
-
+            <a id="back-to-top"><i class="fa fa-angle-double-up"></i></a> 
         </div>
 
         <script src="{% static 'base/born/js/jquery-2.1.3.min.js' %}"></script>

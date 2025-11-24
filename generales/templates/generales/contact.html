@@ -1,77 +1,84 @@
 {% extends 'base/base.html' %}
-
 {% load static %}
 
 {% block contenido %}
     
 
-<div id="ajaxArea">
-<!--==============================
-    Breadcumb
-============================== -->
-<div class="breadcumb-wrapper breadcumb-layout1 background-image py-85" data-bg-src="/static/base/images/contac.jpg" data-overlay="title" data-opacity="4">
-    <div class="container z-index-common">
-        <div class="row align-items-center">
-            <div class="col-md-6 text-center text-md-left mb-1 mb-md-0">
-                <h1 class="breadcumb-title h4 text-medium text-white my-0">Cont&aacute;ctenos</h1>
-            </div>
-        </div>
-    </div>
-</div>
-<!--==============================
-Contact Form
-==============================-->
-<section class="vs-contact-wrapper bg-smoke space-top space-md-bottom padding_bottom_70">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6 col-lg-8">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d30613.727760631038!2d-74.09396833518755!3d4.603279826930027!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f99a671fe8cbb%3A0xcbe8d4d30802726a!2sOrganizaci%C3%B3n%20Nacional%20Ind%C3%ADgena%20de%20Colombia%20-%20ONIC!5e0!3m2!1ses!2sco!4v1709042990382!5m2!1ses!2sco" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-            </div>
-            <div class="col-md-6 col-lg-4 align-self-end">
-                <div class="info-box1 bg-white px-50 py-50 mb-30">
-                    <h2 class="h4 text-medium mb-2 mt-xl-n2">Informaci&oacute;n de contacto</h2>
-                    <p class="has-icon-left"><i class="fas fa-map-marker-alt"></i>Calle 12B # 4 - 38<br>
-                        Barrio La Candelaria<br>
-                        Bogot&aacute;, D. C., Colombia</p>
-                    <h3 class="text-20 text-medium mb-2">Estamos Disponibles</h3>
-                    <p class="has-icon-left mb-0"><i class="fas fa-phone-alt"></i>(+57) 1 284 2168<br>
-                        (+57) 1 805 0774<br>
-                        (+57) 1 805 0772</p>
-                    <p class="has-icon-left"><i class="fas fa-envelope"></i>poblacion@onic.org.co</p>
-                    <ul class="social-links links-btn-style">
-                        <li><a href="https://www.facebook.com/SMTONIC/" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
-                        <li><a href="https://twitter.com/SMT_ONIC" target="_blank"><img src="/static/base/assets/images/twitter-x.png" height="15px;"/></a></li>
-                        <li><a href="https://www.instagram.com/smt_onic/" target="_blank"><i class="fab fa-instagram"></i></a></li>
-                    </ul>
+    <div class="hero-area">
+        <div class="page-banner parallax" style="background-image:url('/static/base/born/images/backing_1280x400.jpg');">
+            <div class="container">
+                <div class="page-banner-text">
+                    <h3 style="color: white;" class="block-title">{{detalle.titulo}}</h3>
+                    <i class="far fa-calendar-alt"></i>&nbsp;{{detalle.fecha}}
                 </div>
             </div>
-            <br/><br><br>
-            <div class="col-lg-8">
-                <form method="POST" class="contact-form-style1 bg-white px-60 py-60 mb-30" >{% csrf_token %}
-                    <h2 class="form-title text-medium h3 mb-2 mt-xl-n2">Env&iacute;enos un mensage</h2>
-                    <p class="h5 text-theme text-normal">Su direcci&oacute;n de correo no ser&aacute; publicada.*</p>
-                    <div class="gutters-10">
-                        <div class="form-group">
-                            <i class="fa fa-user"></i>
-                            {{ form.nombre }}
-                        </div>
-                        <div class="form-group">
-                            <i class="fa fa-envelope"></i>
-                            {{ form.email }}
-                        </div>
-                        <div class="form-group">
-                            <i class="fa fa-edit"></i>
-                            {{ form.textoMensage }}  
-                        </div>
-                        <div class="form-group pt-10 mb-0 ">
-                            <button type="submit" class="vs-btn">Enviar</button>
-                        </div><br><br><br>
-                    </div>
-                </form>
-            </div>
-
         </div>
     </div>
-</section>
+    <div id="main-container">
+        <div class="content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-lg-8">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d30613.727760631038!2d-74.09396833518755!3d4.603279826930027!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f99a671fe8cbb%3A0xcbe8d4d30802726a!2sOrganizaci%C3%B3n%20Nacional%20Ind%C3%ADgena%20de%20Colombia%20-%20ONIC!5e0!3m2!1ses!2sco!4v1709042990382!5m2!1ses!2sco" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                    <div class="col-md-6 col-lg-4 align-self-end">
+                        <div class="info-box1 bg-white px-50 py-50 mb-30">
+                            <h2 class="h4 text-medium mb-2 mt-xl-n2">Informaci&oacute;n de contacto</h2>
+                            <p class="has-icon-left"><i class="fas fa-map-marker-alt"></i>Calle 12B # 4 - 38<br>
+                                Barrio La Candelaria<br>
+                                Bogot&aacute;, D. C., Colombia</p>
+                            <h3 class="text-20 text-medium mb-2">Estamos Disponibles</h3>
+                            <p class="has-icon-left mb-0"><i class="fas fa-phone-alt"></i>(+57) 1 284 2168<br>
+                                (+57) 1 805 0774<br>
+                                (+57) 1 805 0772</p>
+                            <p class="has-icon-left"><i class="fas fa-envelope"></i>poblacion@onic.org.co</p>
+                            <ul class="social-icons">
+                                <li>
+                                    <a href="https://www.facebook.com/SMTONIC/" target="_blank">
+                                        <i class="fa-brands fa-facebook-f"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://twitter.com/SMT_ONIC" target="_blank">
+                                        <i class="fa-brands fa-x-twitter"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://www.instagram.com/smt_onic/" target="_blank">
+                                        <i class="fa-brands fa-instagram"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <br/><br><br>
+                    <div class="col-lg-8">
+                        <form method="POST" class="contact-form-style1 bg-white px-60 py-60 mb-30" >{% csrf_token %}
+                            <h2 class="form-title text-medium h3 mb-2 mt-xl-n2">Env&iacute;enos un mensage</h2>
+                            <p class="h5 text-theme text-normal">Su direcci&oacute;n de correo no ser&aacute; publicada.*</p>
+                            <div class="gutters-10">
+                                <div class="form-group">
+                                    <i class="fa fa-user"></i>
+                                    {{ form.nombre }}
+                                </div>
+                                <div class="form-group">
+                                    <i class="fa fa-envelope"></i>
+                                    {{ form.email }}
+                                </div>
+                                <div class="form-group">
+                                    <i class="fa fa-edit"></i>
+                                    {{ form.textoMensage }}  
+                                </div>
+                                <div class="form-group pt-10 mb-0 ">
+                                    <button type="submit" class="vs-btn">Enviar</button>
+                                </div><br><br><br>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
 
 {% endblock contenido %}
