@@ -191,72 +191,72 @@
                 </div>
             </div>
             
-            <div class="parallax parallax6 padding-tb100" style="background-image:url(https://via.placeholder.com/1280x800?text=IMAGE+PLACEHOLDER)">
-                <div class="container">
-                    <div class="parallax-text-block pull-right">
-                        <h3>Nepal has been seriously devastated by the recent earthquake.</h3>
-                        <p>Over 8,000 people have died (with death toll rising), thousands more are injured, and countless more have been displaced. Many homes, <a href="#">temples</a>, and public monuments have been destroyed throughout the affected areas.</p>
-                        <a href="#" class="btn btn-primary">Donate to cause</a>
-                    </div>
-                </div>
-            </div>
+            <div class="parallax parallax6 padding-tb100" 
+     style="background-image:url('{% static "base/born/images/pic01.png" %}'); 
+            background-size: cover; 
+            background-position: center center;">
+    <div class="container">
+        <div class="parallax-text-block pull-right">
+            <h3>Territorios que hablan: la voz de la Madre Tierra.</h3>
+
+            <p>
+                Desde las montañas, los ríos y la selva, los pueblos indígenas levantan su palabra 
+                para proteger la vida. El Sistema de Monitoreo Territorial recoge los signos que 
+                deja la Madre Tierra: cambios en el bosque, en el agua, en los caminos de los 
+                animales y en la memoria de las comunidades. Cada dato es un relato, cada mapa 
+                es una historia que defiende el territorio.
+            </p>
+
+            <p>
+                Acompaña este proceso de vigilancia propia, autonomía y cuidado colectivo. 
+                Fortalezcamos juntos las guardias, los saberes ancestrales y las herramientas 
+                modernas que permiten que nuestros territorios sigan latiendo.
+            </p>
+
+            <a href="/nosotros" class="btn btn-primary">Conocer m&aacute;s</a>
+        </div>
+    </div>
+</div>
+
             
             <div class="padding-tb75 padding-b0">
                 <div class="container">
                     <div class="text-align-center">
-                        <h2 class="block-title block-title-center">Algunas de nuestras historias</h2>
+                        <h2 class="block-title block-title-center">Boletines</h2>
                     </div>
                 </div>
                 <div class="carousel-wrapper">
                     <div class="row">
                         <ul class="owl-carousel carousel-fw" id="stories-slider" data-columns="1" data-autoplay="" data-pagination="no" data-arrows="yes" data-single-item="no" data-items-desktop="1" data-items-desktop-small="2" data-items-tablet="1" data-items-mobile="1">
-                            <li class="item">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <img src="https://via.placeholder.com/600x400?text=IMAGE+PLACEHOLDER" alt="" class="img-responsive">
-                                    </div>
-                                    
-                                    <div class="col-md-6">
-                                        <div class="story-slider-content">
-                                            <div class="story-slider-table">
-                                                <div class="story-slider-cell">
-                                                    <blockquote>
-                                                        <h3>Lori now study with her friends</h3>
-                                                        <p>Vestibulum quam nisi, pretium a nibh sit amet, consectetur hendrerit mi. Aenean imperdiet lacus sit amet elit porta, et malesuada erat bibendum. Cras sed nunc massa. Quisque tempor dolor sit amet tellus malesuada, malesuada iaculis eros dignissim. Aenean vitae diam id lacus fringilla maximus. Mauris auctor efficitur nisl, non blandit urna fermentum nec.</p>
-                                                    </blockquote>
-                                                    <a href="#" class="btn btn-primary">View full story</a>
+                            {% for item in boletines %}
+                                <li class="item">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <img src="https://via.placeholder.com/600x400?text=IMAGE+PLACEHOLDER" alt="" class="img-responsive">
+                                            <a href="{% url 'generales:detalle' item.slug %}" class="media-box">
+                                                <img src="{{ item.imagen.url }}" alt="">
+                                            </a>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="story-slider-content">
+                                                <div class="story-slider-table">
+                                                    <div class="story-slider-cell">
+                                                        <blockquote>
+                                                            <h3>{{ item.titulo}}</h3>
+                                                            <p>{{ item.subtitulo }}</p>
+                                                        </blockquote>
+                                                        <a href="{% url 'generales:detalle' item.slug %}" class="btn btn-primary">Ver m&aacute;s</a>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </li>
-                            <li class="item">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <img src="https://via.placeholder.com/600x400?text=IMAGE+PLACEHOLDER" alt="" class="img-responsive">
-                                    </div>
-                                    
-                                    <div class="col-md-6">
-                                        <div class="story-slider-content">
-                                            <div class="story-slider-table">
-                                                <div class="story-slider-cell">
-                                                    <blockquote>
-                                                        <h3>Everyday food for Mumbai children</h3>
-                                                        <p>Vestibulum quam nisi, pretium a nibh sit amet, consectetur hendrerit mi. Aenean imperdiet lacus sit amet elit porta, et malesuada erat bibendum. Cras sed nunc massa. Quisque tempor dolor sit amet tellus malesuada, malesuada iaculis eros dignissim.</p>
-                                                    </blockquote>
-                                                    <a href="#" class="btn btn-primary">View full story</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
+                                </li>
+                            {% endfor %}
                         </ul>
                     </div>
                 </div>
             </div>
-            
             <div class="parallax parallax5 parallax-light text-align-center padding-tb100" 
                 style="background-image:url(https://via.placeholder.com/1280x800?text=IMAGE+PLACEHOLDER); padding-top:120px; padding-bottom:120px;">
                 <div style="max-width:900px; margin:0 auto;">

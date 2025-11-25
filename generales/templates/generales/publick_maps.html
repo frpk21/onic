@@ -49,12 +49,10 @@
 
             </ul>
 
-            <!-- PAGINACIÓN -->
             {% if publicaciones.has_other_pages %}
             <nav>
                 <ul class="pagination pagination-lg">
 
-                    <!-- PREV -->
                     {% if publicaciones.has_previous %}
                     <li>
                         <a href="?page={{ publicaciones.previous_page_number }}" aria-label="Previous">
@@ -65,7 +63,6 @@
                     <li class="disabled"><span>&laquo;</span></li>
                     {% endif %}
 
-                    <!-- NÚMEROS -->
                     {% for num in publicaciones.paginator.page_range %}
                         {% if publicaciones.number == num %}
                             <li class="active"><a href="#">{{ num }}</a></li>
@@ -74,7 +71,6 @@
                         {% endif %}
                     {% endfor %}
 
-                    <!-- NEXT -->
                     {% if publicaciones.has_next %}
                     <li>
                         <a href="?page={{ publicaciones.next_page_number }}" aria-label="Next">

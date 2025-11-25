@@ -46,6 +46,13 @@ def categorias_context(request):
 def HomeView(request):
 
     hoy = date.today()
+    boletines_qs = (
+        Noticias.objects
+        .filter(orden=3)
+        .only("id", "titulo", "slug", "fecha", "imagen")
+        .order_by('-fecha')
+    )
+    boletines = boletines_qs[:6]
     noticias_qs = Noticias.objects.select_related(
         "autor", "categoria"
     ).only(
@@ -98,6 +105,7 @@ def HomeView(request):
         "nosotros": nosotros,
         "novedades": novedades,
         "resultado": {},
+        "boletines": boletines,
     }
 
     return render(request, "generales/home.html", context)
@@ -143,13 +151,25 @@ def EquipoView(request):
 
 def BoletinesView(request):
     template_name = 'generales/boletines.html'
+
+    boletines_qs = (
+        Noticias.objects
+        .filter(orden=3)
+        .only("id", "titulo", "slug", "fecha", "imagen")
+        .order_by('-fecha')
+    )
+
+    paginator = Paginator(boletines_qs, 8)
+    page_number = request.GET.get("page")
+    boletines_page = paginator.get_page(page_number)
+
     context = {
-        'img_bak': Categoria.objects.get(pk=request.GET['category']),
-        'noticias': Noticias.objects.all().order_by('-fecha')[:10],
-        'boletines': Noticias.objects.filter(orden=3).order_by('-fecha'),
-        'categorias': Categoria.objects.filter(parent__isnull=True),
+        "boletines": boletines_page,
+        "publicaciones": boletines_page,
     }
+
     return render(request, template_name, context)
+
 
 def Mapas0View(request):
     template_name = 'generales/mapas0.html'

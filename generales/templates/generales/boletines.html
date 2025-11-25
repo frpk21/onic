@@ -1,83 +1,88 @@
 {% extends 'base/base.html' %}
-
 {% load static %}
 
 {% block contenido %}
 
-<section class="page-header" style="background-image: url({{img_bak.imagen.url}});">
-    <div class="container">
-        <h2>Boletines</h2>
-    </div>
-</section>
-<section class="blog-one blog-grid-page padding_top_40">
-    {% if img_bak.intro_content %}
+<div class="hero-area">
+    <div class="page-banner parallax" style="background-image:url('/static/base/born/images/backing_1280x400.jpg');">
         <div class="container">
-            {{ img_bak.intro_content|safe }}
+            <div class="page-banner-text">
+                <h1 class="block-title">Boletines</h1>
+            </div>
         </div>
-    {% endif %}
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8">
-                <div class="row">
-                    {% for item in boletines %}
-                        <div class="col-md-6">
-                            <div class="blog-one__single">
-                                <div class="blog-one__image">
-                                    <a href="{% url 'generales:detalle' item.slug %}" class="blog-one__link">
-                                        <img src="{{item.imagen.url}}" alt="">
+    </div>
+</div>
+
+<div id="main-container">
+    <div class="content">
+        <div class="container">
+            <ul class="grid-holder isotope gallery-items" data-sort-id="gallery">
+                {% for item in boletines %}
+                    <li class="col-md-3 col-sm-6 grid-item blog-grid-item format-standard">
+                        <div class="grid-item-inner">
+                            <a href="{% url 'generales:detalle' item.slug %}"
+                            class="media-box">
+                                <img src="{{ item.imagen.url }}" alt="">
+                            </a>
+
+                            <div class="grid-item-content">
+                                <h3 class="post-title">
+                                    <a href="{% url 'generales:detalle' item.slug %}">
+                                        {{ item.titulo }}
                                     </a>
-                                    <div class="blog-one__date">
-                                        <i class="far fa-calendar-alt"></i>
-                                        {{item.fecha}}
-                                    </div>
-                                </div>
-                                <div class="blog-one__content">
-                                    <ul class="blog-one__meta list-unstyled">
-                                        <li><a href="{% url 'generales:detalle' item.slug %}">{{item.fuente}}</a></li>
-                                        <li><a href="{% url 'generales:detalle' item.slug %}">{{item.autor}}</a></li>
-                                    </ul>
-                                    <h3><a href="{% url 'generales:detalle' item.slug %}">{{item.titulo}}</a></h3>
-                                    <p>{{item.subtitulo}}</p>
-                                    <a href="{% url 'generales:detalle' item.slug %}" class="blog-one__link">Leer M&aacute;s</a>
+                                </h3>
+
+                                <span class="meta-data">
+                                    <i class="fa fa-calendar"></i> {{ item.fecha }}
+                                </span>
+
+                                <div class="tag-cloud">
+                                    <i class="fa fa-tags"></i>
+                                    <a href="{% url 'generales:detalle' item.slug %}">Ver</a>
                                 </div>
                             </div>
                         </div>
-                    {% endfor %}
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="sidebar">
-                    <div class="sidebar__single">
-                        <h3 class="sidebar__title">Categor&iacute;as</h3>
-                        <ul class="list-unstyled sidebar__cat-list">
-                            {% for item in categorias %}
-                                <li><a href="{% url 'generales:seccion' item.id %}">{{item.nombre}}</a></li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                    <div class="sidebar__single">
-                        <h3 class="sidebar__title">&Uacute;ltimas noticias</h3>
-                        <div class="sidebar__post">
-                            {% for item in noticias %}
-                                <div class="sidebar__post-single">
-                                    <div class="sidebar__post-image">
-                                        <img src="{{item.imagen.url}}" alt="">
-                                    </div>
-                                    <div class="sidebar__post-content">
-                                        <a class="sidebar__post-date" href="#">
-                                            <i class="far fa-calendar-alt"></i>
-                                            {{item.fecha}}
-                                        </a>
-                                        <h3><a href="{% url 'generales:detalle' item.slug %}">{{item.titulo}}</a></h3>
-                                    </div>
-                                </div>
-                            {% endfor %}
-                        </div>
-                    </div>
-                </div><!-- /.sidebar -->
-            </div><!-- /.col-lg-4 -->
-        </div><!-- /.row -->
-    </div><!-- /.container -->
-</section>
+                    </li>
+                {% endfor %}
+            </ul>
+            {% if publicaciones.has_other_pages %}
+                <nav>
+                    <ul class="pagination pagination-lg">
+
+                        {% if publicaciones.has_previous %}
+                        <li>
+                            <a href="?page={{ publicaciones.previous_page_number }}" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        {% else %}
+                        <li class="disabled"><span>&laquo;</span></li>
+                        {% endif %}
+
+                        {% for num in publicaciones.paginator.page_range %}
+                            {% if publicaciones.number == num %}
+                                <li class="active"><a href="#">{{ num }}</a></li>
+                            {% else %}
+                                <li><a href="?page={{ num }}">{{ num }}</a></li>
+                            {% endif %}
+                        {% endfor %}
+
+                        {% if publicaciones.has_next %}
+                        <li>
+                            <a href="?page={{ publicaciones.next_page_number }}" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                        {% else %}
+                        <li class="disabled"><span>&raquo;</span></li>
+                        {% endif %}
+
+                    </ul>
+                </nav>
+            {% endif %}
+        </div>
+    </div>
+</div>
 
 {% endblock contenido %}
+
