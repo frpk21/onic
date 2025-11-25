@@ -139,6 +139,8 @@ LOGOUT_REDIRECT_URL = '/login/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+SSO_SECRET = os.getenv("SSO_SECRET")
+
 try:
    exec(open(os.path.join(BASE_DIR, 'smt', 'settings_local.py')).read())
 except IOError:
