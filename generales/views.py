@@ -46,13 +46,6 @@ def categorias_context(request):
 def HomeView(request):
 
     hoy = date.today()
-    boletines_qs = (
-        Noticias.objects
-        .filter(orden=3)
-        .only("id", "titulo", "slug", "fecha", "imagen")
-        .order_by('-fecha')
-    )
-    boletines = boletines_qs[:6]
     noticias_qs = Noticias.objects.select_related(
         "autor", "categoria"
     ).only(
@@ -70,7 +63,7 @@ def HomeView(request):
     
     noticia_destacada = noticias_qs.filter(
         orden=OrderNews.NEWS
-    ).order_by("-fecha").first()
+    ).order_by("-fecha")[:6]   #.first()    .exclude(id__in=titulares.values_list("id", flat=True))
 
     video_smt = VideoSMT.objects.only("titulo", "url_video").last()
 
@@ -105,7 +98,6 @@ def HomeView(request):
         "nosotros": nosotros,
         "novedades": novedades,
         "resultado": {},
-        "boletines": boletines,
     }
 
     return render(request, "generales/home.html", context)
