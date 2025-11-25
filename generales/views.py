@@ -191,12 +191,18 @@ def Mapas0View(request):
 
 def PublicacionesView(request, pk):
     template_name = 'generales/public.html'
-    categoria = Categoria.objects.get(id=pk)
+    categoria = get_object_or_404(Categoria, id=pk)
+    publicaciones_list = categoria.noticias_set.all().order_by('-fecha')
+    paginator = Paginator(publicaciones_list, 8)
+    page_number = request.GET.get('page')
+    publicaciones = paginator.get_page(page_number)
+
     context = {
         'tit': '',
         'img_bak': categoria,
-        'publicaciones': categoria.noticias_set.all().order_by('-fecha'),
+        'publicaciones': publicaciones,
     }
+
     return render(request, template_name, context)
 
 def MapsGalleryGroupView(request, pk):
