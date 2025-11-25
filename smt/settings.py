@@ -139,7 +139,7 @@ LOGOUT_REDIRECT_URL = '/login/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-#try:
-#    exec(open(os.path.join(BASE_DIR, 'smt', 'settings_local.py')).read())
-#except IOError:
-#    print('error reading local settings')
+try:
+   exec(open(os.path.join(BASE_DIR, 'smt', 'settings_local.py')).read())
+except IOError:
+   print('error reading local settings')
