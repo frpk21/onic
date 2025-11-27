@@ -3,6 +3,8 @@ from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
+
+from accounts.utils import get_sso_login_url
 from generales.choices import OrderNews
 from generales.forms import SuscribirseForm, ComentarioForm, ContactoForm, CodeVerificationForm
 from generales.models import Noticias, Contacto, VideoSMT, Nosotros, Categoria, Mapas, MapasDetalle, Equipo, Podcast, \
@@ -98,6 +100,7 @@ def HomeView(request):
         "nosotros": nosotros,
         "novedades": novedades,
         "resultado": {},
+        "sso_login_url": get_sso_login_url(request),
     }
 
     return render(request, "generales/home.html", context)
