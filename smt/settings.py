@@ -1,4 +1,3 @@
-smt / settings.py
 import os
 from pathlib import Path
 
