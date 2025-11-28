@@ -1,8 +1,10 @@
+cat
+smt / settings.py
 import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-#BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Quick-start development settings - unsuitable for production
@@ -139,7 +141,7 @@ MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-STATICFILES_DIRS = [ os.path.join(BASE_DIR, 'static'),]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
 
 STATIC_URL = '/static/'
 
@@ -155,7 +157,13 @@ LOGOUT_REDIRECT_URL = '/login/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-#try:
-#    exec(open(os.path.join(BASE_DIR, 'smt', 'settings_local.py')).read())
-#except IOError:
-#    print('error reading local settings')
+SSO_SECRET = os.getenv("SSO_SECRET")
+
+AUTH_SERVER_BASE_URL = os.environ.get("AUTH_SERVER_BASE_URL")
+
+SSO_CLIENT_ID = os.environ.get("SSO_CLIENT_ID", "smt_onic")
+
+try:
+    exec(open(os.path.join(BASE_DIR, 'smt', 'settings_local.py')).read())
+except IOError:
+    print('error reading local settings')
