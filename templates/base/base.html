@@ -4,7 +4,6 @@
 <!DOCTYPE html>
 <html lang="es" dir="ltr" class="no-js">
     <head>
-        <!-- Google tag -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-DN07JMSY98"></script>
         <script>
             window.dataLayer = window.dataLayer || [];
@@ -12,9 +11,8 @@
             gtag('js', new Date());
             gtag('config', 'G-DN07JMSY98');
         </script>
-
         <meta charset="utf-8">
-        <title>SMT</title>
+        <title>SMT MUYSCA CH&Iacute;A</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="{% static 'base/born/css/bootstrap.css' %}">
         <link rel="stylesheet" href="{% static 'base/born/css/bootstrap-theme.css' %}">
@@ -32,28 +30,22 @@
     </head>
     <body class="home">
         <div class="body">
-             
             <header class="site-header {% block header_class %}{% endblock %}">
-
                 <div class="container">
-
                     <div class="header-top">
                         <ul class="top-links pull-right">
-                            <li><a href="/nosotros">Nosotros</a></li>
                             <li><a href="/contacto">Denuncie</a></li>
                             <li><a href="/contacto">Anunciar</a></li>
                             <li><a href="/contacto">Contáctenos</a></li>
-                            <li><i class="fa fa-phone"></i> (+57) 1 284 2168</li>
+                            <li><i class="fa fa-phone"></i> (+57) 3044097589</li>
                         </ul>
                     </div>
-
                     <div class="header-main clearfix">
-                
                         <div class="site-logo">
                             <a href="{% url 'generales:home' %}" class="default-logo"><img src="/static/base/born/images/logo.png" alt="Logo"></a>
-                            <a href="{% url 'generales:home' %}" class="default-retina-logo"><img src="/static/base/born/images/logo@2x.png" alt="Logo" width="199" height="30"></a>
+                            <a href="{% url 'generales:home' %}" class="default-retina-logo"><img src="/static/base/born/images/logo@2x.png" alt="Logo" width="130"></a>
                             <a href="{% url 'generales:home' %}" class="sticky-logo"><img src="/static/base/born/images/sticky-logo.png" alt="Logo"></a>
-                            <a href="{% url 'generales:home' %}" class="sticky-retina-logo"><img src="/static/base/born/images/sticky-logo@2x.png" alt="Logo" width="199" height="30"></a>
+                            <a href="{% url 'generales:home' %}" class="sticky-retina-logo"><img src="/static/base/born/images/sticky-logo@2x.png" alt="Logo" width="130"></a>
                         </div>
                         <a href="#" class="visible-sm visible-xs" id="menu-toggle"><i class="fa fa-bars"></i></a>
                         <nav class="main-navigation pull-right">
@@ -62,7 +54,6 @@
                                     {% for cat in MENU_TREE %}
                                         <li class="{% if cat.children %}menu-item-has-children{% endif %}">
                                             <a href="{{ cat.url|default:'#' }}">{{ cat.nombre }}</a>
-
                                             {% if cat.children %}
                                                 <ul class="sub-menu">
                                                     {% for sub in cat.children %}
@@ -86,7 +77,6 @@
                                 </ul>
                             </div>
                         </nav>
-
                     </div>
                 </div>
             </header>
@@ -100,18 +90,17 @@
                         <div class="col-md-4 col-sm-4">
                             <div class="widget footer_widget">
                                 <h4 class="widgettitle">Sobre nosotros</h4>
-                                <img src="{% static 'base/born/images/logo.png' %}" alt="">
+                                <img src="{% static 'base/born/images/logo.png' %}" width="120" alt="">
                             </div>
                         </div>
                         <div class="col-md-4 col-sm-4">
                             <div class="widget footer_widget">
                                 <h4 class="widgettitle">Enlaces</h4>
                                 <ul>
-                                    <li><a href="/nosotros">Nosotros</a></li>
                                     <li><a href="/contacto">Denuncie</a></li>
                                     <li><a href="/contacto">Anunciar</a></li>
                                     <li><a href="/contacto">Contáctenos</a></li>
-                                    <li><i class="fa fa-phone"></i> (+57) 1 284 2168</li>
+                                    <li><i class="fa fa-phone"></i> (+57) 3044097589</li>
                                 </ul>
                             </div>
                         </div>
@@ -120,17 +109,17 @@
                                 <h4 class="widgettitle">S&iacute;guenos</h4>
                                 <ul class="social-icons">
                                     <li>
-                                        <a href="https://www.facebook.com/SMTONIC/" target="_blank">
+                                        <a href="https://www.facebook.com/share/1BboFfS3Ki/ " target="_blank">
                                             <i class="fa-brands fa-facebook-f"></i>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="https://twitter.com/SMT_ONIC" target="_blank">
+                                        <a href="/" target="_blank">
                                             <i class="fa-brands fa-x-twitter"></i>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="https://www.instagram.com/smt_onic/" target="_blank">
+                                        <a href="https://www.instagram.com/mhuysqa_chia?igsh=eXJjcTBjMWRiaWo4" target="_blank">
                                             <i class="fa-brands fa-instagram"></i>
                                         </a>
                                     </li>
@@ -141,15 +130,13 @@
                     </div>
                 </div>
             </div>
-
             <div class="site-footer-bottom">
                 <div class="container">
-                    <p>&copy;&nbsp;{{hoy.year}}&nbsp;SMT - Sistema de Monitoreo Territorial</p>
+                    <p>&copy;&nbsp;{{hoy.year}}&nbsp;SMT MUYSCA CH&Iacute;A - Sistema de Monitoreo Territorial</p>
                 </div>
             </div>
             <a id="back-to-top"><i class="fa fa-angle-double-up"></i></a> 
         </div>
-
         <script src="{% static 'base/born/js/jquery-2.1.3.min.js' %}"></script>
         <script src="{% static 'base/born/vendor/magnific/jquery.magnific-popup.min.js' %}"></script>
         <script src="{% static 'base/born/js/ui-plugins.js' %}"></script>
@@ -159,11 +146,10 @@
         <script src="{% static 'base/born/js/init.js' %}"></script>
         <script src="{% static 'base/born/vendor/flexslider/js/jquery.flexslider.js' %}"></script>
         <script src="{% static 'base/born/js/circle-progress.js' %}"></script>
-<script>
-$(function () {
-  $('[data-toggle="tooltip"]').tooltip();
-});
-</script>
-
+        <script>
+            $(function () {
+                $('[data-toggle="tooltip"]').tooltip();
+            });
+        </script>
     </body>
 </html>
