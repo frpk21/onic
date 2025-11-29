@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.humanize',
     'generales',
+    'accounts',
     'ckeditor',
 ]
 
@@ -138,6 +139,12 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/login/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+SSO_SECRET = os.getenv("SSO_SECRET")
+
+AUTH_SERVER_BASE_URL = os.environ.get("AUTH_SERVER_BASE_URL")
+
+SSO_CLIENT_ID = os.environ.get("SSO_CLIENT_ID", "smt_onic")
 
 try:
    exec(open(os.path.join(BASE_DIR, 'smt', 'settings_local.py')).read())
