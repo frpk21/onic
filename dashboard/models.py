@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class ChiaDataset(models.Model):
     form_id = models.BigIntegerField(null=True, blank=True)
     v_fecha = models.DateTimeField(null=True, blank=True)
