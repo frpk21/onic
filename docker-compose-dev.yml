@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+
+  postgres:
+    image: postgres:16
+    container_name: onic-postgres
+    hostname: ${POSTGRES_HOST}
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+    restart: always
+
+volumes:
+  postgres_data:
