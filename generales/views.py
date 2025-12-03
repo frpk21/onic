@@ -46,7 +46,6 @@ def categorias_context(request):
     }
 
 def HomeView(request):
-
     hoy = date.today()
     noticias_qs = Noticias.objects.select_related(
         "autor", "categoria"
@@ -510,17 +509,14 @@ def verificar_codigo(request):
     user_id = request.POST.get("user_id")
     code = request.POST.get("code", "").strip()
 
-    # Validar datos vacíos
     if not user_id or not code:
         return JsonResponse({
             "status": "error",
             "message": "Datos incompletos, por favor inténtalo nuevamente."
         })
 
-    # Validar usuario
     user = get_object_or_404(User, pk=user_id)
 
-    # Validar código de activación
     try:
         activation = ActivationCode.objects.get(user=user)
     except ActivationCode.DoesNotExist:
@@ -529,7 +525,6 @@ def verificar_codigo(request):
             "message": "No existe un código válido para tu cuenta."
         })
 
-    # Comparar código
     if activation.code == code:
         user.is_active = True
         user.save()
@@ -551,19 +546,16 @@ class RegisterView(FormView):
     success_url = reverse_lazy("generales:register")
 
     def form_valid(self, form):
-        # NO volver a validar form.is_valid() !!
         user = form.save()
         user.is_active = False
         user.save()
 
-        # Generar código
         code = str(random.randint(100000, 999999))
         ActivationCode.objects.update_or_create(
             user=user,
             defaults={"code": code}
         )
 
-        # Enviar correo
         send_mail(
             "Código de activación",
             f"Tu código de activación es: {code}",
@@ -572,7 +564,6 @@ class RegisterView(FormView):
             fail_silently=True,
         )
 
-        # Mostrar modal de verificación
         return render(self.request, "generales/register.html", {
             "form": RegisterForm(),
             "user_id": user.id,
@@ -580,10 +571,9 @@ class RegisterView(FormView):
         })
 
     def form_invalid(self, form):
-        # Renderizar la MISMA plantilla, mostrando errores
         return render(self.request, "generales/register.html", {
             "form": form,
-            "show_modal": False,  # NO se abre el modal si hay errores
+            "show_modal": False,
         })
 
 
