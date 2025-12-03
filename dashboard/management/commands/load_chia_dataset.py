@@ -9,7 +9,7 @@ from dashboard.models import ChiaDataset
 
 
 def normalize_colname(col):
-    value = str(col).strip().lower().replace(" ", "_").replace("-", "_")
+    value = str(col).strip().lower().replace(" ", "_").replace("-", "_").replace("__", "_")
     return value
 
 

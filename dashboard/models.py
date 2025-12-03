@@ -21,7 +21,7 @@ class ChiaDataset(models.Model):
     dpto_ccdgo = models.CharField(max_length=50, null=True, blank=True)
     mpio_ccdgo = models.CharField(max_length=50, null=True, blank=True)
     vered_ccdgo = models.CharField(max_length=50, null=True, blank=True)
-    pueblo_ccdgo = models.CharField(max_length=50, null=True, blank=True)
+    pueblo_ccdgo = models.BigIntegerField(max_length=50, null=True, blank=True)
     resguard_ccdgo = models.CharField(max_length=50, null=True, blank=True)
     comunid_ccdgo = models.CharField(max_length=50, null=True, blank=True)
 
