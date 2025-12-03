@@ -1,19 +1,15 @@
 from django.db import models
 
 class ChiaDataset(models.Model):
-    # Identificadores / control
     form_id = models.BigIntegerField(null=True, blank=True)
-    # Fecha combinada (v_fecha + h_visita)
     v_fecha = models.DateTimeField(null=True, blank=True)
 
-    # Censista / encuesta
     nomb_censist = models.CharField(max_length=150, null=True, blank=True)
     apell_censist = models.CharField(max_length=150, null=True, blank=True)
     cc_encuest = models.BigIntegerField(null=True, blank=True)
     telef_censist = models.CharField(max_length=50, null=True, blank=True)
     vigencia = models.IntegerField(null=True, blank=True)
 
-    # Ubicación / territorios (nombres y códigos)
     dpto_cnmbr = models.CharField(max_length=200, null=True, blank=True)
     mpio_cnmbr = models.CharField(max_length=200, null=True, blank=True)
     vered_cnmbr = models.CharField(max_length=200, null=True, blank=True)
@@ -34,19 +30,16 @@ class ChiaDataset(models.Model):
 
     sector_cnmbr = models.CharField(max_length=200, null=True, blank=True)
 
-    # Coordenadas / dirección
     coord_x = models.FloatField(null=True, blank=True)
     coord_y = models.FloatField(null=True, blank=True)
     dir_viviend = models.CharField(max_length=300, null=True, blank=True)
     telef_vivien = models.CharField(max_length=50, null=True, blank=True)
     num_vivien = models.CharField(max_length=50, null=True, blank=True)
 
-    # Familia / integrantes
     ord_familia = models.CharField(max_length=50, null=True, blank=True)
     cant_integran = models.IntegerField(null=True, blank=True)
     intregante = models.CharField(max_length=200, null=True, blank=True)
 
-    # Persona (nombres / identificación / parentesco)
     primer_nombre = models.CharField(max_length=200, null=True, blank=True)
     segun_nombre = models.CharField(max_length=200, null=True, blank=True)
     primer_apellido = models.CharField(max_length=200, null=True, blank=True)
@@ -62,7 +55,6 @@ class ChiaDataset(models.Model):
     fech_naci = models.DateField(null=True, blank=True)
     edad = models.IntegerField(null=True, blank=True)
 
-    # Lugares nacimiento / residencia (nombres / códigos)
     lug_naci = models.CharField(max_length=200, null=True, blank=True)
     lug_naci_dpto = models.CharField(max_length=100, null=True, blank=True)
     lug_naci_mpio = models.CharField(max_length=100, null=True, blank=True)
@@ -81,7 +73,6 @@ class ChiaDataset(models.Model):
     hijos_sobrevi = models.IntegerField(null=True, blank=True)
     fech_ult_hij = models.DateField(null=True, blank=True)
 
-    # Migración / registros de fuera del resguardo
     fuera_resguar = models.CharField(max_length=10, null=True, blank=True)
     fuera_resguar_nombre_apellido_1 = models.CharField(max_length=200, null=True, blank=True)
     fuera_resguar_cedula_1 = models.CharField(max_length=50, null=True, blank=True)
@@ -104,17 +95,14 @@ class ChiaDataset(models.Model):
     fallecidos_12_meses_nombre_apellidos = models.TextField(null=True, blank=True)
     fallecidos_12_meses_identificaion = models.CharField(max_length=100, null=True, blank=True)
 
-    # Vivienda / tenencia / uso
     tenencia = models.CharField(max_length=200, null=True, blank=True)
     adjudicata = models.CharField(max_length=200, null=True, blank=True)
     uso_prncpl = models.CharField(max_length=200, null=True, blank=True)
 
-    # Conflicto / amenazas
     confl_pred = models.CharField(max_length=200, null=True, blank=True)
     tipo_confl = models.CharField(max_length=200, null=True, blank=True)
     dur_confl = models.CharField(max_length=100, null=True, blank=True)
 
-    # Mejoras, servicios, trabajo e ingresos
     mej_viv = models.CharField(max_length=200, null=True, blank=True)
     mej_viv_otro = models.CharField(max_length=200, null=True, blank=True)
     resid_prac = models.CharField(max_length=200, null=True, blank=True)

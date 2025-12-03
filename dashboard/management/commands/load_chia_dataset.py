@@ -5,12 +5,11 @@ import pandas as pd
 from django.core.management.base import BaseCommand, CommandError
 from django.db import transaction
 
-from dashboard.models import ChiaDataset  # reemplaza your_app
+from dashboard.models import ChiaDataset
 
 
 def normalize_colname(col):
-    value =  str(col).strip().lower().replace(" ", "_").replace("-", "_")
-    print('value: ', value)
+    value = str(col).strip().lower().replace(" ", "_").replace("-", "_")
     return value
 
 
@@ -73,10 +72,8 @@ class Command(BaseCommand):
 
         self.stdout.write(self.style.SUCCESS(f"{len(df)} filas encontradas."))
 
-        # Normalizar columnas
         df.columns = [normalize_colname(c) for c in df.columns]
 
-        # Detectar columnas fecha/hora
         date_col = "v_fecha" if "v_fecha" in df.columns else ("vfecha" if "vfecha" in df.columns else None)
         time_col = "h_visita" if "h_visita" in df.columns else ("hvisita" if "hvisita" in df.columns else None)
 
@@ -92,7 +89,6 @@ class Command(BaseCommand):
             if time_col and time_col in df.columns:
                 df = df.drop(columns=[time_col])
 
-        # Mapear solo columnas que existen en el modelo
         model_fields = {f.name: f for f in ChiaDataset._meta.get_fields() if f.concrete}
         df_cols_in_model = [c for c in df.columns if c in model_fields]
         df = df[df_cols_in_model]
@@ -103,7 +99,6 @@ class Command(BaseCommand):
         for i, row in df.iterrows():
             data = row.to_dict()
 
-            # Normalizar NaN -> None y coerciones por tipo
             for key, val in list(data.items()):
                 if pd.isna(val):
                     data[key] = None
@@ -121,7 +116,6 @@ class Command(BaseCommand):
                     elif isinstance(val, datetime):
                         data[key] = val
                     else:
-                        # si ya combinamos, val puede ser datetime; si no, intentar parsear
                         parsed = parse_date_time_parts(val, None)
                         data[key] = parsed
                 elif ftype == "DateField":
@@ -140,7 +134,6 @@ class Command(BaseCommand):
                     except Exception:
                         data[key] = None
 
-                # Numeric
                 elif ftype in ("BigIntegerField", "IntegerField"):
                     try:
                         data[key] = int(float(val))
@@ -152,7 +145,6 @@ class Command(BaseCommand):
                     except Exception:
                         data[key] = None
 
-                # Char / Text
                 elif ftype == "CharField":
                     try:
                         s = str(val)
@@ -163,7 +155,6 @@ class Command(BaseCommand):
                     except Exception:
                         data[key] = None
                 else:
-                    # TextField and fallback
                     try:
                         data[key] = str(val)
                     except Exception:
