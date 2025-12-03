@@ -333,7 +333,7 @@ def DetalleView(request, slug):
             "id", "titulo", "subtitulo", "fecha", "orden",
             "imagen", "slug",
             "categoria__id", "categoria__nombre",
-            "autor__id", "autor__username",
+            "autor__id", "autor__username", "html", "pdf",
         )
     )
 
