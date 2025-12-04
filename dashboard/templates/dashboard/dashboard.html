@@ -15,9 +15,6 @@
 
 <div class="dash-wrapper">
 
-    <!-- ===================================== -->
-    <!-- KPI PRINCIPALES                       -->
-    <!-- ===================================== -->
     <div class="section-title">Indicadores generales</div>
 
     <div class="kpi-grid">
@@ -61,21 +58,12 @@
 
     </div>
 
-
-    <!-- ===================================== -->
-    <!-- PIRÁMIDE                              -->
-    <!-- ===================================== -->
     <div class="section-title">Estructura de la población</div>
 
     <div class="chart-card chart-full">
         <h4 style="margin-bottom: 10px;">Pirámide poblacional</h4>
         <canvas id="piramideChart"></canvas>
     </div>
-
-
-    <!-- ===================================== -->
-    <!-- ESTADO CIVIL / EDUCACIÓN / SECTORES   -->
-    <!-- ===================================== -->
 
     <div class="section-title">Características sociodemográficas</div>
 
@@ -93,7 +81,6 @@
             </div>
         </div>
 
-        <!-- Tabla Sectores -->
         <div style="flex:1 1 400px; min-width:300px;">
             <div class="chart-card">
                 <h5>Población por sectores</h5>
@@ -113,11 +100,6 @@
             </div>
         </div>
     </div>
-
-
-    <!-- ===================================== -->
-    <!-- OCUPACIÓN / SALUD                     -->
-    <!-- ===================================== -->
 
     <div class="section-title">Condiciones socioeconómicas</div>
 
@@ -143,11 +125,10 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script>
-    /* ---------- Helpers ---------- */
+
     function safeText(x){ return x===null || x===undefined ? '' : String(x); }
     function sortByValueDesc(arr){ return arr.sort((a,b)=>b.value - a.value); }
 
-    /* ---------- SUMMARY ---------- */
     fetch('/dashboard/api/summary/')
     .then(r => r.json())
     .then(data => {
@@ -158,7 +139,6 @@
     })
     .catch(()=>{/* silent */});
 
-    /* ---------- EDAD resumen (promedio, mediana, dependencia) ---------- */
     fetch('/dashboard/api/edad-resumen/')
     .then(r => r.json())
     .then(data => {
@@ -171,7 +151,6 @@
         }
     }).catch(()=>{/* silent */});
 
-    /* ---------- VIVIENDA ---------- */
     fetch('/dashboard/api/vivienda/')
     .then(r => r.json())
     .then(data => {
@@ -182,7 +161,6 @@
     }).catch(()=>{/* silent */});
 
 
-    /* ---------- PIRÁMIDE ---------- */
     fetch('/dashboard/api/piramide/')
     .then(r => r.json())
     .then(data => {

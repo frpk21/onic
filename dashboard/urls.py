@@ -14,5 +14,6 @@ urlpatterns = [
     path("api/salud/", views.SaludAPIView.as_view(), name="salud"),
     path("api/migracion/", views.MigracionAPIView.as_view(), name="migracion"),
     path("api/vivienda/", views.ViviendaAPIView.as_view(), name="vivienda"),
-
+    path("certificado/", views.certificado_buscar, name="certificado_buscar"),
+    path("certificado/pdf/<str:doc>/", views.certificado_pdf, name="certificado_pdf"),
 ]

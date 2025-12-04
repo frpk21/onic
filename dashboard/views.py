@@ -5,9 +5,19 @@ from dashboard.stats_utils import (
 )
 from dashboard.models import ChiaDataset
 from django.shortcuts import render
+from django.http import HttpResponse
 from django.db.models import Q, Count
 from rest_framework.views import APIView
-
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Image
+from reportlab.lib.pagesizes import letter
+from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.lib.units import inch
+from reportlab.graphics.shapes import Drawing, String
+from reportlab.lib.colors import Color, black, HexColor
+from django.http import Http404
+import qrcode
+from io import BytesIO
+import datetime
 
 class DashboardSummary(APIView):
     def get(self, request):
@@ -194,3 +204,100 @@ class ViviendaAPIView(APIView):
             ]
         }
         return Response(data)
+    
+def certificado_buscar(request):
+    doc = request.GET.get("doc")
+    contexto = {}
+
+    if doc:
+        existe = ChiaDataset.objects.filter(num_doc=doc).exists()
+        if not existe:
+            existe = ChiaDataset.objects.filter(num_doc=f"{doc}.0").exists()
+
+        contexto["doc"] = doc
+        contexto["existe"] = existe
+
+    return render(request, "dashboard/certificado_buscar.html", contexto)
+
+
+def certificado_pdf(request, doc):
+    persona = ChiaDataset.objects.filter(num_doc=doc).first() or ChiaDataset.objects.filter(num_doc=f"{doc}.0").first()
+
+    if not persona:
+        raise Http404("El documento no está registrado en el Censo 2025.")
+
+    buffer = BytesIO()
+    pdf = SimpleDocTemplate(buffer, pagesize=letter)
+
+    styles = getSampleStyleSheet()
+    styleN = styles["BodyText"]
+    styleH = styles["Heading1"]
+    styleH.alignment = 1
+
+    story = []
+
+    # Logo superior
+    logo_path = "static/base/born/images/logo.png"
+    try:
+        img = Image(logo_path, width=120, height=120)
+        img.hAlign = "CENTER"
+        story.append(img)
+        story.append(Spacer(1, 12))
+    except:
+        story.append(Paragraph("LOGO NO ENCONTRADO", styleN))
+
+    # Título principal
+    story.append(Paragraph("<b>CERTIFICADO OFICIAL DE RESIDENCIA – CENSO 2025</b>", styleH))
+    story.append(Spacer(1, 12))
+
+    # Texto del cuerpo
+    texto = f"""
+    El Resguardo Indígena Muisca de Chía CERTIFICA que:
+
+    <br/><br/>
+    <b>{persona.primer_nombre or ''} {persona.segun_nombre or ''} {persona.primer_apellido or ''} {persona.segun_apellido or ''}</b>,
+    identificado(a) con documento <b>{persona.tipo_ident or ''} No. {persona.num_doc}</b>,
+    aparece registrado(a) en el proceso del <b>Censo General del Resguardo – Vigencia 2025</b>,
+    en calidad de integrante de la comunidad.
+
+    <br/><br/>
+    Datos adicionales:
+    <br/>• Sexo: <b>{persona.sexo or ''}</b>
+    <br/>• Edad: <b>{persona.edad or ''}</b>
+    <br/>• Sector: <b>{persona.sector_cnmbr or ''}</b>
+    <br/>• Comunidad: <b>{persona.comunid_cnmbr or ''}</b>
+    <br/>• Fecha de registro: <b>{persona.v_fecha.date() if persona.v_fecha else ''}</b>
+
+    <br/><br/>
+    Este certificado se expide a solicitud del interesado para fines institucionales y legales.
+    """
+
+    story.append(Paragraph(texto, styleN))
+    story.append(Spacer(1, 20))
+
+    # QR de verificación
+    qr_data = f"http://138.68.16.55:8011/verificar/{doc}/"
+    qr_img = qrcode.make(qr_data)
+    qr_buffer = BytesIO()
+    qr_img.save(qr_buffer, format="PNG")
+    qr_buffer.seek(0)
+
+    qr_rl_img = Image(qr_buffer, width=120, height=120)
+    qr_rl_img.hAlign = "CENTER"
+    story.append(qr_rl_img)
+    story.append(Spacer(1, 6))
+    story.append(Paragraph("<i>Escanee el código para verificar la autenticidad</i>", styleN))
+
+    # Firma
+    story.append(Spacer(1, 25))
+    story.append(Paragraph("<b>_____________________________<br/>Autoridad del Resguardo</b>", styleN))
+
+    # Pie de página
+    story.append(Spacer(1, 12))
+    fecha = datetime.date.today().strftime("%d/%m/%Y")
+    story.append(Paragraph(f"<i>Emitido el {fecha}</i>", styleN))
+
+    pdf.build(story)
+
+    buffer.seek(0)
+    return HttpResponse(buffer, content_type="application/pdf")

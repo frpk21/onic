@@ -1,0 +1,52 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block contenido %}
+
+<div class="hero-area">
+    <div class="page-banner parallax" style="background-image:url('/static/base/born/images/backing_1280x400.jpg');">
+        <div class="container">
+            <div class="page-banner-text">
+                <h3 style="color: white;" class="block-title">DASHBOARD CENSO 2025</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container" style="max-width:500px; margin-top:40px;">
+    <h3 class="text-center">Generar certificado</h3>
+
+    <form action="" method="GET">
+        <label for="doc">Ingrese su documento:</label>
+        <input type="text" class="form-control" name="doc" id="doc" required>
+
+        <button class="btn btn-primary mt-3" style="width:100%;">
+            Buscar
+        </button>
+    </form>
+
+    <!-- Si el usuario ya ingresó un documento -->
+    {% if doc %}
+        
+        {% if existe %}
+            <!-- Si existe, mostrar botón para descargar -->
+            <div class="mt-4 text-center">
+                <a target="_blank" class="btn btn-success" 
+                   href="/dashboard/certificado/pdf/{{ doc }}/">
+                   Descargar Certificado PDF
+                </a>
+            </div>
+        {% else %}
+            <!-- Si NO existe en la BD, mostrar error -->
+            <div class="alert alert-danger mt-4" role="alert">
+                El documento <b>{{ doc }}</b> no aparece registrado en el Censo 2025.
+                <br>Verifique el número e intente nuevamente.
+            </div>
+        {% endif %}
+
+    {% endif %}
+
+</div>
+<br>
+
+{% endblock contenido %}

@@ -7,4 +7,5 @@ PyJWT==2.10.1
 python-dotenv==1.2.1
 djangorestframework==3.14.0
 pandas==2.2.1
-
+reportlab==4.0.0
+qrcode==7.4.2
