@@ -151,7 +151,7 @@ AUTH_SERVER_BASE_URL = os.environ.get("AUTH_SERVER_BASE_URL")
 
 SSO_CLIENT_ID = os.environ.get("SSO_CLIENT_ID", "smt_onic")
 
-try:
-   exec(open(os.path.join(BASE_DIR, 'smt', 'settings_local.py')).read())
-except IOError:
-   print('error reading local settings')
+#try:
+#   exec(open(os.path.join(BASE_DIR, 'smt', 'settings_local.py')).read())
+#except IOError:
+#   print('error reading local settings')

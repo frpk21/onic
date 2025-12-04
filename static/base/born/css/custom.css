@@ -158,7 +158,8 @@
 .header-top .top-links li a {
     color: #ffffff !important;          /* Blanco suave */
     font-weight: 200;
-    letter-spacing: 0.5px;
+    background-color: rgb(43, 32, 13);
+    letter-spacing: 0.7px;
     transition: color 0.3s ease;
 }
 
