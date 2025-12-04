@@ -210,7 +210,7 @@
     fetch('/dashboard/api/estado-civil/')
     .then(r => r.json())
     .then(data => {
-        const entries = data.map(d => ({ label: d.estado_civil || 'No registrado', value: d.total || 0 }));
+        const entries = data.map(d => ({ label: cleanLabel(d.nivel) || 'No registrado', value: d.total || 0 }));
         const top = entries; // show all
         const labels = top.map(e => e.label);
         const values = top.map(e => e.value);
@@ -229,7 +229,11 @@
     fetch('/dashboard/api/educacion/')
     .then(r => r.json())
     .then(data => {
-        let entries = data.map(d => ({ label: d.nivel || 'No registrado', value: d.total }));
+        let entries = data.map(d => ({
+            label: cleanLabel(cleanLabel(d.nivel)),
+            value: d.total || 0
+        }));
+
         entries = sortByValueDesc(entries).slice(0,10); // top 10
         const labels = entries.map(e=>e.label);
         const values = entries.map(e=>e.value);
@@ -277,7 +281,10 @@
     fetch('/dashboard/api/ocupacion/')
     .then(r => r.json())
     .then(data => {
-        let entries = data.map(d=>({ label: d.ocupacion || 'No registrado', value: d.total }));
+        let entries = data.map(d => ({
+            label: cleanLabel(cleanLabel(d.nivel)),
+            value: d.total || 0
+        }));
         entries = sortByValueDesc(entries).slice(0,10);
         const labels = entries.map(e=>e.label);
         const values = entries.map(e=>e.value);
@@ -307,6 +314,13 @@
         options:{ responsive:true, maintainAspectRatio:false, plugins:{legend:{position:'right'}}}
         });
     }).catch(()=>{/* silent */});
+
+    function cleanLabel(value) {
+        if (value === null || value === undefined || value === "" || value === "undefined") {
+            return "No registrado";
+        }
+        return String(value).trim();
+    }
 
     </script>
 

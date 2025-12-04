@@ -204,7 +204,7 @@ class ViviendaAPIView(APIView):
             ]
         }
         return Response(data)
-    
+
 def certificado_buscar(request):
     doc = request.GET.get("doc")
     contexto = {}
