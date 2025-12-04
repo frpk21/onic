@@ -1,0 +1,335 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block contenido %}
+
+<div class="hero-area">
+    <div class="page-banner parallax" style="background-image:url('/static/base/born/images/backing_1280x400.jpg');">
+        <div class="container">
+            <div class="page-banner-text">
+                <h3 style="color: white;" class="block-title">DASHBOARD CENSO 2025</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="dash-wrapper">
+
+    <!-- ===================================== -->
+    <!-- KPI PRINCIPALES                       -->
+    <!-- ===================================== -->
+    <div class="section-title">Indicadores generales</div>
+
+    <div class="kpi-grid">
+        <div class="kpi-card">
+            <div class="kpi-title">Población total</div>
+            <div id="kpi_total" class="kpi-value">—</div>
+        </div>
+
+        <div class="kpi-card">
+            <div class="kpi-title">Hombres</div>
+            <div id="kpi_hombres" class="kpi-value" style="color:#2B7AE4;">—</div>
+        </div>
+
+        <div class="kpi-card">
+            <div class="kpi-title">Mujeres</div>
+            <div id="kpi_mujeres" class="kpi-value" style="color:#E24B4B;">—</div>
+        </div>
+
+        <div class="kpi-card">
+            <div class="kpi-title">Índice Myers</div>
+            <div id="kpi_myers" class="kpi-value" style="color:#2FA58B;">—</div>
+        </div>
+
+        <div class="kpi-card">
+            <div class="kpi-title">Edad promedio</div>
+            <div id="kpi_edad_prom" class="kpi-value">—</div>
+            <div style="font-size:0.85rem;color:#666;">Mediana: <span id="kpi_edad_med">—</span></div>
+        </div>
+
+        <div class="kpi-card">
+            <div class="kpi-title">Índice de dependencia</div>
+            <div id="kpi_dependencia" class="kpi-value" style="color:#c17b2b;">—</div>
+            <div style="font-size:0.85rem;color:#666;">0–14 / 15–64 / 65+: <span id="kpi_grp_counts">—</span></div>
+        </div>
+
+        <div class="kpi-card">
+            <div class="kpi-title">Promedio por hogar</div>
+            <div id="kpi_prom_hogar" class="kpi-value">—</div>
+            <div style="font-size:0.85rem;color:#666;">Hogares totales: <span id="kpi_hogares_tot">—</span></div>
+        </div>
+
+    </div>
+
+
+    <!-- ===================================== -->
+    <!-- PIRÁMIDE                              -->
+    <!-- ===================================== -->
+    <div class="section-title">Estructura de la población</div>
+
+    <div class="chart-card chart-full">
+        <h4 style="margin-bottom: 10px;">Pirámide poblacional</h4>
+        <canvas id="piramideChart"></canvas>
+    </div>
+
+
+    <!-- ===================================== -->
+    <!-- ESTADO CIVIL / EDUCACIÓN / SECTORES   -->
+    <!-- ===================================== -->
+
+    <div class="section-title">Características sociodemográficas</div>
+
+    <div style="display:flex; gap:20px; flex-wrap:wrap;">
+
+        <div style="flex:1 1 550px; min-width:300px;">
+            <div class="chart-card chart-half">
+                <h5>Estado civil</h5>
+                <canvas id="estadoCivilChart"></canvas>
+            </div>
+
+            <div class="chart-card chart-half">
+                <h5>Nivel educativo</h5>
+                <canvas id="educacionChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Tabla Sectores -->
+        <div style="flex:1 1 400px; min-width:300px;">
+            <div class="chart-card">
+                <h5>Población por sectores</h5>
+                <div style="max-height:260px; overflow:auto;">
+                    <table class="sector-table">
+                        <thead>
+                            <tr><th>Sector</th><th>Total</th><th>Hombres</th><th>Mujeres</th></tr>
+                        </thead>
+                        <tbody id="tablaSectores"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="chart-card chart-mini">
+                <h5>Migración</h5>
+                <canvas id="migracionChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ===================================== -->
+    <!-- OCUPACIÓN / SALUD                     -->
+    <!-- ===================================== -->
+
+    <div class="section-title">Condiciones socioeconómicas</div>
+
+    <div style="display:flex; gap:20px; flex-wrap:wrap;">
+        <div class="chart-card" style="flex:1 1 560px; min-width:300px;">
+            <h5>Ocupación</h5>
+            <div class="chart-half">
+                <canvas id="ocupacionChart"></canvas>
+            </div>
+        </div>
+
+        <div class="chart-card" style="flex:1 1 320px; min-width:260px;">
+            <h5>Régimen de salud</h5>
+            <div class="chart-half">
+                <canvas id="saludChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+    /* ---------- Helpers ---------- */
+    function safeText(x){ return x===null || x===undefined ? '' : String(x); }
+    function sortByValueDesc(arr){ return arr.sort((a,b)=>b.value - a.value); }
+
+    /* ---------- SUMMARY ---------- */
+    fetch('/dashboard/api/summary/')
+    .then(r => r.json())
+    .then(data => {
+        document.getElementById('kpi_total').innerText = data.total ?? '0';
+        document.getElementById('kpi_hombres').innerText = data.hombres ?? '0';
+        document.getElementById('kpi_mujeres').innerText = data.mujeres ?? '0';
+        document.getElementById('kpi_myers').innerText = data.myers ?? '0';
+    })
+    .catch(()=>{/* silent */});
+
+    /* ---------- EDAD resumen (promedio, mediana, dependencia) ---------- */
+    fetch('/dashboard/api/edad-resumen/')
+    .then(r => r.json())
+    .then(data => {
+        if(data && !data.error){
+        document.getElementById('kpi_edad_prom').innerText = data.edad_promedio ?? '—';
+        document.getElementById('kpi_edad_med').innerText = data.edad_mediana ?? '—';
+        document.getElementById('kpi_dependencia').innerText = data.dependencia ?? '—';
+        document.getElementById('kpi_grp_counts').innerText =
+            `${data.grupo_0_14} / ${data.grupo_15_64} / ${data.grupo_65_mas}`;
+        }
+    }).catch(()=>{/* silent */});
+
+    /* ---------- VIVIENDA ---------- */
+    fetch('/dashboard/api/vivienda/')
+    .then(r => r.json())
+    .then(data => {
+        if(data){
+        document.getElementById('kpi_prom_hogar').innerText = data.prom_integrantes ?? '—';
+        document.getElementById('kpi_hogares_tot').innerText = data.hogares_totales ?? '—';
+        }
+    }).catch(()=>{/* silent */});
+
+
+    /* ---------- PIRÁMIDE ---------- */
+    fetch('/dashboard/api/piramide/')
+    .then(r => r.json())
+    .then(data => {
+        if(!data || !data.length){
+        // show placeholder
+        const ctx = document.getElementById('piramideChart').getContext('2d');
+        ctx.font = '14px Arial';
+        ctx.fillText('No hay datos de edad para mostrar la pirámide', 20, 50);
+        return;
+        }
+
+        const labels = data.map(x => x.grupo);
+        // adaptamos claves: 'Masculino' / 'Femenino' (según tus datos)
+        const hombres = data.map(x => -(x.Masculino || x.M || 0));
+        const mujeres = data.map(x => x.Femenino || x.F || 0);
+
+        const ctx = document.getElementById('piramideChart').getContext('2d');
+
+        new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels,
+            datasets: [
+            { label:'Hombres', data: hombres, backgroundColor:'rgba(41,128,185,0.9)', borderRadius:6 },
+            { label:'Mujeres', data: mujeres, backgroundColor:'rgba(231,76,60,0.9)', borderRadius:6 }
+            ]
+        },
+        options: {
+            indexAxis: 'y',
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+            legend: { position:'top' }
+            },
+            scales: {
+            x: {
+                ticks: { callback: v => Math.abs(v) }
+            }
+            }
+        }
+        });
+    })
+    .catch(()=>{/* silent */});
+
+
+    /* ---------- ESTADO CIVIL (donut) ---------- */
+    fetch('/dashboard/api/estado-civil/')
+    .then(r => r.json())
+    .then(data => {
+        const entries = data.map(d => ({ label: d.estado_civil || 'No registrado', value: d.total || 0 }));
+        const top = entries; // show all
+        const labels = top.map(e => e.label);
+        const values = top.map(e => e.value);
+        const colors = labels.map((_,i)=>`hsl(${(i*40)%360} 70% 50%)`);
+
+        const ctx = document.getElementById('estadoCivilChart').getContext('2d');
+        new Chart(ctx, {
+        type: 'doughnut',
+        data: { labels, datasets: [{ data: values, backgroundColor: colors }]},
+        options: { responsive:true, maintainAspectRatio:false, plugins:{legend:{position:'right'}}}
+        });
+    }).catch(()=>{/* silent */});
+
+
+    /* ---------- EDUCACIÓN (bar horizontal) ---------- */
+    fetch('/dashboard/api/educacion/')
+    .then(r => r.json())
+    .then(data => {
+        let entries = data.map(d => ({ label: d.nivel || 'No registrado', value: d.total }));
+        entries = sortByValueDesc(entries).slice(0,10); // top 10
+        const labels = entries.map(e=>e.label);
+        const values = entries.map(e=>e.value);
+        const ctx = document.getElementById('educacionChart').getContext('2d');
+
+        new Chart(ctx, {
+        type: 'bar',
+        data: { labels, datasets: [{ data: values, backgroundColor:'rgba(52,152,219,0.9)' }]},
+        options: { indexAxis:'y', responsive:true, maintainAspectRatio:false, scales:{ x:{ ticks:{ beginAtZero:true }}}}
+        });
+    }).catch(()=>{/* silent */});
+
+
+    /* ---------- SECTORES (tabla) ---------- */
+    fetch('/dashboard/api/sectores/')
+    .then(r => r.json())
+    .then(data => {
+        const tbody = document.getElementById('tablaSectores');
+        tbody.innerHTML = '';
+        data.forEach(s => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td>${safeText(s.sector)}</td><td>${s.total}</td><td>${s.hombres}</td><td>${s.mujeres}</td>`;
+        tbody.appendChild(tr);
+        });
+    }).catch(()=>{/* silent */});
+
+
+    /* ---------- MIGRACIÓN (simple donut) ---------- */
+    fetch('/dashboard/api/migracion/')
+    .then(r => r.json())
+    .then(data => {
+        const labels = ['Dentro resguardo', 'Fuera resguardo'];
+        const values = [data.dentro_resguardo || 0, data.fuera_resguardo || 0];
+        const ctx = document.getElementById('migracionChart').getContext('2d');
+
+        new Chart(ctx, {
+        type:'doughnut',
+        data: { labels, datasets: [{ data: values, backgroundColor:['#2ECC71','#F39C12']}]},
+        options:{ responsive:true, maintainAspectRatio:false, plugins:{legend:{position:'bottom'}}}
+        });
+    }).catch(()=>{/* silent */});
+
+
+    /* ---------- OCUPACIÓN (top) ---------- */
+    fetch('/dashboard/api/ocupacion/')
+    .then(r => r.json())
+    .then(data => {
+        let entries = data.map(d=>({ label: d.ocupacion || 'No registrado', value: d.total }));
+        entries = sortByValueDesc(entries).slice(0,10);
+        const labels = entries.map(e=>e.label);
+        const values = entries.map(e=>e.value);
+        const ctx = document.getElementById('ocupacionChart').getContext('2d');
+
+        new Chart(ctx, {
+        type:'bar',
+        data:{ labels, datasets:[{ data: values, backgroundColor:'rgba(155,89,182,0.9)' }]},
+        options:{ indexAxis:'y', responsive:true, maintainAspectRatio:false}
+        });
+    }).catch(()=>{/* silent */});
+
+
+    /* ---------- SALUD (top) ---------- */
+    fetch('/dashboard/api/salud/')
+    .then(r => r.json())
+    .then(data => {
+        let entries = data.map(d=>({ label: d.regimen || 'No registrado', value: d.total }));
+        entries = sortByValueDesc(entries);
+        const labels = entries.map(e=>e.label);
+        const values = entries.map(e=>e.value);
+        const ctx = document.getElementById('saludChart').getContext('2d');
+
+        new Chart(ctx, {
+        type:'doughnut',
+        data:{ labels, datasets:[{ data: values, backgroundColor: labels.map((_,i)=>`hsl(${(i*55)%360} 68% 48%)`) }]},
+        options:{ responsive:true, maintainAspectRatio:false, plugins:{legend:{position:'right'}}}
+        });
+    }).catch(()=>{/* silent */});
+
+    </script>
+
+{% endblock contenido %}

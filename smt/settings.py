@@ -1,6 +1,5 @@
 ﻿import os
 from pathlib import Path
-
 from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -30,8 +29,9 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'generales',
     'accounts',
-    'dashboard',
     'ckeditor',
+    'rest_framework',
+    'dashboard',
 ]
 
 # Ckeditor
