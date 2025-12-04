@@ -210,7 +210,7 @@
     fetch('/dashboard/api/estado-civil/')
     .then(r => r.json())
     .then(data => {
-        const entries = data.map(d => ({ label: cleanLabel(d.nivel) || 'No registrado', value: d.total || 0 }));
+        const entries = data.map(d => ({ label: d.estado_civil || 'No registrado', value: d.total || 0 }));
         const top = entries; // show all
         const labels = top.map(e => e.label);
         const values = top.map(e => e.value);
@@ -229,22 +229,33 @@
     fetch('/dashboard/api/educacion/')
     .then(r => r.json())
     .then(data => {
-        let entries = data.map(d => ({
-            label: cleanLabel(cleanLabel(d.nivel)),
-            value: d.total || 0
-        }));
-
+        let entries = data.map(d => ({ label: d.nivel || 'No registrado', value: d.total }));
         entries = sortByValueDesc(entries).slice(0,10); // top 10
-        const labels = entries.map(e=>e.label);
-        const values = entries.map(e=>e.value);
+        const labels = entries.map(e => e.label);
+        const values = entries.map(e => e.value);
         const ctx = document.getElementById('educacionChart').getContext('2d');
 
         new Chart(ctx, {
-        type: 'bar',
-        data: { labels, datasets: [{ data: values, backgroundColor:'rgba(52,152,219,0.9)' }]},
-        options: { indexAxis:'y', responsive:true, maintainAspectRatio:false, scales:{ x:{ ticks:{ beginAtZero:true }}}}
+            type: 'bar',
+            data: { 
+                labels, 
+                datasets: [{
+                    label: 'Nivel educativo',   // <-- FIX AQUÍ
+                    data: values, 
+                    backgroundColor: 'rgba(52,152,219,0.9)' 
+                }]
+            },
+            options: { 
+                indexAxis:'y', 
+                responsive:true, 
+                maintainAspectRatio:false, 
+                scales:{ 
+                    x:{ ticks:{ beginAtZero:true }}
+                }
+            }
         });
     }).catch(()=>{/* silent */});
+
 
 
     /* ---------- SECTORES (tabla) ---------- */
@@ -281,21 +292,30 @@
     fetch('/dashboard/api/ocupacion/')
     .then(r => r.json())
     .then(data => {
-        let entries = data.map(d => ({
-            label: cleanLabel(cleanLabel(d.nivel)),
-            value: d.total || 0
-        }));
+        let entries = data.map(d => ({ label: d.ocupacion || 'No registrado', value: d.total }));
         entries = sortByValueDesc(entries).slice(0,10);
-        const labels = entries.map(e=>e.label);
-        const values = entries.map(e=>e.value);
+        const labels = entries.map(e => e.label);
+        const values = entries.map(e => e.value);
         const ctx = document.getElementById('ocupacionChart').getContext('2d');
 
         new Chart(ctx, {
-        type:'bar',
-        data:{ labels, datasets:[{ data: values, backgroundColor:'rgba(155,89,182,0.9)' }]},
-        options:{ indexAxis:'y', responsive:true, maintainAspectRatio:false}
+            type: 'bar',
+            data: { 
+                labels, 
+                datasets: [{
+                    label: 'Ocupación',   // <-- FIX AQUÍ
+                    data: values, 
+                    backgroundColor: 'rgba(155,89,182,0.9)' 
+                }]
+            },
+            options: { 
+                indexAxis: 'y', 
+                responsive: true, 
+                maintainAspectRatio: false 
+            }
         });
     }).catch(()=>{/* silent */});
+
 
 
     /* ---------- SALUD (top) ---------- */
@@ -314,13 +334,6 @@
         options:{ responsive:true, maintainAspectRatio:false, plugins:{legend:{position:'right'}}}
         });
     }).catch(()=>{/* silent */});
-
-    function cleanLabel(value) {
-        if (value === null || value === undefined || value === "" || value === "undefined") {
-            return "No registrado";
-        }
-        return String(value).trim();
-    }
 
     </script>
 
