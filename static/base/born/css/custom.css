@@ -203,12 +203,12 @@
 .site-header.sticky .top-links li a,
 .site-header.sticky .main-navigation ul.sf-menu > li > a,
 .site-header.sticky .main-navigation ul.sf-menu > li i {
-    color: #000000 !important;
+    color: #fcfcfc !important;
 }
 
 /* Color del icono de teléfono en sticky */
 .site-header.sticky .top-links i.fa {
-    color: #000000 !important;
+    color: #f7f4f4 !important;
 }
 
 /* Hover coherente */
