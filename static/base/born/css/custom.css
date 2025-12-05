@@ -208,7 +208,7 @@
 
 /* Color del icono de teléfono en sticky */
 .site-header.sticky .top-links i.fa {
-    color: #2e2e2e !important;
+    color: #000000 !important;
 }
 
 /* Hover coherente */
