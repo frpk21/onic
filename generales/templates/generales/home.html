@@ -83,14 +83,14 @@
 
                                                     <!-- Título corto -->
                                                     <h3 class="post-title">
-                                                        <a href="{% url 'generales:detalle' item.id %}">
+                                                        <a href="{% url 'generales:detalle' item.slug %}">
                                                             {{ item.titulo|slice:":67" }}{% if item.titulo|length > 67 %}...{% endif %}
                                                         </a>
                                                     </h3>
 
                                                 </div>
 
-                                                <a href="{% url 'generales:detalle' item.id %}" 
+                                                <a href="{% url 'generales:detalle' item.slug %}" 
                                                 class="btn btn-primary">
                                                 Ver más
                                                 </a>
