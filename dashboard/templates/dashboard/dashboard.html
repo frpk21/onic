@@ -162,48 +162,63 @@
 
 
     fetch('/dashboard/api/piramide/')
-    .then(r => r.json())
-    .then(data => {
+        .then(r => r.json())
+        .then(data => {
         if(!data || !data.length){
-        // show placeholder
-        const ctx = document.getElementById('piramideChart').getContext('2d');
-        ctx.font = '14px Arial';
-        ctx.fillText('No hay datos de edad para mostrar la pirámide', 20, 50);
-        return;
+            const ctx = document.getElementById('piramideChart').getContext('2d');
+            ctx.font = '14px Arial';
+            ctx.fillText('No hay datos de edad para mostrar la pirámide', 20, 50);
+            return;
         }
 
-        const labels = data.map(x => x.grupo);
-        // adaptamos claves: 'Masculino' / 'Femenino' (según tus datos)
-        const hombres = data.map(x => -(x.Masculino || x.M || 0));
-        const mujeres = data.map(x => x.Femenino || x.F || 0);
+        const reversed = [...data].reverse();
+
+        const labels = reversed.map(x => x.grupo);
+        const hombres = reversed.map(x => -(x.Masculino || x.M || 0));
+        const mujeres = reversed.map(x => x.Femenino || x.F || 0);
 
         const ctx = document.getElementById('piramideChart').getContext('2d');
 
         new Chart(ctx, {
-        type: 'bar',
-        data: {
+            type: 'bar',
+            data: {
             labels,
             datasets: [
-            { label:'Hombres', data: hombres, backgroundColor:'rgba(41,128,185,0.9)', borderRadius:6 },
-            { label:'Mujeres', data: mujeres, backgroundColor:'rgba(231,76,60,0.9)', borderRadius:6 }
+                {
+                label:'Hombres',
+                data: hombres,
+                backgroundColor:'rgba(41,128,185,0.9)',
+                borderRadius:6
+                },
+                {
+                label:'Mujeres',
+                data: mujeres,
+                backgroundColor:'rgba(231,76,60,0.9)',
+                borderRadius:6
+                }
             ]
-        },
-        options: {
+            },
+            options: {
             indexAxis: 'y',
             responsive: true,
             maintainAspectRatio: false,
             plugins: {
-            legend: { position:'top' }
+                legend: { position:'top' }
             },
             scales: {
-            x: {
-                ticks: { callback: v => Math.abs(v) }
+                x: {
+                ticks: {
+                    callback: v => Math.abs(v)
+                }
+                },
+                y: {
+                stacked: true
+                }
             }
             }
-        }
         });
-    })
-    .catch(()=>{/* silent */});
+        })
+        .catch(()=>{/* silent */});
 
 
     /* ---------- ESTADO CIVIL (donut) ---------- */
