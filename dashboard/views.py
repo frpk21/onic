@@ -18,6 +18,7 @@ from django.http import Http404
 import qrcode
 from io import BytesIO
 import datetime
+from django.db.models import Q
 
 class DashboardSummary(APIView):
     def get(self, request):
@@ -205,17 +206,25 @@ class ViviendaAPIView(APIView):
         }
         return Response(data)
 
+
 def certificado_buscar(request):
     doc = request.GET.get("doc", "").strip()
     contexto = {}
 
     if doc:
-        existe = ChiaDataset.objects.filter(num_doc__iexact=doc).exists()
+        persona = ChiaDataset.objects.filter(num_doc__iexact=doc).first()
 
-        contexto["doc"] = doc
-        contexto["existe"] = existe
+        if persona:
+            contexto["persona"] = persona
+            contexto["doc"] = doc
+            contexto["existe"] = True
+        else:
+            contexto["doc"] = doc
+            contexto["existe"] = False
+            contexto["error"] = f"El documento {doc} no aparece registrado en el Censo 2025."
 
     return render(request, "dashboard/certificado_buscar.html", contexto)
+
 
 
 def certificado_pdf(request, doc):
