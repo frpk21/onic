@@ -212,19 +212,17 @@ def certificado_buscar(request):
     contexto = {}
 
     if doc:
-        persona = ChiaDataset.objects.filter(num_doc__iexact=doc).first()
+        existe = ChiaDataset.objects.filter(
+            Q(num_doc=doc) | Q(num_doc=f"{doc}.0")
+        ).exists()
 
-        if persona:
-            contexto["persona"] = persona
-            contexto["doc"] = doc
-            contexto["existe"] = True
-        else:
-            contexto["doc"] = doc
-            contexto["existe"] = False
+        contexto["doc"] = doc
+        contexto["existe"] = existe
+
+        if not existe:
             contexto["error"] = f"El documento {doc} no aparece registrado en el Censo 2025."
 
     return render(request, "dashboard/certificado_buscar.html", contexto)
-
 
 
 def certificado_pdf(request, doc):
