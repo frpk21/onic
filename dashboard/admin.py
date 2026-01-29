@@ -4,13 +4,13 @@ from .models import ChiaDataset
 @admin.register(ChiaDataset)
 class ChiaDatasetAdmin(admin.ModelAdmin):
     _all_fields = [f.name for f in ChiaDataset._meta.fields]
-    list_display = tuple(_all_fields[:12] + ["pueblo_ccdgo"]) or ('id',)
+    list_display = tuple(["num_doc"] + _all_fields[:12] + ["pueblo_ccdgo"]) or ('id',)
 
     _text_fields = [
         f.name for f in ChiaDataset._meta.fields
         if f.get_internal_type() in ('CharField', 'TextField')
     ]
-    search_fields = tuple(_text_fields[:6])
+    search_fields = tuple(_text_fields[:7])
 
     _filter_fields = [
         f.name for f in ChiaDataset._meta.fields
