@@ -206,13 +206,11 @@ class ViviendaAPIView(APIView):
         return Response(data)
 
 def certificado_buscar(request):
-    doc = request.GET.get("doc")
+    doc = request.GET.get("doc", "").strip()
     contexto = {}
 
     if doc:
-        existe = ChiaDataset.objects.filter(num_doc=doc).exists()
-        if not existe:
-            existe = ChiaDataset.objects.filter(num_doc=f"{doc}.0").exists()
+        existe = ChiaDataset.objects.filter(num_doc__iexact=doc).exists()
 
         contexto["doc"] = doc
         contexto["existe"] = existe
