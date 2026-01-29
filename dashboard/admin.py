@@ -10,7 +10,7 @@ class ChiaDatasetAdmin(admin.ModelAdmin):
         f.name for f in ChiaDataset._meta.fields
         if f.get_internal_type() in ('CharField', 'TextField')
     ]
-    search_fields = tuple(_text_fields[:7])
+    search_fields = tuple(["num_doc"] + _text_fields[:7])
 
     _filter_fields = [
         f.name for f in ChiaDataset._meta.fields
