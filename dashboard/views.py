@@ -281,7 +281,7 @@ def certificado_pdf(request, doc):
     story.append(Spacer(1, 20))
 
     # QR de verificación
-    qr_data = f"http://138.68.16.55:8011/verificar/{doc}/"
+    qr_data = f"http://138.68.16.55:8011/dashboard/certificado/pdf/{doc}/"
     qr_img = qrcode.make(qr_data)
     qr_buffer = BytesIO()
     qr_img.save(qr_buffer, format="PNG")
